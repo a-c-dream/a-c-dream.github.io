@@ -212,6 +212,300 @@
 <p>​    由于隐私原因，只能修改链接的颜色</p>
 <h5 id="hover"><a href="#hover" class="headerlink" title=":hover"></a>:hover</h5><p>​    鼠标移入的状态</p>
 <h5 id="active"><a href="#active" class="headerlink" title=":active"></a>:active</h5><p>​    鼠标点击</p>
+<hr>
+<h2 id="伪元素："><a href="#伪元素：" class="headerlink" title="伪元素："></a>伪元素：</h2><ul>
+<li><p>::first-letter</p>
+<p>表示第一个字母</p>
+</li>
+<li><p>::first-line</p>
+<p>表示第一行</p>
+</li>
+<li><p>::selection</p>
+<p>表示选中的内容</p>
+</li>
+<li><p>::before</p>
+<p>元素的开始</p>
+</li>
+<li><p>::after</p>
+<p>元素的最后</p>
+<p><strong>注</strong>：before和after必须结合content属性来使用</p>
+</li>
+</ul>
+<hr>
+<h2 id="继承："><a href="#继承：" class="headerlink" title="继承："></a>继承：</h2><p>样式的继承，为一个元素设置的样式同时也会应用到他的后代元素上</p>
+<p>继承是发生在祖先和后代之间的</p>
+<p><strong>注</strong>：并不是使用的样式都会被继承，比如：背景相关的，布局相关的等这些样式都不会被继承</p>
+<hr>
+<h2 id="选择器优先级："><a href="#选择器优先级：" class="headerlink" title="选择器优先级："></a>选择器优先级：</h2><ul>
+<li><p>样式的冲突：<br>当我们通过不同的选择器，选出相同的元素，并且为相同的样式设置不同的值时，此时就发生了样式冲突，发生样式冲突时，应用那个样式由选择器权重（优先级）决定</p>
+</li>
+<li><p>选择器权重：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">内联样式</td>
+<td>1,0,0,0</td>
+</tr>
+<tr>
+<td align="left">id选择器</td>
+<td>0,1,0,0</td>
+</tr>
+<tr>
+<td align="left">类和伪类选择器</td>
+<td>0,0,1,0</td>
+</tr>
+<tr>
+<td align="left">元素选择器</td>
+<td>0,0,0,1</td>
+</tr>
+<tr>
+<td align="left">通配选择器</td>
+<td>0,0,0,0</td>
+</tr>
+<tr>
+<td align="left">继承选择器</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>​        比较优先级时，需要将所有的选择器的优先级进行相加计算，最后优先级越高，则越优先显示（分组选择器是单独计算的），选择器的累加不会超过其最大的数量级，如果优先级计算后相同，此时则优先使用靠下的样式</p>
+</li>
+<li><p>可以在某一个样式的后面添加！important，则此时该样式会获取到最高的优先级，甚至超过内联样式</p>
+<p><strong>注</strong>:慎用</p>
+<hr>
+</li>
+</ul>
+<h2 id="像素和百分比："><a href="#像素和百分比：" class="headerlink" title="像素和百分比："></a>像素和百分比：</h2><ul>
+<li><p>长度单位：</p>
+<ul>
+<li>​    像素<ul>
+<li>不同显示器的像素大小是不同的，像素越小的屏幕显示的效果越清晰</li>
+<li>相同的200px在不同的设备下显示效果是不一样的</li>
+</ul>
+</li>
+<li>百分比<ul>
+<li>设置百分比可以使子元素随父元素的改变而改变                            </li>
+</ul>
+</li>
+<li>em<ul>
+<li>em是相对与元素的字体大小来计算的</li>
+<li>1em=1font-site</li>
+<li>em会根据字体大小的改变而改变</li>
+</ul>
+</li>
+<li>rem<ul>
+<li>rem是相对于根元素（html）的字体大小来计算的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>颜色单位</p>
+<ul>
+<li><p>RGB值</p>
+<ul>
+<li>RGB通过三种颜色的不同浓度来调出不同的颜色</li>
+<li>R red，G green，B blue</li>
+<li>每一种颜色的范围在0-255之间</li>
+<li>语法RGB(红色，绿色，蓝色)</li>
+</ul>
+</li>
+<li><p>RGBA</p>
+<ul>
+<li><p>在rgb的基础上添加了一个a表示不透明度</p>
+</li>
+<li><p>需要4个值，前3个rgb一样，第四个表示不透明度</p>
+<p>1 完全不透明</p>
+<p>0 完全题目</p>
+<p>.5 半透明</p>
+</li>
+</ul>
+</li>
+<li><p>十六进制的RGB</p>
+<ul>
+<li><p>语法#红色绿色蓝色</p>
+</li>
+<li><p>颜色浓度通过00-ff</p>
+</li>
+<li><p>如果两位两位重复可以简写</p>
+<p>#aabbcc–&gt;#abc</p>
+</li>
+</ul>
+</li>
+<li><p>HSLA值</p>
+<ul>
+<li>H 色相（0-360）</li>
+<li>S 饱和度，颜色的亮度 0%-100%</li>
+<li>L 亮度，颜色的亮度 0%-100%</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="文档流："><a href="#文档流：" class="headerlink" title="文档流："></a>文档流：</h2><p>网页是一个多层结构，一层摞着一层，通过css可以分别为每一层来设置样式，作为用户来讲只能看到最上面一层。</p>
+<p>这些层中最下面的一层称为文档流，文档流是网页的基础，我们所创建的元素都是在文档流中进行排列。</p>
+<p>元素主要有两个状态</p>
+<p>​    在文档流中</p>
+<p>​    不在文档流中</p>
+<p>元素在文档流中的特点</p>
+<p>​    块元素：<br>​                    块元素会在页面中独占一行（自上向下垂直排列）</p>
+<p>​                    默认宽度是父元素的全部（会充满父元素）</p>
+<p>​                    默认高度是被内容撑开（子元素）</p>
+<p>​    行内元素：</p>
+<p>​                    行内元素不会独占页面的一行，只占自身的大小</p>
+<p>​                    行内元素在页面中左向右水平排列，如果一行之中不能容纳下所有的行内元素，则元素会换到第二行继续自左向右排列</p>
+<h2 id="盒子模型："><a href="#盒子模型：" class="headerlink" title="盒子模型："></a>盒子模型：</h2><p>css将页面中的所有元素都设置为一个盒子</p>
+<p>将元素设置为矩形盒子后，对页面的布局就变成了将不同的盒子摆放到不同的位置</p>
+<p>每一个盒子都由以下几个部分组成：</p>
+<ol>
+<li><p>内容区（content）</p>
+<p>元素中所有子元素和文本内容都在内容区中排列</p>
+<p>内容区的大小由width和height两个属性来设置</p>
+<p>​    width 设置内容区的宽度</p>
+<p>​    height 设置内容区的高度</p>
+</li>
+<li><p>内边距（padding）</p>
+<ul>
+<li>内容区和边框之间的距离</li>
+<li>一个有4个方向的内边距<ul>
+<li>padding-top</li>
+<li>padding-right</li>
+<li>padding-bottom</li>
+<li>padding-left</li>
+</ul>
+</li>
+<li>内边距的设置会影响盒子的大小</li>
+<li>背景颜色会延伸到内边距上</li>
+</ul>
+<p>一个盒子的可见大小由内容区，内边距和边框共同决定</p>
+<p>​    所以在计算盒子的大小是，需要将这三个区域加到一起计算。</p>
+<ul>
+<li>padding简写属性和border-width一样</li>
+</ul>
+</li>
+<li><p>边框（border)</p>
+<p>边框属于盒子的边缘，边框里边属于盒子内部，出了边框都是盒子的外部</p>
+<p>边框的大小会影响盒子的大小</p>
+<p>要设置边框，至少要设置三个样式：</p>
+<ul>
+<li><p>边框的宽度 border-width</p>
+<ul>
+<li>默认值：一般是3px</li>
+<li>可以用来指定4个方向的边框宽度<ul>
+<li>四个值： 上    右    下    左</li>
+<li>三个值： 上     左右   下</li>
+<li>两个值：  上下   左右</li>
+<li>一个值：   上下左右</li>
+</ul>
+</li>
+<li>border-xxx-width <ul>
+<li>xxx可以使 top，right，bottom，left</li>
+<li>可以用来单独指定某个边的宽度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>边框的颜色 border-color</p>
+<ul>
+<li>默认使用color的值</li>
+<li>其余同上</li>
+</ul>
+</li>
+<li><p>边框的样式 border-style</p>
+<ul>
+<li>solid 实线</li>
+<li>dotted 点状实线</li>
+<li>dashed  虚线</li>
+<li>double  双线</li>
+<li>默认值none，表示没有边框</li>
+<li>其余同上</li>
+</ul>
+</li>
+<li><p>border属性简写</p>
+<p>通过该属性可以同时设置边框的所有相关样式，并且没有顺序要求</p>
+<p>除了border以外还有四个border-xxx</p>
+<p>​    border-top</p>
+<p>​    border-right</p>
+<p>​    border-bottom    </p>
+<p>​    border-left</p>
+</li>
+</ul>
+</li>
+<li><p>外边距（margin）</p>
+<p>外边距不会影响盒子可见框的大小，但是会影响盒子的位置，一共有4个方向的外边距：</p>
+<ul>
+<li>margin-top<ul>
+<li>上外边距，设置一个正值，元素会向下移动</li>
+</ul>
+</li>
+<li>margin-right<ul>
+<li>默认情况下设置margin-right不会产生任何效果</li>
+</ul>
+</li>
+<li>margin-bottom<ul>
+<li>下外边距，设置一个正值，其下边的元素会向下移动</li>
+</ul>
+</li>
+<li>margin-left<ul>
+<li>左外边距，设置一个正值，元素会向右移动</li>
+</ul>
+</li>
+<li>margin也可以设置负值，此时元素会向相反方向移动</li>
+</ul>
+<p>元素在页面中默认是按照自左向右的顺序排列的，所以默认情况下如果设置左和上边距会移动元素自身，而下和右边距会移动其他元素。</p>
+<p><strong>margin可以简写属性</strong></p>
+<h4 id="元素的水平方向布局："><a href="#元素的水平方向布局：" class="headerlink" title="元素的水平方向布局："></a>元素的水平方向布局：</h4><p>元素在其父元素中水平方向的位置由以下几个属性共同决定</p>
+<p>margin-left</p>
+<p>border-left</p>
+<p>padding-left</p>
+<p>width</p>
+<p>padding-right</p>
+<p>border-right</p>
+<p>margin-right</p>
+<p>一个元素在其父元素中，水平布局必须满足以下等式</p>
+<p><strong>margin-left+border-left+padding-left+width+padding-right+border-right+margin-right = 其父元素内容区的宽度</strong></p>
+<p>以上等式必须满足，如果相加结果使等式不成立，则被称为过渡约束，则等式会自动调整</p>
+<ul>
+<li><p>调整的情况：</p>
+<ul>
+<li><p>如果这七个值中没有为auto的情况，则浏览器会自动调整margin-right的值使等式满足</p>
+</li>
+<li><p>七个值中有三个值设置为auto</p>
+<p>width</p>
+<p>margin-left</p>
+<p>margin-right</p>
+<ul>
+<li><p>如果某个值为auto，则会自动调整为auto的那个值，使等式成立</p>
+</li>
+<li><p>如果将一个宽度和一个外边距设置为auto，则宽度会调整到最大，设置为auto的外边距会自动为0</p>
+</li>
+<li><p>如果将三个值都设置为auto，则外边距都是0，宽度最大</p>
+</li>
+<li><p>如果将两个外边距设置为auto，宽度值固定，则会将外边距设置为相同的值</p>
+<p>利用这一点可以使一个元素在其父元素中水平居中</p>
+<p>eg：</p>
+<p>​    width:xxpx</p>
+<p>​    margin:0 auto</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="元素的水平方向布局：-1"><a href="#元素的水平方向布局：-1" class="headerlink" title="元素的水平方向布局："></a>元素的水平方向布局：</h4><p>​    子元素是在父元素的内容区中排列的，如果子元素的大小超过了父元素，则子元素会从父元素中溢出</p>
+<p>​    使用overflow属性来设置父元素如何处理溢出的子元素</p>
+<p>​    可选值：<br>​        visible    默认值，子元素会从父元素中溢出，在父元素外部的位置显示</p>
+<p>​        hidden    溢出的内容将会被裁剪不显示</p>
+<p>​        scroll    生成两个滚动条，通过滚动条来查看完整的内容</p>
+<p>​        auto    根据需要生成滚动条</p>
+</li>
+</ol>
 
     </div>
 
