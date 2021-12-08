@@ -1,432 +1,1341 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="theme-color" content="#3367D6"/>
-  <link rel="apple-touch-icon" href="/icons-192.png">
-  <link rel="manifest" href="/manifest.json">
+  <meta charset="utf-8">
   
-  <meta name="generator" content="Hexo 5.4.0">
-
   
-
-  
-
-  
-    <meta name="author" content="John Doe">
-  
-
-  
-
-  
-
   <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
 
   
-
-  
-    <link rel="shortcut icon" href="/favicon.ico">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
-  
-
   
 <link rel="stylesheet" href="/css/style.css">
 
-</head>
-<body>
-  <div class="root-container">
-    
-<!-- header container -->
-<header class="header-container">
   
-    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-JavaScript" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/30/JavaScript/" class="article-date">
+  <time class="dt-published" datetime="2021-11-30T12:59:32.983Z" itemprop="datePublished">2021-11-30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/30/JavaScript/">JavaScript</a>
+    </h1>
   
 
-  <!-- navbar -->
-<nav class="navbar">
-  <div class="navbar-content">
-    <!-- logo -->
-    <div class="navbar-logo">
-      <a href="/">
-        
-          Hexo
-        
-      </a>
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="浏览器的两部分"><a href="#浏览器的两部分" class="headerlink" title="浏览器的两部分"></a>浏览器的两部分</h2><ul>
+<li>渲染引擎：用来解析HTML和CSS，俗称内核</li>
+<li>JS引擎：也称为JS解释器，用来读取网页中的javaScript代码，其后处理运行</li>
+</ul>
+<h2 id="js的三种书写位置"><a href="#js的三种书写位置" class="headerlink" title="js的三种书写位置"></a>js的三种书写位置</h2><ul>
+<li><p>行内式</p>
+<ul>
+<li><p>example：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;点我&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;哈哈&#x27;)&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>内嵌式</p>
+<ul>
+<li><p>example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">        alert(<span class="string">&#x27;hh&#x27;</span>)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p>外部js</p>
+<ul>
+<li><p>写在.js文件中，在head中使用&lt;script&gt;标签引入</p>
+<p>example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;./js/t.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h2 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h2><p>​    和c语言一样</p>
+<ul>
+<li><p>​    单行注释</p>
+<p>//</p>
+</li>
+<li><p>多行注释</p>
+<p>/**/</p>
+</li>
+</ul>
+<h2 id="输入输出语句："><a href="#输入输出语句：" class="headerlink" title="输入输出语句："></a>输入输出语句：</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+<th>归属</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>alert(msg)</td>
+<td>浏览器弹出警示框</td>
+<td>浏览器</td>
+</tr>
+<tr>
+<td>console.log(msg)</td>
+<td>浏览器控制台打印输出信息</td>
+<td>浏览器</td>
+</tr>
+<tr>
+<td>prompt(info)</td>
+<td>浏览器弹出输入框，用户可以输入</td>
+<td>浏览器</td>
+</tr>
+</tbody></table>
+<p>example:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prompt(<span class="string">&#x27;请输入内容&#x27;</span>);</span><br><span class="line">alert(<span class="string">&#x27;提示信息&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;控制台输出&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量："><a href="#变量：" class="headerlink" title="变量："></a>变量：</h2><p>使用var声明</p>
+<p>example：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 变量声明</span></span><br><span class="line"><span class="keyword">var</span> age;</span><br><span class="line"><span class="comment">// 变量赋值</span></span><br><span class="line">age = <span class="number">18</span>;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>变量的声明和赋值也可以写在一行，称为变量的初始化</p>
+<p>example：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 变量初始化</span></span><br><span class="line"><span class="keyword">var</span> st = <span class="string">&#x27;hh&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>接收用户输入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将输入存入变量</span></span><br><span class="line"><span class="keyword">var</span> myname = prompt(<span class="string">&#x27;请输入姓名&#x27;</span>);</span><br><span class="line"><span class="comment">// 输出刚刚的输入</span></span><br><span class="line">alert(myname);</span><br></pre></td></tr></table></figure>
+
+<p><strong>声明的变量在未赋值时为undefined</strong></p>
+<p><strong>变量也可以不声明直接赋值，但未赋值前不能使用</strong></p>
+<p><strong>变量的数据类型随着被赋值的不同而改变（变量没有固定的数据类型）</strong></p>
+
+      
     </div>
-    <!-- link -->
-    <div class="navbar-link">
-      <div class="navbar-btn">
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <ul class="navbar-list">
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/30/JavaScript/" data-id="ckwx382n7000468vhcuy2bokl" data-title="JavaScript" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-TwitBase应用系统" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" class="article-date">
+  <time class="dt-published" datetime="2021-11-04T12:57:35.734Z" itemprop="datePublished">2021-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
-          <li class="navbar-list-item"><a href="/">首页</a></li>
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/">TwitBase应用系统</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> twitBase;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.nio.ByteBuffer;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.Cell;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.CellUtil;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.TableName;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Admin;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.ColumnFamilyDescriptor;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.ColumnFamilyDescriptorBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Connection;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.ConnectionFactory;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Get;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Result;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Table;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.TableDescriptor;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.TableDescriptorBuilder;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.util.Bytes;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Twit</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Connection connection = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Admin admin = <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TABLE_NAME = <span class="string">&quot;follows&quot;</span>;</span><br><span class="line">	<span class="keyword">static</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">			Configuration configuration = <span class="keyword">new</span> Configuration();</span><br><span class="line">			configuration.set(<span class="string">&quot;hbase.zookeeper.quorum&quot;</span>, <span class="string">&quot;hadoop01,hadoop02,hadoop03&quot;</span>);</span><br><span class="line">			connection = ConnectionFactory.createConnection(configuration);</span><br><span class="line">			admin = connection.getAdmin();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">			e.printStackTrace();</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(connection!=<span class="keyword">null</span>)</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				connection.close();</span><br><span class="line">			&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(admin!=<span class="keyword">null</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			admin.close();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">CreateTable</span><span class="params">(String tableName,String...cfs )</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(admin.tableExists(TableName.valueOf(tableName)))</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(tableName+<span class="string">&quot;表已存在&quot;</span>);</span><br><span class="line">			<span class="keyword">return</span> ;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(cfs.length&lt;=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;请输入列族&quot;</span>);</span><br><span class="line">			<span class="keyword">return</span> ;</span><br><span class="line">		&#125;</span><br><span class="line">		TableDescriptorBuilder tableDescriptor  = TableDescriptorBuilder.newBuilder(TableName.valueOf(tableName));</span><br><span class="line">		<span class="keyword">for</span>(String cf:cfs)</span><br><span class="line">		&#123;</span><br><span class="line">			ColumnFamilyDescriptor family = ColumnFamilyDescriptorBuilder.newBuilder(Bytes.toBytes(cf)).build();</span><br><span class="line">			tableDescriptor.setColumnFamily(family);</span><br><span class="line">			admin.createTable(tableDescriptor.build());</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">putData</span><span class="params">(String tableName,String rowKey,String cf,String cn,String value)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(!admin.tableExists(TableName.valueOf(tableName)))</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(tableName+<span class="string">&quot;表不存在&quot;</span>);</span><br><span class="line">			<span class="keyword">return</span> ;</span><br><span class="line">		&#125;</span><br><span class="line">		Table table = connection.getTable(TableName.valueOf(tableName));</span><br><span class="line">		Put put  = <span class="keyword">new</span> Put(Bytes.toBytes(rowKey));</span><br><span class="line">		put.addColumn(Bytes.toBytes(cf), Bytes.toBytes(cn), Bytes.toBytes(value));</span><br><span class="line">		table.put(put);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ArrayList&lt;String&gt; <span class="title">findWho</span><span class="params">(String tableName,String name)</span> <span class="keyword">throws</span> IOException</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		ArrayList&lt;String&gt; ans = <span class="keyword">new</span> ArrayList&lt;String&gt;();</span><br><span class="line">		Table table = connection.getTable(TableName.valueOf(tableName)); </span><br><span class="line">		Get get = <span class="keyword">new</span> Get(Bytes.toBytes(name));</span><br><span class="line">		Result result = table.get(get);</span><br><span class="line">		<span class="keyword">for</span>(Cell re:result.rawCells())</span><br><span class="line">		&#123;</span><br><span class="line">			ans.add(Bytes.toString(CellUtil.cloneValue(re)));</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> ans;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		CreateTable(<span class="string">&quot;follows&quot;</span>,<span class="string">&quot;follows&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;follows&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>, <span class="string">&quot;follows&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;TheRealMT&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;follows&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>, <span class="string">&quot;follows&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;MTFanBoy&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;follows&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>, <span class="string">&quot;follows&quot;</span>, <span class="string">&quot;3&quot;</span>, <span class="string">&quot;Olivia&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;follows&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>, <span class="string">&quot;follows&quot;</span>, <span class="string">&quot;4&quot;</span>, <span class="string">&quot;HRogers&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;follows&quot;</span>, <span class="string">&quot;TheRealMT&quot;</span>, <span class="string">&quot;follows&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;HRogers&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;follows&quot;</span>, <span class="string">&quot;TheRealMT&quot;</span>, <span class="string">&quot;follows&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;Olivia&quot;</span>);</span><br><span class="line">		CreateTable(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;followed&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;TheRealMT&quot;</span>, <span class="string">&quot;followed&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;MTFanBoy&quot;</span>, <span class="string">&quot;followed&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;Olivia&quot;</span>, <span class="string">&quot;followed&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;HRogers&quot;</span>, <span class="string">&quot;followed&quot;</span>, <span class="string">&quot;1&quot;</span>, <span class="string">&quot;TheFakeMT&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;HRogers&quot;</span>, <span class="string">&quot;followed&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;TheRealMT&quot;</span>);</span><br><span class="line">		putData(<span class="string">&quot;followed&quot;</span>, <span class="string">&quot;Olivia&quot;</span>, <span class="string">&quot;followed&quot;</span>, <span class="string">&quot;2&quot;</span>, <span class="string">&quot;TheRealMT&quot;</span>);</span><br><span class="line">		<span class="keyword">boolean</span> f1 = <span class="keyword">false</span>,f2 = <span class="keyword">false</span>;</span><br><span class="line">		ArrayList&lt;String&gt; ans = findWho(<span class="string">&quot;follows&quot;</span>,<span class="string">&quot;TheFakeMT&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span>(ans.indexOf(<span class="string">&quot;TheRealMT&quot;</span>)!=-<span class="number">1</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			f1 = <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(ans.size()!=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;TheFakeMT关注了：&quot;</span>);</span><br><span class="line">			<span class="keyword">for</span>(String name:ans)</span><br><span class="line">			&#123;</span><br><span class="line">			</span><br><span class="line">				System.out.println(name);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;TheFakeMT没有关注任何人&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;===================================================&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span>(f1)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;TheFakeMT关注了TheRealMT&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;TheFakeMT没有关注TheRealMT&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;===================================================&quot;</span>);	</span><br><span class="line">		</span><br><span class="line">		ans = findWho(<span class="string">&quot;followed&quot;</span>,<span class="string">&quot;TheFakeMT&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span>(ans.indexOf(<span class="string">&quot;TheRealMT&quot;</span>)!=-<span class="number">1</span>)</span><br><span class="line">			f2 = <span class="keyword">true</span>;</span><br><span class="line">		<span class="keyword">if</span>(ans.size()!=<span class="number">0</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">for</span>(String name:ans)</span><br><span class="line">			&#123;</span><br><span class="line">				System.out.println(name);</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(<span class="string">&quot;关注了TheFakeMT.&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;没有人关注TheFakeMT.&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;===================================================&quot;</span>);</span><br><span class="line">		<span class="keyword">if</span>(f2)</span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;TheRealMT关注了TheFakeMT&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">		&#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;TheRealMT没有关注TheFakeMT&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;===================================================&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" data-id="ckwx382n8000568vh3rdg7cwd" data-title="TwitBase应用系统" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-zookeeper安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/11/01/zookeeper%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2021-11-01T01:39:56.111Z" itemprop="datePublished">2021-11-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
-          <li class="navbar-list-item"><a href="/links">友链</a></li>
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/11/01/zookeeper%E5%AE%89%E8%A3%85/">zookeeper安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><p>上传安装包</p>
+<p>rz</p>
+</li>
+<li><p>解压</p>
+<p>tar -zxvf  apache-zookeeper-3.6.3-bin.tar.gz</p>
+</li>
+<li><p>配置环境变量</p>
+<p>vim /etc/profile</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/root/export/servers/apache-zookeeper-3.6.3-bin</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>使环境变量生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></li>
+<li><p>修改配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd export/servers/apache-zookeeper-3.6.3-bin/conf/</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p>增加以下内容<br><strong>注意：主机名要改成自己的</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server.1=node-01:2888:3888</span><br><span class="line">server.2=node-02:2888:3888</span><br><span class="line">server.3=node-03:2888:3888</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>文件夹后面会创建</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211101093040104.png" alt="image-20211101093040104"></p>
+</li>
+<li><p>同步到其他节点并source</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp -r export/servers/apache-zookeeper-3.6.3-bin/ node-02:/root/export/servers/</span><br><span class="line">scp -r export/servers/apache-zookeeper-3.6.3-bin/ node-03:/root/export/servers/</span><br><span class="line">scp /etc/profile node-02:/etc/</span><br><span class="line">scp /etc/profile node-03:/etc/</span><br></pre></td></tr></table></figure></li>
+<li><p>创建data目录和myid</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node-02 apache-zookeeper-3.6.3-bin]# mkdir data</span><br><span class="line">[root@node-02 apache-zookeeper-3.6.3-bin]# cd data/</span><br><span class="line">[root@node-02 data]# vim myid</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>node-01 的myid文件内容为1</p>
+<p>node-02 的myid文件内容为2</p>
+<p>node-03 的myid文件内容为3</p>
+</li>
+<li><p>时间同步</p>
+</li>
+<li><p>启动zk</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start #三台都需要执行</span><br><span class="line">zkServer.sh status #查看状态</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/11/01/zookeeper%E5%AE%89%E8%A3%85/" data-id="ckwx382ng000i68vh2850234c" data-title="zookeeper安装" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Hadoop集群安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/31/Hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2021-10-31T13:03:10.160Z" itemprop="datePublished">2021-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
         
-          <li class="navbar-list-item"><a href="/about">关于</a></li>
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/31/Hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/">Hadoop集群安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><h2 id="安装环境："><a href="#安装环境：" class="headerlink" title="安装环境："></a>安装环境：</h2><p>操作系统：Centos 8</p>
+<p>jdk：1.8</p>
+<p>Hadoop 2.7.4</p>
+<p>三个节点主机名分别为 node-01 node-02 node-03</p>
+</li>
+<li><h2 id="网络配置："><a href="#网络配置：" class="headerlink" title="网络配置："></a>网络配置：</h2><ol>
+<li><p>配置静态ip</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33 </span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031172820233.png" alt="image-20211031172820233"></p>
+<p>关闭网络，即关闭所有的网卡</p>
+<p>nmcli networking off</p>
+<p>开启网络，开启所有的网卡</p>
+<p>nmcli networking on</p>
+</li>
+<li><p>关闭防火墙</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl stop firewalld</span><br><span class="line">systemctl disable firewalld</span><br><span class="line">systemctl status firewalld</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031173857226.png" alt="image-20211031173857226"></p>
+</li>
+<li><p>设置主机名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl set-hostname node-01</span><br></pre></td></tr></table></figure></li>
+<li><p>配置ip映射主机名</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/hosts</span><br></pre></td></tr></table></figure>
+
+<p>添加对应的ip和主机名</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031171755516.png" alt="image-20211031171755516"></p>
+</li>
+</ol>
+</li>
+<li><h2 id="ssh免密登录："><a href="#ssh免密登录：" class="headerlink" title="ssh免密登录："></a>ssh免密登录：</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -b 1024 -t rsa</span><br></pre></td></tr></table></figure>
+
+<p>一直按回车即可</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031185447696.png" alt="image-20211031185447696"></p>
+<p>​                </p>
+</li>
+<li><h2 id="将node-01的公钥传到node-02和node-03上"><a href="#将node-01的公钥传到node-02和node-03上" class="headerlink" title="将node-01的公钥传到node-02和node-03上"></a>将node-01的公钥传到node-02和node-03上</h2><p><strong>node-01:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id node-01</span><br><span class="line">ssh-copy-id node-02</span><br><span class="line">ssh-copy-id node-03</span><br></pre></td></tr></table></figure>
+
+<p><img src="C:\Users\windows\Desktop\image-20211031190121461.png" alt="image-20211031190121461"></p>
+<p><strong>node-02,node-03:</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id node-01</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改authorized_keys权限</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd .ssh</span><br><span class="line">chmod 600 authorized_keys</span><br></pre></td></tr></table></figure>
+
+<p>​                        </p>
+</li>
+<li><h2 id="时间同步"><a href="#时间同步" class="headerlink" title="时间同步"></a>时间同步</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+
+<p>输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 * * * /usr/sbin/ntpdate cn.pool.ntp.org</span><br></pre></td></tr></table></figure></li>
+<li><h2 id="安装jdk"><a href="#安装jdk" class="headerlink" title="安装jdk"></a>安装jdk</h2><ol>
+<li><p>上传安装包</p>
+<p>rz命令，选择相应的安装包</p>
+</li>
+<li><p>解压</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf 压缩包名称</span><br></pre></td></tr></table></figure></li>
+<li><p>配置环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bash_profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/root/export/servers/jdk1.8.0_301</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031194648211.png" alt="image-20211031194648211"></p>
+</li>
+<li><p>source</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile</span><br></pre></td></tr></table></figure></li>
+<li><p>复制到node-02，node-03上</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r export/servers/jdk1.8.0_301  root@node-02:/root/export/servers</span><br><span class="line">scp -r export/servers/jdk1.8.0_301  root@node-02:/root/export/servers</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><h2 id="修改Hadoop配置文件"><a href="#修改Hadoop配置文件" class="headerlink" title="修改Hadoop配置文件"></a>修改Hadoop配置文件</h2></li>
+<li><p>```shell<br>vim hadoop-env.sh<br>vim yarn-env.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">   修改JAVA_HOME</span><br><span class="line"></span><br><span class="line">   ![image-20211031200037450](https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031200037450.png)</span><br><span class="line"></span><br><span class="line">2. ```shell</span><br><span class="line">   cp mapred-site.xml.template mapred-site.xml</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定MapReduce运行时框架，这里指定在Yarn上，默认是local --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>core-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 用于设置Hadoop的文件系统，由URI指定 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">         <span class="comment">&lt;!-- 用于指定namenode地址在hadoop01机器上 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://node-01:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置Hadoop的临时目录,默认/tmp/hadoop-$&#123;user.name&#125; --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>/export/servers/hadoop-2.7.4/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>hdfs-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">     <span class="comment">&lt;!-- 指定HDFS副本的数量 --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>yarn-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Site specific YARN configuration properties --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定Yarn集群的管理者（ResourceManager）的地址 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-01<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>slaves</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031202246772.png" alt="image-20211031202246772"></p>
+</li>
+<li><p>复制到node-02，node-03</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scp -r export/sever/export/servers/hadoop-2.7.4/ node-02:/root/export/sever/export/servers</span><br><span class="line">scp -r export/sever/export/servers/hadoop-2.7.4/ node-03:/root/export/sever/export/servers</span><br></pre></td></tr></table></figure></li>
+<li><p>​    配置Hadoop环境变量</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim .bash_profile</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_HOME=/root/export/servers/hadoop-2.7.4</span><br><span class="line">export PATH=$HADOOP_HOME/bin:$HADOOP_HOME/sbin$PATH</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source .bash_profile </span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/31/Hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" data-id="ckwx382n5000268vh57wab9be" data-title="Hadoop集群安装" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-centos8-最小安装" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/31/centos8-%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85/" class="article-date">
+  <time class="dt-published" datetime="2021-10-31T08:33:18.849Z" itemprop="datePublished">2021-10-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/31/centos8-%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85/">centos8 最小安装</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h2 id="1-centos安装包下载"><a href="#1-centos安装包下载" class="headerlink" title="1.centos安装包下载"></a>1.centos安装包下载</h2><p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031161912761.png" alt="image-20211031161912761"></p>
+<p> <img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031162034004.png" alt="image-20211031162034004"></p>
+<h2 id="2-安装vmware"><a href="#2-安装vmware" class="headerlink" title="2.安装vmware"></a>2.安装vmware</h2><h2 id="3-安装centos"><a href="#3-安装centos" class="headerlink" title="3.安装centos"></a>3.安装centos</h2><p>这里选择最小安装</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211031162311569.png" alt="image-20211031162311569"></p>
+<p>连接网络</p>
+<p>语言建议选Eglish避免中文乱码问题</p>
+<p>安装完成后重启即可</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/31/centos8-%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85/" data-id="ckwx382n9000768vhcxdl1zls" data-title="centos8 最小安装" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Hbase" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/29/Hbase/" class="article-date">
+  <time class="dt-published" datetime="2021-10-29T04:16:33.774Z" itemprop="datePublished">2021-10-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/29/Hbase/">Hbase</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211029100712784.png" alt="image-20211029100712784"></p>
+<h2 id="hbase表结构："><a href="#hbase表结构：" class="headerlink" title="hbase表结构："></a>hbase表结构：</h2><ul>
+<li><p>列</p>
+</li>
+<li><p>列族：多个列</p>
+</li>
+<li><p>Row Key:类似于mysql中的prime key</p>
+</li>
+<li><p>Region:每个Region中按照Row Key的字典序排序</p>
+<p>注：其中列族和Region是划分存储的依据</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211029102559134.png" alt="image-20211029102559134"></p>
+<hr>
+<h2 id="Hbase-shell操作："><a href="#Hbase-shell操作：" class="headerlink" title="Hbase shell操作："></a>Hbase shell操作：</h2></li>
+</ul>
+<ol>
+<li><p>查看存在哪些表    </p>
+<p>​    list</p>
+</li>
+<li><p>创建表</p>
+<p>​    create ‘表名’,’列族1’,’列族2’,’列族n’</p>
+</li>
+<li><p>插入数据</p>
+<p>put ‘表名’,’Row key’,’列族:列名’,’值’</p>
+</li>
+<li><p>查询</p>
+<p>get</p>
+</li>
+<li><p>扫描</p>
+<p>scan</p>
+</li>
+<li><p>删除表</p>
+<p>delet</p>
+<p>deletall ‘表名’,’row key’（删除整个row key）</p>
+<p>truncate ‘表名’（删除表的全部数据）  </p>
+<hr>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211101081839598.png" alt="image-20211101081839598"></p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/29/Hbase/" data-id="ckwx382n8000668vh2jul2r43" data-title="Hbase" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-高可用Hadoop集群搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/26/%E9%AB%98%E5%8F%AF%E7%94%A8Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time class="dt-published" datetime="2021-10-26T09:02:29.891Z" itemprop="datePublished">2021-10-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/26/%E9%AB%98%E5%8F%AF%E7%94%A8Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/">高可用Hadoop集群搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <ol>
+<li><h3 id="修改core-site-xml"><a href="#修改core-site-xml" class="headerlink" title="修改core-site.xml"></a>修改core-site.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="meta">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span></span><br><span class="line"><span class="comment">&lt;!--</span></span><br><span class="line"><span class="comment">  Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span></span><br><span class="line"><span class="comment">  you may not use this file except in compliance with the License.</span></span><br><span class="line"><span class="comment">  You may obtain a copy of the License at</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    http://www.apache.org/licenses/LICENSE-2.0</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  Unless required by applicable law or agreed to in writing, software</span></span><br><span class="line"><span class="comment">  distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span></span><br><span class="line"><span class="comment">  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span></span><br><span class="line"><span class="comment">  See the License for the specific language governing permissions and</span></span><br><span class="line"><span class="comment">  limitations under the License. See accompanying LICENSE file.</span></span><br><span class="line"><span class="comment">--&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Put site-specific property overrides in this file. --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 指定hdfs的nameservice为ns1 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://ns1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定hadoop临时目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/export/servers/hadoop-2.7.4/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定zookeeper地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>ha.zookeeper.quorum<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-01:2181,node-02:2181,node-03:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>修改hdfs-site.xml </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 设置副本个数 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 设置namenode.name目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/export/data/hadoop/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 设置namenode.data目录 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>file:/export/data/hadoop/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定hdfs的nameservice为ns1,需要和core-site.xml中的保持一致 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.nameservices<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>ns1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- ns1下面有2个NameNode，分别是nn1,nn2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.namenodes.ns1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>nn1,nn2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- nn1的RPC通信地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.ns1.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-01:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- nn1的http通信地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.ns1.nn1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-01:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- nn2的RPC通信地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.rpc-address.ns1.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-02:9000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- nn2的http通信地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.http-address.ns1.nn2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-02:50070<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定NameNode的元数据在journalnode上的存放位置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.shared.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">    qjournal://node-01:8485;node-02:8485;node-03:8485/ns1</span><br><span class="line">    <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定journalnode在本地磁盘存放数据的位置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.journalnode.edits.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/export/data/hadoop/journaldata<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 开启NameNode失败自动重启 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.automatic-failover.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置失败自动切换的实现方式 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.client.failover.proxy.provider.ns1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">    org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider</span><br><span class="line">    <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置隔离机制方法，多个机制用换行分隔，即每个机制暂用一行 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.methods<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">    sshfence</span><br><span class="line">    shell(/bin/true)</span><br><span class="line">    <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 使用sshfence隔离机制时需要ssh免登陆 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.ssh.private-key-files<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/.ssh/id_rsa<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 配置sshfence隔离机制超时时间 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.ha.fencing.ssh.connect-timeout<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>30000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>修改yarn-site.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.resource.memory-mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>2048<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.maximum-allocation-mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>2048<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.resource.cpu-vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 开启RM高可用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.ha.enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"> <span class="comment">&lt;!-- 指定RM的cluster id --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.cluster-id<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>yrc<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定RM的名字 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.ha.rm-ids<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>rm1,rm2<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 分别指定RM的地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname.rm1<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-01<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname.rm2<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-02<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 指定zk集群地址 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.zk-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>node-01:2181,node-02:2181,node-03:2181<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">porperty</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">porperty</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>启动zookeeper</p>
+</li>
+<li><p>启动journalnode</p>
+</li>
+<li><p>格式化NameNode（node-01,node=02）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode –format</span><br></pre></td></tr></table></figure></li>
+<li><p>在node-01节点上格式化ZKFC</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hdfs zkfc -formatZK</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>​    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/26/%E9%AB%98%E5%8F%AF%E7%94%A8Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" data-id="ckwx382nj000o68vh01g15vlr" data-title="高可用Hadoop集群搭建" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-css" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/23/css/" class="article-date">
+  <time class="dt-published" datetime="2021-10-23T03:36:31.429Z" itemprop="datePublished">2021-10-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/23/css/">css</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h1><h4 id="内联属性（行内属性）："><a href="#内联属性（行内属性）：" class="headerlink" title="内联属性（行内属性）："></a>内联属性（行内属性）：</h4><p>​    在标签内用 style属性</p>
+<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>​        只能对一个标签生效，不利于后期维护</p>
+<h4 id="内部样式表："><a href="#内部样式表：" class="headerlink" title="内部样式表："></a>内部样式表：</h4><p>​    将样式编写到head中的style标签里，然后通过css选择器选中元素并为其设置各种样式，修改时只需修改一处即可。</p>
+<p>​    内部样式更方便对样式的复用</p>
+<h5 id="问题-1"><a href="#问题-1" class="headerlink" title="问题"></a>问题</h5><p>​        内部样式表中的样式只能对一个网页起作用。</p>
+<h4 id="外部样式表："><a href="#外部样式表：" class="headerlink" title="外部样式表："></a>外部样式表：</h4><p>​    将css样式编写到一个css外部文件中，然后通过link标签引入，</p>
+<p>​    这样可以使用到浏览器的缓存机制，从而加快网页加载速度，提高用户体验。</p>
+<hr>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><ul>
+<li><h3 id="元素选择器："><a href="#元素选择器：" class="headerlink" title="元素选择器："></a>元素选择器：</h3></li>
+</ul>
+<h5 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h5><p>根据标签来选中指定元素</p>
+<h5 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h5><p>标签名{}</p>
+<h5 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h5><p>p{},h1{},div{}</p>
+<ul>
+<li><h3 id="id选择器："><a href="#id选择器：" class="headerlink" title="id选择器："></a>id选择器：</h3></li>
+</ul>
+<h5 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h5><p>根据元素id属性值选中一个元素</p>
+<h5 id="语法：-1"><a href="#语法：-1" class="headerlink" title="语法："></a>语法：</h5><p>#id属性{}</p>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>#box{} </p>
+<p>#red{}</p>
+<ul>
+<li><h3 id="类选择器："><a href="#类选择器：" class="headerlink" title="类选择器："></a>类选择器：</h3></li>
+</ul>
+<h5 id="作用-1"><a href="#作用-1" class="headerlink" title="作用:"></a>作用:</h5><p> 根据元素class属性值选中一组元素</p>
+<h5 id="语法：-2"><a href="#语法：-2" class="headerlink" title="语法："></a>语法：</h5><p>.class{}</p>
+<h5 id="例子-1"><a href="#例子-1" class="headerlink" title="例子:"></a>例子:</h5><p>.blue{}</p>
+<ul>
+<li><h3 id="交集选择器："><a href="#交集选择器：" class="headerlink" title="交集选择器："></a>交集选择器：</h3></li>
+</ul>
+<h5 id="作用：-1"><a href="#作用：-1" class="headerlink" title="作用："></a>作用：</h5><p>选中同时复合多个条件的元素</p>
+<h5 id="语法：-3"><a href="#语法：-3" class="headerlink" title="语法："></a>语法：</h5><p>选择器1选择器2选择器n{}</p>
+<h5 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h5><p>交集选择器中如果有元素选择器必须使用元素选择器开头</p>
+<ul>
+<li><h3 id="并集选择器（选择器分组）："><a href="#并集选择器（选择器分组）：" class="headerlink" title="并集选择器（选择器分组）："></a>并集选择器（选择器分组）：</h3></li>
+</ul>
+<h5 id="作用-2"><a href="#作用-2" class="headerlink" title="作用:"></a>作用:</h5><p>同时选择多个选择器对应的元素</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法:"></a>语法:</h5><p>选择器1，选择器2，选择器n{}</p>
+<ul>
+<li><h3 id="关系选择器："><a href="#关系选择器：" class="headerlink" title="关系选择器："></a>关系选择器：</h3></li>
+</ul>
+<h5 id="常见关系："><a href="#常见关系：" class="headerlink" title="常见关系："></a>常见关系：</h5><ul>
+<li><p>父元素：</p>
+<ul>
+<li>直接包含子元素的元素</li>
+</ul>
+</li>
+<li><p>子元素</p>
+<ul>
+<li>直接被父元素包含的元素</li>
+</ul>
+</li>
+<li><p>祖先元素</p>
+<ul>
+<li>直接或间接包含后代元素的元素</li>
+<li>一个元素的父元素也是他的祖先元素</li>
+</ul>
+</li>
+<li><p> 后代元素</p>
+</li>
+<li><p>直接或间接被祖先元素包含的元素</p>
+</li>
+<li><p>子元素也是后代元素</p>
+</li>
+<li><p>兄弟元素</p>
+<ul>
+<li>拥有相同父元素的元素</li>
+</ul>
+</li>
+<li><h4 id="子元素选择器："><a href="#子元素选择器：" class="headerlink" title="子元素选择器："></a>子元素选择器：</h4></li>
+</ul>
+<h5 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a>作用：</h5><p>​                    选中指定父元素的指定子元素</p>
+<h5 id="语法：-4"><a href="#语法：-4" class="headerlink" title="语法："></a>语法：</h5><p>​                    父元素&gt;子元素(&gt;…)</p>
+<h5 id="例子：-1"><a href="#例子：-1" class="headerlink" title="例子："></a>例子：</h5><p>​                div&gt;span{}</p>
+<ul>
+<li><h4 id="后代选择器："><a href="#后代选择器：" class="headerlink" title="后代选择器："></a>后代选择器：</h4></li>
+</ul>
+<h5 id="作用：-3"><a href="#作用：-3" class="headerlink" title="作用："></a>作用：</h5><p>​                    选中指定元素内的指定后代元素</p>
+<h5 id="语法：-5"><a href="#语法：-5" class="headerlink" title="语法："></a>语法：</h5><p>​                    祖先 后代{}</p>
+<h5 id="例子：-2"><a href="#例子：-2" class="headerlink" title="例子："></a>例子：</h5><p>​                div span{}</p>
+<ul>
+<li><h4 id="兄弟选择器："><a href="#兄弟选择器：" class="headerlink" title="兄弟选择器："></a>兄弟选择器：</h4></li>
+</ul>
+<h5 id="作用：-4"><a href="#作用：-4" class="headerlink" title="作用："></a>作用：</h5><p>​                    选中指定元素内的指定兄弟元素</p>
+<h5 id="语法：-6"><a href="#语法：-6" class="headerlink" title="语法："></a>语法：</h5><ul>
+<li><p>选择下一个：</p>
+<p>​                    前一个+下一个{}</p>
+</li>
+<li><p>选择下面所有：</p>
+<p>​                    兄~第{} </p>
+</li>
+</ul>
+<h5 id="例子：-3"><a href="#例子：-3" class="headerlink" title="例子："></a>例子：</h5><p>​    div+span{}</p>
+<p>​    div~span{}</p>
+<ul>
+<li><h4 id="属性选择器："><a href="#属性选择器：" class="headerlink" title="属性选择器："></a>属性选择器：</h4></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>样式</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[属性名]</td>
+<td>选择含有指定属性的元素</td>
+</tr>
+<tr>
+<td>[属性名=属性值]</td>
+<td>选择含有指定属性和属性值的元素</td>
+</tr>
+<tr>
+<td>[属性名^=属性值]</td>
+<td>选择属性值以指定值开头的元素</td>
+</tr>
+<tr>
+<td>[属性名$=属性值]</td>
+<td>选择属性值以指定值结尾的元素</td>
+</tr>
+<tr>
+<td>[属性名*=属性值]</td>
+<td>选择属性值含有指定值的元素</td>
+</tr>
+</tbody></table>
+<ul>
+<li><h4 id="伪类选择器："><a href="#伪类选择器：" class="headerlink" title="伪类选择器："></a>伪类选择器：</h4><p>伪类用来描述一个元素的特殊状态，比如：第一个元素、被点击的元素、鼠标移入的元素……</p>
+<p>伪类一般以：开头</p>
+<table>
+<thead>
+<tr>
+<th>伪类</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>:first-child</td>
+<td>第一个元素</td>
+</tr>
+<tr>
+<td>:last-child</td>
+<td>最后一个元素</td>
+</tr>
+<tr>
+<td>:nth-child()</td>
+<td>第n个元素</td>
+</tr>
+<tr>
+<td>:first-of-type</td>
+<td>同类型元素中第一个元素</td>
+</tr>
+<tr>
+<td>:last-of-type</td>
+<td>同类型元素中最后一个元素</td>
+</tr>
+<tr>
+<td>:nth-of-type()</td>
+<td>同类型元素中第n个元素</td>
+</tr>
+<tr>
+<td>:not()</td>
+<td>将符合条件的元素从选择器中除去</td>
+</tr>
+</tbody></table>
+<p><strong>注：</strong>nth-child():</p>
+<ul>
+<li>n==&gt;全选</li>
+<li>2n或even==&gt;选中偶数元素</li>
+<li>2n+1或odd==&gt;选中奇数元素</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="一些常用的伪类："><a href="#一些常用的伪类：" class="headerlink" title="一些常用的伪类："></a>一些常用的伪类：</h3><h5 id="link（超链接特有）"><a href="#link（超链接特有）" class="headerlink" title=":link（超链接特有）"></a>:link（超链接特有）</h5><p>​    正常的链接</p>
+<h5 id="visited（超链接特有）"><a href="#visited（超链接特有）" class="headerlink" title=":visited（超链接特有）"></a>:visited（超链接特有）</h5><p>​    访问过的链接</p>
+<p>​    由于隐私原因，只能修改链接的颜色</p>
+<h5 id="hover"><a href="#hover" class="headerlink" title=":hover"></a>:hover</h5><p>​    鼠标移入的状态</p>
+<h5 id="active"><a href="#active" class="headerlink" title=":active"></a>:active</h5><p>​    鼠标点击</p>
+<hr>
+<h2 id="伪元素："><a href="#伪元素：" class="headerlink" title="伪元素："></a>伪元素：</h2><ul>
+<li><p>::first-letter</p>
+<p>表示第一个字母</p>
+</li>
+<li><p>::first-line</p>
+<p>表示第一行</p>
+</li>
+<li><p>::selection</p>
+<p>表示选中的内容</p>
+</li>
+<li><p>::before</p>
+<p>元素的开始</p>
+</li>
+<li><p>::after</p>
+<p>元素的最后</p>
+<p><strong>注</strong>：before和after必须结合content属性来使用</p>
+</li>
+</ul>
+<hr>
+<h2 id="继承："><a href="#继承：" class="headerlink" title="继承："></a>继承：</h2><p>样式的继承，为一个元素设置的样式同时也会应用到他的后代元素上</p>
+<p>继承是发生在祖先和后代之间的</p>
+<p><strong>注</strong>：并不是使用的样式都会被继承，比如：背景相关的，布局相关的等这些样式都不会被继承</p>
+<hr>
+<h2 id="选择器优先级："><a href="#选择器优先级：" class="headerlink" title="选择器优先级："></a>选择器优先级：</h2><ul>
+<li><p>样式的冲突：<br>当我们通过不同的选择器，选出相同的元素，并且为相同的样式设置不同的值时，此时就发生了样式冲突，发生样式冲突时，应用那个样式由选择器权重（优先级）决定</p>
+</li>
+<li><p>选择器权重：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">内联样式</td>
+<td>1,0,0,0</td>
+</tr>
+<tr>
+<td align="left">id选择器</td>
+<td>0,1,0,0</td>
+</tr>
+<tr>
+<td align="left">类和伪类选择器</td>
+<td>0,0,1,0</td>
+</tr>
+<tr>
+<td align="left">元素选择器</td>
+<td>0,0,0,1</td>
+</tr>
+<tr>
+<td align="left">通配选择器</td>
+<td>0,0,0,0</td>
+</tr>
+<tr>
+<td align="left">继承选择器</td>
+<td>无</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>​        比较优先级时，需要将所有的选择器的优先级进行相加计算，最后优先级越高，则越优先显示（分组选择器是单独计算的），选择器的累加不会超过其最大的数量级，如果优先级计算后相同，此时则优先使用靠下的样式</p>
+</li>
+<li><p>可以在某一个样式的后面添加！important，则此时该样式会获取到最高的优先级，甚至超过内联样式</p>
+<p><strong>注</strong>:慎用</p>
+<hr>
+</li>
+</ul>
+<h2 id="像素和百分比："><a href="#像素和百分比：" class="headerlink" title="像素和百分比："></a>像素和百分比：</h2><ul>
+<li><p>长度单位：</p>
+<ul>
+<li>​    像素<ul>
+<li>不同显示器的像素大小是不同的，像素越小的屏幕显示的效果越清晰</li>
+<li>相同的200px在不同的设备下显示效果是不一样的</li>
+</ul>
+</li>
+<li>百分比<ul>
+<li>设置百分比可以使子元素随父元素的改变而改变                            </li>
+</ul>
+</li>
+<li>em<ul>
+<li>em是相对与元素的字体大小来计算的</li>
+<li>1em=1font-site</li>
+<li>em会根据字体大小的改变而改变</li>
+</ul>
+</li>
+<li>rem<ul>
+<li>rem是相对于根元素（html）的字体大小来计算的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>颜色单位</p>
+<ul>
+<li><p>RGB值</p>
+<ul>
+<li>RGB通过三种颜色的不同浓度来调出不同的颜色</li>
+<li>R red，G green，B blue</li>
+<li>每一种颜色的范围在0-255之间</li>
+<li>语法RGB(红色，绿色，蓝色)</li>
+</ul>
+</li>
+<li><p>RGBA</p>
+<ul>
+<li><p>在rgb的基础上添加了一个a表示不透明度</p>
+</li>
+<li><p>需要4个值，前3个rgb一样，第四个表示不透明度</p>
+<p>1 完全不透明</p>
+<p>0 完全题目</p>
+<p>.5 半透明</p>
+</li>
+</ul>
+</li>
+<li><p>十六进制的RGB</p>
+<ul>
+<li><p>语法#红色绿色蓝色</p>
+</li>
+<li><p>颜色浓度通过00-ff</p>
+</li>
+<li><p>如果两位两位重复可以简写</p>
+<p>#aabbcc–&gt;#abc</p>
+</li>
+</ul>
+</li>
+<li><p>HSLA值</p>
+<ul>
+<li>H 色相（0-360）</li>
+<li>S 饱和度，颜色的亮度 0%-100%</li>
+<li>L 亮度，颜色的亮度 0%-100%</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="文档流："><a href="#文档流：" class="headerlink" title="文档流："></a>文档流：</h2><p>网页是一个多层结构，一层摞着一层，通过css可以分别为每一层来设置样式，作为用户来讲只能看到最上面一层。</p>
+<p>这些层中最下面的一层称为文档流，文档流是网页的基础，我们所创建的元素都是在文档流中进行排列。</p>
+<p>元素主要有两个状态</p>
+<p>​    在文档流中</p>
+<p>​    不在文档流中</p>
+<p>元素在文档流中的特点</p>
+<p>​    块元素：<br>​                    块元素会在页面中独占一行（自上向下垂直排列）</p>
+<p>​                    默认宽度是父元素的全部（会充满父元素）</p>
+<p>​                    默认高度是被内容撑开（子元素）</p>
+<p>​    行内元素：</p>
+<p>​                    行内元素不会独占页面的一行，只占自身的大小</p>
+<p>​                    行内元素在页面中左向右水平排列，如果一行之中不能容纳下所有的行内元素，则元素会换到第二行继续自左向右排列</p>
+<h2 id="盒子模型："><a href="#盒子模型：" class="headerlink" title="盒子模型："></a>盒子模型：</h2><p>css将页面中的所有元素都设置为一个盒子</p>
+<p>将元素设置为矩形盒子后，对页面的布局就变成了将不同的盒子摆放到不同的位置</p>
+<p>每一个盒子都由以下几个部分组成：</p>
+<ol>
+<li><p>内容区（content）</p>
+<p>元素中所有子元素和文本内容都在内容区中排列</p>
+<p>内容区的大小由width和height两个属性来设置</p>
+<p>​    width 设置内容区的宽度</p>
+<p>​    height 设置内容区的高度</p>
+</li>
+<li><p>内边距（padding）</p>
+<ul>
+<li>内容区和边框之间的距离</li>
+<li>一个有4个方向的内边距<ul>
+<li>padding-top</li>
+<li>padding-right</li>
+<li>padding-bottom</li>
+<li>padding-left</li>
+</ul>
+</li>
+<li>内边距的设置会影响盒子的大小</li>
+<li>背景颜色会延伸到内边距上</li>
+</ul>
+<p>一个盒子的可见大小由内容区，内边距和边框共同决定</p>
+<p>​    所以在计算盒子的大小是，需要将这三个区域加到一起计算。</p>
+<ul>
+<li>padding简写属性和border-width一样</li>
+</ul>
+</li>
+<li><p>边框（border)</p>
+<p>边框属于盒子的边缘，边框里边属于盒子内部，出了边框都是盒子的外部</p>
+<p>边框的大小会影响盒子的大小</p>
+<p>要设置边框，至少要设置三个样式：</p>
+<ul>
+<li><p>边框的宽度 border-width</p>
+<ul>
+<li>默认值：一般是3px</li>
+<li>可以用来指定4个方向的边框宽度<ul>
+<li>四个值： 上    右    下    左</li>
+<li>三个值： 上     左右   下</li>
+<li>两个值：  上下   左右</li>
+<li>一个值：   上下左右</li>
+</ul>
+</li>
+<li>border-xxx-width <ul>
+<li>xxx可以使 top，right，bottom，left</li>
+<li>可以用来单独指定某个边的宽度</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>边框的颜色 border-color</p>
+<ul>
+<li>默认使用color的值</li>
+<li>其余同上</li>
+</ul>
+</li>
+<li><p>边框的样式 border-style</p>
+<ul>
+<li>solid 实线</li>
+<li>dotted 点状实线</li>
+<li>dashed  虚线</li>
+<li>double  双线</li>
+<li>默认值none，表示没有边框</li>
+<li>其余同上</li>
+</ul>
+</li>
+<li><p>border属性简写</p>
+<p>通过该属性可以同时设置边框的所有相关样式，并且没有顺序要求</p>
+<p>除了border以外还有四个border-xxx</p>
+<p>​    border-top</p>
+<p>​    border-right</p>
+<p>​    border-bottom    </p>
+<p>​    border-left</p>
+</li>
+</ul>
+</li>
+<li><p>外边距（margin）</p>
+<p>外边距不会影响盒子可见框的大小，但是会影响盒子的位置，一共有4个方向的外边距：</p>
+<ul>
+<li>margin-top<ul>
+<li>上外边距，设置一个正值，元素会向下移动</li>
+</ul>
+</li>
+<li>margin-right<ul>
+<li>默认情况下设置margin-right不会产生任何效果</li>
+</ul>
+</li>
+<li>margin-bottom<ul>
+<li>下外边距，设置一个正值，其下边的元素会向下移动</li>
+</ul>
+</li>
+<li>margin-left<ul>
+<li>左外边距，设置一个正值，元素会向右移动</li>
+</ul>
+</li>
+<li>margin也可以设置负值，此时元素会向相反方向移动</li>
+</ul>
+<p>元素在页面中默认是按照自左向右的顺序排列的，所以默认情况下如果设置左和上边距会移动元素自身，而下和右边距会移动其他元素。</p>
+<p><strong>margin可以简写属性</strong></p>
+<h4 id="元素的水平方向布局："><a href="#元素的水平方向布局：" class="headerlink" title="元素的水平方向布局："></a>元素的水平方向布局：</h4><p>元素在其父元素中水平方向的位置由以下几个属性共同决定</p>
+<p>margin-left</p>
+<p>border-left</p>
+<p>padding-left</p>
+<p>width</p>
+<p>padding-right</p>
+<p>border-right</p>
+<p>margin-right</p>
+<p>一个元素在其父元素中，水平布局必须满足以下等式</p>
+<p><strong>margin-left+border-left+padding-left+width+padding-right+border-right+margin-right = 其父元素内容区的宽度</strong></p>
+<p>以上等式必须满足，如果相加结果使等式不成立，则被称为过渡约束，则等式会自动调整</p>
+<ul>
+<li><p>调整的情况：</p>
+<ul>
+<li><p>如果这七个值中没有为auto的情况，则浏览器会自动调整margin-right的值使等式满足</p>
+</li>
+<li><p>七个值中有三个值设置为auto</p>
+<p>width</p>
+<p>margin-left</p>
+<p>margin-right</p>
+<ul>
+<li><p>如果某个值为auto，则会自动调整为auto的那个值，使等式成立</p>
+</li>
+<li><p>如果将一个宽度和一个外边距设置为auto，则宽度会调整到最大，设置为auto的外边距会自动为0</p>
+</li>
+<li><p>如果将三个值都设置为auto，则外边距都是0，宽度最大</p>
+</li>
+<li><p>如果将两个外边距设置为auto，宽度值固定，则会将外边距设置为相同的值</p>
+<p>利用这一点可以使一个元素在其父元素中水平居中</p>
+<p>eg：</p>
+<p>​    width:xxpx</p>
+<p>​    margin:0 auto</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="元素的垂直方向布局："><a href="#元素的垂直方向布局：" class="headerlink" title="元素的垂直方向布局："></a>元素的垂直方向布局：</h4><p>​    子元素是在父元素的内容区中排列的，如果子元素的大小超过了父元素，则子元素会从父元素中溢出</p>
+<p>​    使用overflow属性来设置父元素如何处理溢出的子元素</p>
+<p>​    可选值：<br>​        visible    默认值，子元素会从父元素中溢出，在父元素外部的位置显示</p>
+<p>​        hidden    溢出的内容将会被裁剪不显示</p>
+<p>​        scroll    生成两个滚动条，通过滚动条来查看完整的内容</p>
+<p>​        auto    根据需要生成滚动条</p>
+</li>
+</ol>
+<h4 id="垂直外边距的重叠（折叠）"><a href="#垂直外边距的重叠（折叠）" class="headerlink" title="垂直外边距的重叠（折叠）"></a>垂直外边距的重叠（折叠）</h4><p>​            相邻的垂直元素外边距会发生重叠现象    </p>
+<ol>
+<li><p>兄弟元素：</p>
+<ol>
+<li><p>兄弟元素间相邻垂直外边距会取两者之间的较大值（两者都是正值）</p>
+</li>
+<li><p>特殊情况：</p>
+<ul>
+<li><p>如果相邻的外边距一正一负，则取两者之和</p>
+</li>
+<li><p>如果都为负取绝对值大的                    </p>
+<pre><code>**注**：兄弟元素之间的外边距重叠是有利于开发的，所以不需要处理。
+</code></pre>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>​    父子元素：</p>
+<ol>
+<li>父子元素之间相邻外边距，子元素的会传递给父元素</li>
+<li>父子外边距的折叠会影响到页面的布局，必须要进行处理</li>
+</ol>
+</li>
+</ol>
+<h4 id="行内元素的盒子模型："><a href="#行内元素的盒子模型：" class="headerlink" title="行内元素的盒子模型："></a>行内元素的盒子模型：</h4><ul>
+<li>行内元素不支持设置宽度和高度</li>
+<li>行内元素可以设置padding，但是垂直方向padding不会影响页面布局</li>
+<li>行内元素可以设置border，垂直方向border不会影响页面的布局</li>
+<li>行内元素可以设置margin，垂直方向的margin不会影响布局</li>
+<li>display用来设置显示的类型<ul>
+<li>inline    将元素设置为行内元素</li>
+<li>block     将元素设置为块元素</li>
+<li>inline-block    将元素设置为行内元素，行内块，既可以设置宽度和高度又不会独占一行</li>
+<li>table     将元素设置为一个表格</li>
+<li>none     元素不在页面中显示</li>
+</ul>
+</li>
+<li>visibility 用来设置元素的显示状态<ul>
+<li>visible 默认值，元素在页面中正常显示</li>
+<li>hidden   元素在页面中隐藏，不显示，但是依然占据页面的位置</li>
+</ul>
+</li>
+</ul>
+<h4 id="默认样式："><a href="#默认样式：" class="headerlink" title="默认样式："></a>默认样式：</h4><ul>
+<li>通常情况下，浏览器都会为元素设置一些默认样式</li>
+<li>默认样式的存在会影响到页面布局，通常情况下编写网页时必须要去除浏览器默认的样式。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/23/css/" data-id="ckwx382nb000a68vh2b28cpwy" data-title="css" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Python爬虫" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/22/Python%E7%88%AC%E8%99%AB/" class="article-date">
+  <time class="dt-published" datetime="2021-10-22T11:27:32.523Z" itemprop="datePublished">2021-10-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="title-Python爬虫"><a href="#title-Python爬虫" class="headerlink" title="title:Python爬虫"></a>title:Python爬虫</h2><p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211022185657101.png" alt="image-20211022185657101"></p>
+<h4 id="requsets库异常"><a href="#requsets库异常" class="headerlink" title="requsets库异常"></a>requsets库异常</h4><p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211022191328578.png" alt="image-20211022191328578"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/22/Python%E7%88%AC%E8%99%AB/" data-id="ckwx382n3000168vh2h7b92ph" data-title="" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-利用MapReduce从hdfs写入hbase" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/10/19/%E5%88%A9%E7%94%A8MapReduce%E4%BB%8Ehdfs%E5%86%99%E5%85%A5hbase/" class="article-date">
+  <time class="dt-published" datetime="2021-10-19T12:37:05.059Z" itemprop="datePublished">2021-10-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/10/19/%E5%88%A9%E7%94%A8MapReduce%E4%BB%8Ehdfs%E5%86%99%E5%85%A5hbase/">利用MapReduce从hdfs写入hbase</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h3 id="源数据"><a href="#源数据" class="headerlink" title="源数据"></a>源数据</h3><p>路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/student/input/student.txt</span><br></pre></td></tr></table></figure>
+
+<p>内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">95002,刘晨,女,19,IS</span><br><span class="line">95017,王风娟,女,18,IS</span><br><span class="line">95018,王一,女,19,IS</span><br><span class="line">95013,冯伟,男,21,CS</span><br><span class="line">95014,王小丽,女,19,CS</span><br><span class="line">95019,邢小丽,女,19,IS</span><br><span class="line">95020,赵钱,男,21,IS</span><br><span class="line">95003,王敏,女,22,MA</span><br><span class="line">95004,张立,男,19,IS</span><br><span class="line">95012,孙花,女,20,CS</span><br><span class="line">95010,孔小涛,男,19,CS</span><br><span class="line">95005,刘刚,男,18,MA</span><br><span class="line">95006,孙庆,男,23,CS</span><br><span class="line">95007,易思玲,女,19,MA</span><br><span class="line">95008,李娜,女,18,CS</span><br><span class="line">95021,周二,男,17,MA</span><br><span class="line">95022,郑明,男,20,MA</span><br><span class="line">95001,李勇,男,20,CS</span><br><span class="line">95011,包小柏,男,18,MA</span><br><span class="line">95009,梦圆圆,女,18,MA</span><br><span class="line">95015,王君,男,18,MA</span><br></pre></td></tr></table></figure>
+
+<p>java程序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hbase_hdfs_;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.conf.Configured;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.fs.Path;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.client.Put;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.hbase.mapreduce.TableReducer;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.LongWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.NullWritable;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.io.Text;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Job;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.Mapper;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.FileInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.mapreduce.lib.input.TextInputFormat;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.Tool;</span><br><span class="line"><span class="keyword">import</span> org.apache.hadoop.util.ToolRunner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HdfsToHbase</span> <span class="keyword">extends</span> <span class="title">Configured</span> <span class="keyword">implements</span> <span class="title">Tool</span></span>&#123;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ZK_CONNECT_KEY = <span class="string">&quot;hbase.zookeeper.quorum&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ZK_CONNECT_VALUE = <span class="string">&quot;hadoop01:2181,hadoop02:2181,hadoop03:2181&quot;</span>;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception</span></span><br><span class="line"><span class="function">	</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> isDone =ToolRunner.run(<span class="keyword">new</span> HdfsToHbase(), args);</span><br><span class="line">		System.exit(isDone);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">run</span><span class="params">(String[] arg0)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line"></span><br><span class="line">		Configuration conf = <span class="keyword">new</span> Configuration();</span><br><span class="line">		conf.set(ZK_CONNECT_KEY, ZK_CONNECT_VALUE);</span><br><span class="line">		conf.set(<span class="string">&quot;fs.defaultFS&quot;</span>, <span class="string">&quot;hdfs://hadoop01:9000&quot;</span>);</span><br><span class="line">		System.setProperty(<span class="string">&quot;HADOOP_USER_NAME&quot;</span>, <span class="string">&quot;root&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		Job job = Job.getInstance(conf,<span class="string">&quot;hdfstohbase&quot;</span>);</span><br><span class="line">		job.setJarByClass(HdfsToHbase.class);</span><br><span class="line">		job.setMapperClass(H2H_Mapper.class);</span><br><span class="line">		job.setMapOutputValueClass(NullWritable.class);</span><br><span class="line">		job.setMapOutputKeyClass(Text.class);</span><br><span class="line">		job.setInputFormatClass(TextInputFormat.class);</span><br><span class="line">		TableMapReduceUtil.initTableReducerJob(<span class="string">&quot;users&quot;</span>, H2H_Reducer.class, job, <span class="keyword">null</span>,<span class="keyword">null</span>, <span class="keyword">null</span>,<span class="keyword">null</span>,<span class="keyword">false</span>);</span><br><span class="line">		job.setOutputKeyClass(NullWritable.class);</span><br><span class="line">		job.setMapOutputValueClass(Put.class);</span><br><span class="line">		FileInputFormat.addInputPath(job, <span class="keyword">new</span> Path(<span class="string">&quot;/student/input&quot;</span>));</span><br><span class="line">		<span class="keyword">boolean</span> isDone = job.waitForCompletion(<span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">return</span> isDone?<span class="number">0</span>:<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">H2H_Mapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>,<span class="title">Text</span>,<span class="title">Text</span>,<span class="title">NullWritable</span>&gt;</span></span><br><span class="line"><span class="class">	</span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key,Text value,Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException</span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			context.write(value, NullWritable.get());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">H2H_Reducer</span> <span class="keyword">extends</span> <span class="title">TableReducer</span>&lt;<span class="title">Text</span>, <span class="title">NullWritable</span>, <span class="title">NullWritable</span>&gt;</span></span><br><span class="line"><span class="class">	</span>&#123;</span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span> <span class="params">(Text key,Iterable&lt;NullWritable&gt; values,Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException</span></span><br><span class="line"><span class="function">		</span>&#123;</span><br><span class="line">			String [] lines = key.toString().split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">			Put put = <span class="keyword">new</span> Put(lines[<span class="number">0</span>].getBytes());</span><br><span class="line">			put.addColumn(<span class="string">&quot;info&quot;</span>.getBytes(), <span class="string">&quot;name&quot;</span>.getBytes(), lines[<span class="number">1</span>].getBytes());</span><br><span class="line">			put.addColumn(<span class="string">&quot;info&quot;</span>.getBytes(), <span class="string">&quot;gender&quot;</span>.getBytes(), lines[<span class="number">2</span>].getBytes());</span><br><span class="line">			put.addColumn(<span class="string">&quot;info&quot;</span>.getBytes(), <span class="string">&quot;department&quot;</span>.getBytes(), lines[<span class="number">3</span>].getBytes());</span><br><span class="line">			context.write(NullWritable.get(), put);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="scan结果："><a href="#scan结果：" class="headerlink" title="scan结果："></a>scan结果：</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line">hbase:002:0&gt; scan &#x27;users&#x27;</span><br><span class="line">ROW                         COLUMN+CELL                                                                    </span><br><span class="line"> 95001                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=20                   </span><br><span class="line"> 95001                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95001                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95001                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE6\x9D\x8E\xE5\x8B</span><br><span class="line">                            \x87                                                                           </span><br><span class="line"> 95002                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95002                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=IS            </span><br><span class="line"> 95002                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95002                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\x88\x98\xE6\x99</span><br><span class="line">                            \xA8                                                                           </span><br><span class="line"> 95003                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=22                   </span><br><span class="line"> 95003                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95003                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95003                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE7\x8E\x8B\xE6\x95</span><br><span class="line">                            \x8F                                                                           </span><br><span class="line"> 95004                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95004                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=IS            </span><br><span class="line"> 95004                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95004                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\xBC\xA0\xE7\xAB</span><br><span class="line">                            \x8B                                                                           </span><br><span class="line"> 95005                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=18                   </span><br><span class="line"> 95005                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95005                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95005                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\x88\x98\xE5\x88</span><br><span class="line">                            \x9A                                                                           </span><br><span class="line"> 95006                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=23                   </span><br><span class="line"> 95006                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95006                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95006                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\xAD\x99\xE5\xBA</span><br><span class="line">                            \x86                                                                           </span><br><span class="line"> 95007                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95007                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95007                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95007                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE6\x98\x93\xE6\x80</span><br><span class="line">                            \x9D\xE7\x8E\xB2                                                               </span><br><span class="line"> 95008                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=18                   </span><br><span class="line"> 95008                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95008                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95008                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE6\x9D\x8E\xE5\xA8</span><br><span class="line">                            \x9C                                                                           </span><br><span class="line"> 95009                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=18                   </span><br><span class="line"> 95009                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95009                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95009                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE6\xA2\xA6\xE5\x9C</span><br><span class="line">                            \x86\xE5\x9C\x86                                                               </span><br><span class="line"> 95010                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95010                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95010                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95010                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\xAD\x94\xE5\xB0</span><br><span class="line">                            \x8F\xE6\xB6\x9B                                                               </span><br><span class="line"> 95011                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=18                   </span><br><span class="line"> 95011                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95011                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95011                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\x8C\x85\xE5\xB0</span><br><span class="line">                            \x8F\xE6\x9F\x8F                                                               </span><br><span class="line"> 95012                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=20                   </span><br><span class="line"> 95012                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95012                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95012                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\xAD\x99\xE8\x8A</span><br><span class="line">                            \xB1                                                                           </span><br><span class="line"> 95013                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=21                   </span><br><span class="line"> 95013                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95013                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95013                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\x86\xAF\xE4\xBC</span><br><span class="line">                            \x9F                                                                           </span><br><span class="line"> 95014                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95014                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=CS            </span><br><span class="line"> 95014                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95014                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE7\x8E\x8B\xE5\xB0</span><br><span class="line">                            \x8F\xE4\xB8\xBD                                                               </span><br><span class="line"> 95015                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=18                   </span><br><span class="line"> 95015                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95015                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95015                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE7\x8E\x8B\xE5\x90</span><br><span class="line">                            \x9B                                                                           </span><br><span class="line"> 95017                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=18                   </span><br><span class="line"> 95017                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=IS            </span><br><span class="line"> 95017                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95017                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE7\x8E\x8B\xE9\xA3</span><br><span class="line">                            \x8E\xE5\xA8\x9F                                                               </span><br><span class="line"> 95018                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95018                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=IS            </span><br><span class="line"> 95018                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95018                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE7\x8E\x8B\xE4\xB8</span><br><span class="line">                            \x80                                                                           </span><br><span class="line"> 95019                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=19                   </span><br><span class="line"> 95019                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=IS            </span><br><span class="line"> 95019                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE5\xA5\xB3      </span><br><span class="line"> 95019                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE9\x82\xA2\xE5\xB0</span><br><span class="line">                            \x8F\xE4\xB8\xBD                                                               </span><br><span class="line"> 95020                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=21                   </span><br><span class="line"> 95020                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=IS            </span><br><span class="line"> 95020                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95020                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE8\xB5\xB5\xE9\x92</span><br><span class="line">                            \xB1                                                                           </span><br><span class="line"> 95021                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=17                   </span><br><span class="line"> 95021                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95021                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95021                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE5\x91\xA8\xE4\xBA</span><br><span class="line">                            \x8C                                                                           </span><br><span class="line"> 95022                      column=info:age, timestamp=2021-10-19T18:17:14.637, value=20                   </span><br><span class="line"> 95022                      column=info:department, timestamp=2021-10-19T18:17:14.637, value=MA            </span><br><span class="line"> 95022                      column=info:gender, timestamp=2021-10-19T18:17:14.637, value=\xE7\x94\xB7      </span><br><span class="line"> 95022                      column=info:name, timestamp=2021-10-19T18:17:14.637, value=\xE9\x83\x91\xE6\x98</span><br><span class="line">                            \x8E                                                                           </span><br><span class="line">21 row(s)</span><br><span class="line">Took 0.8146 seconds                             </span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2021/10/19/%E5%88%A9%E7%94%A8MapReduce%E4%BB%8Ehdfs%E5%86%99%E5%85%A5hbase/" data-id="ckwx382nh000k68vhdn6c2b8i" data-title="利用MapReduce从hdfs写入hbase" class="article-share-link">Share</a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/10/">October 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/09/">September 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/11/30/JavaScript/">JavaScript</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/">TwitBase应用系统</a>
+          </li>
+        
+          <li>
+            <a href="/2021/11/01/zookeeper%E5%AE%89%E8%A3%85/">zookeeper安装</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/31/Hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/">Hadoop集群安装</a>
+          </li>
+        
+          <li>
+            <a href="/2021/10/31/centos8-%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85/">centos8 最小安装</a>
+          </li>
         
       </ul>
     </div>
   </div>
-</nav>
 
   
-  
-    <div class="header-content">
-      <div class="post-text layout-block layout-padding">
-        <h1 class="title-wrap">Hexo</h1>
+</aside>
         
       </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
     </div>
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-  
-</header>
-
-    <!-- 首页 -->
-
-<!-- post list container -->
-<div class="body-container">
-  <div class="content-container layout-block article-list">
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" itemprop="url">
-                <h2 class="card-text--title">TwitBase应用系统</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-11-04T12:57:35.734Z" itemprop="datePublished">2021-11-04</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/11/01/zookeeper%E5%AE%89%E8%A3%85/" itemprop="url">
-                <h2 class="card-text--title">zookeeper安装</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-11-01T01:39:56.111Z" itemprop="datePublished">2021-11-01</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/31/Hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" itemprop="url">
-                <h2 class="card-text--title">Hadoop集群安装</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-31T13:03:10.160Z" itemprop="datePublished">2021-10-31</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/31/centos8-%E6%9C%80%E5%B0%8F%E5%AE%89%E8%A3%85/" itemprop="url">
-                <h2 class="card-text--title">centos8 最小安装</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-31T08:33:18.849Z" itemprop="datePublished">2021-10-31</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/29/Hbase/" itemprop="url">
-                <h2 class="card-text--title">Hbase</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-29T04:16:33.774Z" itemprop="datePublished">2021-10-29</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/26/%E9%AB%98%E5%8F%AF%E7%94%A8Hadoop%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" itemprop="url">
-                <h2 class="card-text--title">高可用Hadoop集群搭建</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-26T09:02:29.891Z" itemprop="datePublished">2021-10-26</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/23/css/" itemprop="url">
-                <h2 class="card-text--title">css</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-23T03:36:31.429Z" itemprop="datePublished">2021-10-23</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/22/Python%E7%88%AC%E8%99%AB/" itemprop="url">
-                <h2 class="card-text--title">(no title)</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-22T11:27:32.523Z" itemprop="datePublished">2021-10-22</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/19/%E5%88%A9%E7%94%A8MapReduce%E4%BB%8Ehdfs%E5%86%99%E5%85%A5hbase/" itemprop="url">
-                <h2 class="card-text--title">利用MapReduce从hdfs写入hbase</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-19T12:37:05.059Z" itemprop="datePublished">2021-10-19</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-      <div class="article-item layout-padding">
-        <article class="card-container article-card content-padding--large soft-size--large soft-style--box">
-          
-
-          <div class="card-text">
-            
-              <a href="/2021/10/19/MapReduce-%E4%BB%A5hbase%E4%BD%9C%E4%B8%BA%E6%95%B0%E6%8D%AE%E6%BA%90/" itemprop="url">
-                <h2 class="card-text--title">MapReduce 以hbase作为数据源</h2>
-              </a>
-            
-            <div class="card-text--row">
-              <span>发布于</span>
-              <time  class="" datetime="2021-10-19T12:32:01.494Z" itemprop="datePublished">2021-10-19</time>
-            </div>
-            <ul class="wrap-list light">
-  
-</ul>
-            <ul class="wrap-list light">
-  
-</ul>
-          </div>
-        </article>
-      </div>
-    
-  </div>
-</div>
-
-<!-- page container -->
-
-  <nav class="page-container">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">ɞ</a>
-  </nav>
-
-
-
-    <!-- footer container -->
-<footer id="footer" class="footer">
-  <div class="footer-container">
-    
-    <div class="social-icons">
-      
-        
-      
-        
-      
-        
-      
-        
-          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
-            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
-</svg>
-          </a>
-        
-      
-        
-      
-    </div>
-     
-    <p>&copy; 2021 <a href="/" target="_blank">John Doe</a></p>
-
-    
-
-    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
-
-    <p>
-      <a href="javascript:;" id="theme-light">🌞 浅色</a>
-      <a href="javascript:;" id="theme-dark">🌛 深色</a>
-      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
-    </p>
   </div>
 </footer>
-  </div>
 
-  <div class="back-to-top-fixed soft-size--round soft-style--box">
-    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-      <path d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z"></path>
-      <path d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z"></path>
-      <path d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z"></path>
-    </svg>
-  </div>
-
+    </div>
+    <nav id="mobile-nav">
   
-  <!-- aplayer -->
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
 
 
-<!-- dplayer -->
-
+<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-
-
-  
-
-
-  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
@@ -434,7 +1343,9 @@
 <script src="/js/script.js"></script>
 
 
-  
-  <!-- 尾部用户自定义相关内容 -->
+
+
+
+  </div>
 </body>
 </html>
