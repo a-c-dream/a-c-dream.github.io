@@ -22,7 +22,7 @@
 
   
 
-  <title>二分 | Hexo</title>
+  <title>机器学习 | Hexo</title>
 
   
 
@@ -96,11 +96,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">二分</h1>
+          <h1 class="title-wrap">机器学习</h1>
           <h2 class="title-sub-wrap">
             <strong>John Doe</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-25T00:41:48.969Z" itemprop="datePublished">2021-09-25</time>
+            <time  class="article-date" datetime="2022-01-06T13:28:01.211Z" itemprop="datePublished">2022-01-06</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -129,11 +129,9 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="comment">/* ... */</span>&#125; <span class="comment">// 检查x是否满足某种性质</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch_1</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (l &lt; r)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = l + r &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; &quot;bsearch_1:&quot; &lt;&lt; l &lt;&lt; &#x27;,&#x27; &lt;&lt; r &lt;&lt; &#x27;\t&#x27; &lt;&lt; &quot;mid=&quot; &lt;&lt; mid &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">if</span> (a[mid]&gt;=x)<span class="comment">//if(check(mid)) 这里应该写check函数判断 </span></span><br><span class="line">			r = mid;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			l = mid + <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> x)</span> </span>&#123;<span class="comment">/* ... */</span>&#125; <span class="comment">// 检查x是否满足某种性质</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bsearch_2</span><span class="params">(<span class="keyword">int</span> l, <span class="keyword">int</span> r)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span> (l &lt; r)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> mid = l + r + <span class="number">1</span> &gt;&gt; <span class="number">1</span>;</span><br><span class="line">		<span class="comment">//cout &lt;&lt; &quot;bsearch_2:&quot; &lt;&lt; l &lt;&lt; &#x27;,&#x27; &lt;&lt; r &lt;&lt; &#x27;\t&#x27; &lt;&lt; &quot;mid=&quot; &lt;&lt; mid &lt;&lt; endl;</span></span><br><span class="line">		<span class="keyword">if</span> (a[mid] &lt;= x)<span class="comment">//if(check(mid)) 这里应该写check函数判断</span></span><br><span class="line">            l = mid;</span><br><span class="line">		<span class="keyword">else</span> </span><br><span class="line">            r = mid - <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> l;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>两种算法的不同之处在于,当a[mid]==x时，第一种算法会将左端点右移，第二种算法则会将右端点左移，最终都会返回左端点。所以当有多个目标值是第一种会返回索引最小的（最左端的），第二种会返回索引最大的（最右端的）。目标值唯一时，两种算法均可。</p>
+        <h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20220106144434610.png" alt="image-20220106144434610"></p>
+<h3 id="监督学习"><a href="#监督学习" class="headerlink" title="监督学习"></a>监督学习</h3><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><p>监督学习的任务是学习一个模型，使模型能够对任意给定的输入，对其相应的输出做出一个好的预测</p>
+<h3 id="支持向量机"><a href="#支持向量机" class="headerlink" title="支持向量机"></a>支持向量机</h3><p>支持无限大的特征列表</p>
 
       </section>
 
@@ -141,28 +139,14 @@
       
         <nav class="article-nav">
           
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2021/09/28/lowbit/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">lowbit</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
     <div class="card-text">
       
-        <a href="/2021/09/25/%E6%8E%92%E5%BA%8F/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">排序</h2>
+        <a href="/2021/11/30/JavaScript/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">JavaScript</h2>
         </a>
       
       <div class="card-text--row">Older</div>
