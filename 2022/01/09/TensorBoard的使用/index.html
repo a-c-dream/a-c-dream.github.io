@@ -22,7 +22,7 @@
 
   
 
-  <title>Hexo</title>
+  <title>TensorBoard的使用 | Hexo</title>
 
   
 
@@ -96,11 +96,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap"></h1>
+          <h1 class="title-wrap">TensorBoard的使用</h1>
           <h2 class="title-sub-wrap">
             <strong>John Doe</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-06T22:25:27.428Z" itemprop="datePublished">2021-09-07</time>
+            <time  class="article-date" datetime="2022-01-09T03:53:31.109Z" itemprop="datePublished">2022-01-09</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -129,9 +129,20 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>nmcli n off &amp;&amp; nmcli n on </p>
-<p>/etc/sysconfig/network-scripts</p>
-<p>IP、关闭防火墙</p>
+        <h2 id="安装TensorBoard"><a href="#安装TensorBoard" class="headerlink" title="安装TensorBoard"></a>安装TensorBoard</h2><p>在命令行输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install tensorboard</span><br></pre></td></tr></table></figure>
+
+<p>或者在pycharm中安装</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20220109113629689.png" alt="image-20220109113629689"></p>
+<h2 id="TensorBoard使用"><a href="#TensorBoard使用" class="headerlink" title="TensorBoard使用"></a>TensorBoard使用</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> torch.utils.tensorboard <span class="keyword">import</span> SummaryWriter</span><br><span class="line">writer = SummaryWriter(<span class="string">&#x27;logs&#x27;</span>)</span><br><span class="line"><span class="comment"># writer.add_image()</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">100</span>):</span><br><span class="line">    writer.add_scalar(<span class="string">&#x27;y=x&#x27;</span>,i,i)</span><br></pre></td></tr></table></figure>
+
+<p>运行后会多一个log文件夹（没有的话刷新一下）</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20220109114008883.png" alt="image-20220109114008883"></p>
+<p>在命令行输入</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">tensorboard --logdir=logs</span><br><span class="line"><span class="meta">#</span><span class="bash">tensorboard --logdir=logs --port=6007</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以通过--port选项选择端口</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20220109114712282.png" alt="image-20220109114712282"></p>
+<p>点击链接就可以进入了</p>
 
       </section>
 
@@ -144,8 +155,8 @@
     
     <div class="card-text">
       
-        <a href="/2021/09/07/%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">(no title)</h2>
+        <a href="/2022/01/11/yolov5/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">yolov5环境配置</h2>
         </a>
       
       <div class="card-text--row">Newer</div>
@@ -159,8 +170,8 @@
     
     <div class="card-text">
       
-        <a href="/2021/09/05/test/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">test</h2>
+        <a href="/2022/01/08/pycharm%E4%BD%BF%E7%94%A8pytorch/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">pycharm使用pytorch</h2>
         </a>
       
       <div class="card-text--row">Older</div>
