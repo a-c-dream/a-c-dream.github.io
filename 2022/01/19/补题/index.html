@@ -26,7 +26,7 @@
 
   
 
-  <title>a-c-dream</title>
+  <title>第九届“图灵杯”NEUQ-ACM程序设计竞赛个人赛补题 | a-c-dream</title>
 
   
 
@@ -100,11 +100,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap"></h1>
+          <h1 class="title-wrap">第九届“图灵杯”NEUQ-ACM程序设计竞赛个人赛补题</h1>
           <h2 class="title-sub-wrap">
             <strong>John Doe</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-06T22:25:27.428Z" itemprop="datePublished">2021-09-07</time>
+            <time  class="article-date" datetime="2022-01-19T03:17:44.187Z" itemprop="datePublished">2022-01-19</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -132,9 +132,12 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>nmcli n off &amp;&amp; nmcli n on </p>
-<p>/etc/sysconfig/network-scripts</p>
-<p>IP、关闭防火墙</p>
+        <h2 id="F-第二大数"><a href="#F-第二大数" class="headerlink" title="F 第二大数"></a>F 第二大数</h2><p>要求的其实是下图标注的部分，其中aij序列元素从下标i到j中第二大的数也就是题目中的<strong>X</strong></p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20220119091348685.png" alt="image-20220119091348685"></p>
+<p>因为只要求第二大的数，所以只需先求出最大的数max1和第二大的数max2，然后根据下一个数的大小更新max1和max2即可。</p>
+<p>注意要开 long long</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> N = <span class="number">1e4</span> + <span class="number">9</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">int</span> a[N];</span><br><span class="line">ll ans;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    cin &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n;i++)</span><br><span class="line">        cin &gt;&gt; a[i];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> ma1 = <span class="built_in">max</span>(a[i], a[i + <span class="number">1</span>]);</span><br><span class="line">        <span class="keyword">int</span> ma2 = <span class="built_in">min</span>(a[i], a[i + <span class="number">1</span>]);</span><br><span class="line">        ans += ma2;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i+<span class="number">2</span>; j &lt; n;j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(a[j]&gt;ma1)</span><br><span class="line">            &#123;</span><br><span class="line">                ma2 = ma1;</span><br><span class="line">                ma1 = a[j];</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(a[j]&gt;ma2&amp;&amp;a[j]&lt;ma1)</span><br><span class="line">                ma2 = a[j];</span><br><span class="line">            ans += ma2;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; ans &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       </section>
 
@@ -147,8 +150,8 @@
     
     <div class="card-text">
       
-        <a href="/2021/09/07/%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">(no title)</h2>
+        <a href="/2022/02/23/Android-Studio%E5%AE%89%E8%A3%85/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Android Studio安装</h2>
         </a>
       
       <div class="card-text--row">Newer</div>
@@ -162,8 +165,8 @@
     
     <div class="card-text">
       
-        <a href="/2021/09/05/test/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">test</h2>
+        <a href="/2022/01/17/AI-Studio-%E5%AF%BC%E5%87%BA%E6%95%B0%E6%8D%AE%E9%9B%86/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">AI Studio 导出数据集</h2>
         </a>
       
       <div class="card-text--row">Older</div>
