@@ -26,7 +26,7 @@
 
   
 
-  <title>JavaScript | a-c-dream</title>
+  <title>杂记 | a-c-dream</title>
 
   
 
@@ -100,11 +100,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">JavaScript</h1>
+          <h1 class="title-wrap">杂记</h1>
           <h2 class="title-sub-wrap">
             <strong>John Doe</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-11-30T12:59:32.983Z" itemprop="datePublished">2021-11-30</time>
+            <time  class="article-date" datetime="2022-04-05T05:57:34.912Z" itemprop="datePublished">2022-04-05</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -132,81 +132,13 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <h2 id="浏览器的两部分"><a href="#浏览器的两部分" class="headerlink" title="浏览器的两部分"></a>浏览器的两部分</h2><ul>
-<li>渲染引擎：用来解析HTML和CSS，俗称内核</li>
-<li>JS引擎：也称为JS解释器，用来读取网页中的javaScript代码，其后处理运行</li>
-</ul>
-<h2 id="js的三种书写位置"><a href="#js的三种书写位置" class="headerlink" title="js的三种书写位置"></a>js的三种书写位置</h2><ul>
-<li><p>行内式</p>
-<ul>
-<li><p>example：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> <span class="attr">value</span>=<span class="string">&quot;点我&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;alert(&#x27;哈哈&#x27;)&quot;</span>&gt;</span></span></span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>内嵌式</p>
-<ul>
-<li><p>example:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">        alert(<span class="string">&#x27;hh&#x27;</span>)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>外部js</p>
-<ul>
-<li><p>写在.js文件中，在head中使用&lt;script&gt;标签引入</p>
-<p>example:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;./js/t.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ul>
-<h2 id="注释："><a href="#注释：" class="headerlink" title="注释："></a>注释：</h2><p>​    和c语言一样</p>
-<ul>
-<li><p>​    单行注释</p>
-<p>//</p>
-</li>
-<li><p>多行注释</p>
-<p>/**/</p>
-</li>
-</ul>
-<h2 id="输入输出语句："><a href="#输入输出语句：" class="headerlink" title="输入输出语句："></a>输入输出语句：</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th>说明</th>
-<th>归属</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>alert(msg)</td>
-<td>浏览器弹出警示框</td>
-<td>浏览器</td>
-</tr>
-<tr>
-<td>console.log(msg)</td>
-<td>浏览器控制台打印输出信息</td>
-<td>浏览器</td>
-</tr>
-<tr>
-<td>prompt(info)</td>
-<td>浏览器弹出输入框，用户可以输入</td>
-<td>浏览器</td>
-</tr>
-</tbody></table>
-<p>example:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">prompt(<span class="string">&#x27;请输入内容&#x27;</span>);</span><br><span class="line">alert(<span class="string">&#x27;提示信息&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&#x27;控制台输出&#x27;</span>)</span><br></pre></td></tr></table></figure>
+        <h2 id="printf输出"><a href="#printf输出" class="headerlink" title="printf输出%"></a>printf输出%</h2><p>输入两个%</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;%%&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<h2 id="变量："><a href="#变量：" class="headerlink" title="变量："></a>变量：</h2><p>使用var声明</p>
-<p>example：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 变量声明</span></span><br><span class="line"><span class="keyword">var</span> age;</span><br><span class="line"><span class="comment">// 变量赋值</span></span><br><span class="line">age = <span class="number">18</span>;</span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="built_in">console</span>.log(age);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>变量的声明和赋值也可以写在一行，称为变量的初始化</p>
-<p>example：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 变量初始化</span></span><br><span class="line"><span class="keyword">var</span> st = <span class="string">&#x27;hh&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>接收用户输入：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将输入存入变量</span></span><br><span class="line"><span class="keyword">var</span> myname = prompt(<span class="string">&#x27;请输入姓名&#x27;</span>);</span><br><span class="line"><span class="comment">// 输出刚刚的输入</span></span><br><span class="line">alert(myname);</span><br></pre></td></tr></table></figure>
-
-<p><strong>声明的变量在未赋值时为undefined</strong></p>
-<p><strong>变量也可以不声明直接赋值，但未赋值前不能使用</strong></p>
-<p><strong>变量的数据类型随着被赋值的不同而改变（变量没有固定的数据类型）</strong></p>
+<h2 id="string-lt-gt-int"><a href="#string-lt-gt-int" class="headerlink" title="string &lt;==&gt; int"></a>string &lt;==&gt; int</h2><p>string==&gt;int</p>
+<p>stoi(s)(蓝桥杯不能用)</p>
+<p>int==&gt;string </p>
+<p>to_string()</p>
 
       </section>
 
@@ -219,8 +151,8 @@
     
     <div class="card-text">
       
-        <a href="/2022/01/06/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">机器学习</h2>
+        <a href="/2022/04/11/Android-%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%B8%89%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Android 点击事件的三种实现方法</h2>
         </a>
       
       <div class="card-text--row">Newer</div>
@@ -234,8 +166,8 @@
     
     <div class="card-text">
       
-        <a href="/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">TwitBase应用系统</h2>
+        <a href="/2022/03/30/Android%E5%9F%BA%E7%A1%80/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Android基础</h2>
         </a>
       
       <div class="card-text--row">Older</div>
