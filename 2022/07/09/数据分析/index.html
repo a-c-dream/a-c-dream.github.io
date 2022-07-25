@@ -26,7 +26,7 @@
 
   
 
-  <title>zookeeper安装 | a-c-dream</title>
+  <title>数据分析 | a-c-dream</title>
 
   
 
@@ -100,11 +100,11 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap">zookeeper安装</h1>
+          <h1 class="title-wrap">数据分析</h1>
           <h2 class="title-sub-wrap">
             <strong>John Doe</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-11-01T01:39:56.111Z" itemprop="datePublished">2021-11-01</time>
+            <time  class="article-date" datetime="2022-07-09T00:24:22.859Z" itemprop="datePublished">2022-07-09</time>
           </h2>
           <ul class="wrap-list dark">
   
@@ -132,41 +132,86 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <ol>
-<li><p>上传安装包</p>
-<p>rz</p>
-</li>
-<li><p>解压</p>
-<p>tar -zxvf  apache-zookeeper-3.6.3-bin.tar.gz</p>
-</li>
-<li><p>配置环境变量</p>
-<p>vim /etc/profile</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export ZOOKEEPER_HOME=/root/export/servers/apache-zookeeper-3.6.3-bin</span><br><span class="line">export PATH=$PATH:$ZOOKEEPER_HOME/bin</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
-<li><p>使环境变量生效</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></li>
-<li><p>修改配置文件</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd export/servers/apache-zookeeper-3.6.3-bin/conf/</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+        <h2 id="ipython和jupyter-常用操作"><a href="#ipython和jupyter-常用操作" class="headerlink" title="ipython和jupyter 常用操作"></a>ipython和jupyter 常用操作</h2><h3 id="？"><a href="#？" class="headerlink" title="？"></a>？</h3><pre><code>    在变量前后使用问号？，可以显示对象的信息
+    这可以作为对象的自省。如果对象是一个函数或实例方法，定义过的文档字符串，也会显示出信息。
+</code></pre>
+<h3 id=""><a href="#" class="headerlink" title="??"></a>??</h3><pre><code>使用??会显示函数的源码
+</code></pre>
+<h3 id="run命令"><a href="#run命令" class="headerlink" title="%run命令"></a>%run命令</h3><pre><code>你可以用%run命令运行所有的Python程序
+</code></pre>
+<h3 id="ipython中常用快捷键"><a href="#ipython中常用快捷键" class="headerlink" title="ipython中常用快捷键"></a>ipython中常用快捷键</h3><p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/blogs/pictures/20220709083120.png" alt="20220709083120"></p>
+<h3 id="魔术命令"><a href="#魔术命令" class="headerlink" title="魔术命令"></a>魔术命令</h3><p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/blogs/pictures/20220709085632.png" alt="20220709085632"></p>
+<h2 id="numpy"><a href="#numpy" class="headerlink" title="numpy"></a>numpy</h2><p>ndarray是一个通用的同构数据多维容器,每个数组都有一个shape（一个表示各维度大小的元组）和一个dtype（一个用于说明数组数据类型的对象）</p>
+<h3 id="创建ndarray"><a href="#创建ndarray" class="headerlink" title="创建ndarray"></a>创建ndarray</h3><p>创建数组最简单的办法就是使用array函数。它接受一切序列型的对象（包括其他数组），然后产<br>生一个新的含有传入数据的NumPy数组。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">19</span>]: data1 = [<span class="number">6</span>, <span class="number">7.5</span>, <span class="number">8</span>, <span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line">In [<span class="number">20</span>]: arr1 = np.array(data1)</span><br><span class="line">In [<span class="number">21</span>]: arr1</span><br><span class="line">Out[<span class="number">21</span>]: array([ <span class="number">6.</span> , <span class="number">7.5</span>, <span class="number">8.</span> , <span class="number">0.</span> , <span class="number">1.</span> ])</span><br></pre></td></tr></table></figure>
+<p>嵌套序列（比如由一组等长列表组成的列表）将会被转换为一个多维数组：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">22</span>]: data2 = [[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>], [<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]]</span><br><span class="line">In [<span class="number">23</span>]: arr2 = np.array(data2)</span><br><span class="line">In [<span class="number">24</span>]: arr2</span><br><span class="line">Out[<span class="number">24</span>]:</span><br><span class="line">array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>],</span><br><span class="line"><span class="number">86</span></span><br><span class="line">[<span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/blogs/pictures/20220711100158.png" alt="20220711100158"></p>
+<h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>astype方法明确地将一个数组从一个dtype转换成另一个dtype</p>
+<p><strong>注：如果将浮点数转换成整数，则小数部分将会被截取删除</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">37</span>]: arr = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])</span><br><span class="line">In [<span class="number">38</span>]: arr.dtype</span><br><span class="line">Out[<span class="number">38</span>]: dtype(<span class="string">&#x27;int64&#x27;</span>)</span><br><span class="line">In [<span class="number">39</span>]: float_arr = arr.astype(np.float64)</span><br><span class="line">In [<span class="number">40</span>]: float_arr.dtype</span><br><span class="line">Out[<span class="number">40</span>]: dtype(<span class="string">&#x27;float64&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>如果某字符串数组表示的全是数字，也可以用astype将其转换为数值形式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">44</span>]: numeric_strings = np.array([<span class="string">&#x27;1.25&#x27;</span>, <span class="string">&#x27;-9.6&#x27;</span>, <span class="string">&#x27;42&#x27;</span>], dtype=np.string_)</span><br><span class="line">In [<span class="number">45</span>]: numeric_strings.astype(<span class="built_in">float</span>)</span><br><span class="line">Out[<span class="number">45</span>]: array([ <span class="number">1.25</span>, -<span class="number">9.6</span> , <span class="number">42.</span> ])</span><br></pre></td></tr></table></figure>
+<h2 id="NumPy数组的运算"><a href="#NumPy数组的运算" class="headerlink" title="NumPy数组的运算"></a>NumPy数组的运算</h2><table>
+<thead>
+<tr>
+<th>符号</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td align="center">按元素相加</td>
+</tr>
+<tr>
+<td>-</td>
+<td align="center">按元素相减</td>
+</tr>
+<tr>
+<td>*</td>
+<td align="center">按元素相乘</td>
+</tr>
+<tr>
+<td>/</td>
+<td align="center">按元素相除</td>
+</tr>
+<tr>
+<td>**</td>
+<td align="center">按元素乘方</td>
+</tr>
+</tbody></table>
+<h2 id="基本的索引和切片"><a href="#基本的索引和切片" class="headerlink" title="基本的索引和切片"></a>基本的索引和切片</h2><p>基本与python相同</p>
+<p><strong>注意：如果你想要得到的是ndarray切片的一份副本而非视图，就需要明确地进行复制操作，<br>例如 arr[5:8].copy() 。</strong></p>
+<h2 id="pandas"><a href="#pandas" class="headerlink" title="pandas"></a>pandas</h2><h3 id="Series"><a href="#Series" class="headerlink" title="Series"></a>Series</h3><p>Series是一种类似于一维数组的对象，它由一组数据（各种NumPy数据类型）以及一组与之相关<br>的数据标签（即索引）组成。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">In [<span class="number">11</span>]: obj = pd.Series([<span class="number">4</span>, <span class="number">7</span>, -<span class="number">5</span>, <span class="number">3</span>])</span><br><span class="line">In [<span class="number">12</span>]: obj</span><br><span class="line">Out[<span class="number">12</span>]:</span><br><span class="line"><span class="number">0</span> <span class="number">4</span></span><br><span class="line"><span class="number">1</span> <span class="number">7</span></span><br><span class="line"><span class="number">2</span> -<span class="number">5</span></span><br><span class="line"><span class="number">3</span> <span class="number">3</span></span><br><span class="line">dtype: int64</span><br></pre></td></tr></table></figure>
+<p>Series的字符串表现形式为：索引在左边，值在右边。索引默认为0-n-1，可以通过 <strong>index=</strong> 指定</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">In [<span class="number">13</span>]: obj.values</span><br><span class="line">Out[<span class="number">13</span>]: array([ <span class="number">4</span>, <span class="number">7</span>, -<span class="number">5</span>, <span class="number">3</span>])</span><br><span class="line">In [<span class="number">14</span>]: obj.index <span class="comment"># like range(4)</span></span><br><span class="line">Out[<span class="number">14</span>]: RangeIndex(start=<span class="number">0</span>, stop=<span class="number">4</span>, step=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<pre><code>.values获得值
 
-<p>增加以下内容<br><strong>注意：主机名要改成自己的</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">server.1=node-01:2888:3888</span><br><span class="line">server.2=node-02:2888:3888</span><br><span class="line">server.3=node-03:2888:3888</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+.index获得索引
 
-<p>文件夹后面会创建</p>
-<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20211101093040104.png" alt="image-20211101093040104"></p>
-</li>
-<li><p>同步到其他节点并source</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">scp -r export/servers/apache-zookeeper-3.6.3-bin/ node-02:/root/export/servers/</span><br><span class="line">scp -r export/servers/apache-zookeeper-3.6.3-bin/ node-03:/root/export/servers/</span><br><span class="line">scp /etc/profile node-02:/etc/</span><br><span class="line">scp /etc/profile node-03:/etc/</span><br></pre></td></tr></table></figure></li>
-<li><p>创建data目录和myid</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@node-02 apache-zookeeper-3.6.3-bin]# mkdir data</span><br><span class="line">[root@node-02 apache-zookeeper-3.6.3-bin]# cd data/</span><br><span class="line">[root@node-02 data]# vim myid</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+使用NumPy函数或类似NumPy的运算（如根据布尔型数组进行过滤、标量乘法、应用数学函数
+等）都会保留索引值的链接
 
-<p>node-01 的myid文件内容为1</p>
-<p>node-02 的myid文件内容为2</p>
-<p>node-03 的myid文件内容为3</p>
-</li>
-<li><p>时间同步</p>
-</li>
-<li><p>启动zk</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zkServer.sh start #三台都需要执行</span><br><span class="line">zkServer.sh status #查看状态</span><br></pre></td></tr></table></figure></li>
-</ol>
+还可以将Series看成是一个定长的有序字典，因为它是索引值到数据值的一个映射。它可以用在许
+多原本需要字典参数的函数中
+如果数据被存放在一个Python字典中，也可以直接通过这个字典来创建Series
+如果只传入一个字典，则结果Series中的索引就是原字典的键（有序排列）。你可以传入排好序的字典的键以改变顺序
+pandas的isnull和notnull函数可用于检测缺失数据
+Series对象本身及其索引都有一个name属性，该属性跟pandas其他的关键功能关系非常密切
+Series的索引可以通过赋值的方式就地修改
+    obj.index = []
+</code></pre>
+<h2 id="DataFrame"><a href="#DataFrame" class="headerlink" title="DataFrame"></a>DataFrame</h2><p>DataFrame是一个表格型的数据结构，它含有一组有序的列，每列可以是不同的值类型（数值、字<br>符串、布尔值等）。DataFrame既有行索引也有列索引，它可以被看做由Series组成的字典（共用<br>同一个索引）。DataFrame中的数据是以一个或多个二维块存放的（而不是列表、字典或别的一维<br>数据结构）。有关DataFrame内部的技术细节远远超出了本书所讨论的范围。</p>
+<pre><code>对于特别大的DataFrame，head方法会选取前五行
+    frame.head()
+获取一列
+    frame[&#39;col_name&#39;]或frame.col_name
+获取一行
+    frame.loc[&#39;name&#39;]
+如果嵌套字典传给DataFrame，pandas就会被解释为：外层字典的键作为列，内层键则作为行索引
+与python的集合不同，pandas的Index可以包含重复的标签
+</code></pre>
 
       </section>
 
@@ -174,28 +219,14 @@
       
         <nav class="article-nav">
           
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2021/11/04/TwitBase%E5%BA%94%E7%94%A8%E7%B3%BB%E7%BB%9F/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">TwitBase应用系统</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
     <div class="card-text">
       
-        <a href="/2021/10/31/Hadoop%E9%9B%86%E7%BE%A4%E5%AE%89%E8%A3%85/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">Hadoop集群安装</h2>
+        <a href="/2022/05/16/%E6%9D%BF%E5%AD%90/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">板子</h2>
         </a>
       
       <div class="card-text--row">Older</div>
