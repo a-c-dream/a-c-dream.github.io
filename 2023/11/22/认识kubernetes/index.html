@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          认识kubernetes | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">认识kubernetes</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2023-11-22T08:46:42.863Z" itemprop="datePublished">2023-11-22</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/k8s/">📒 k8s</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="什么是kubernetes"><a href="#什么是kubernetes" class="headerlink" title="什么是kubernetes"></a>什么是kubernetes</h1><p>Kubernetes 是一个可移植、可扩展的开源平台，用于管理容器化的工作负载和服务，可促进声明式配置和自动化。 Kubernetes 拥有一个庞大且快速增长的生态，其服务、支持和工具的使用范围相当广泛。</p>
+<p><strong>Kubernetes</strong> 这个名字源于希腊语，意为“舵手”或“飞行员”。k8s 这个缩写是因为 k 和 s 之间有八个字符的关系。 Google 在 2014 年开源了 Kubernetes 项目。 Kubernetes 建立在 <a target="_blank" rel="noopener" href="https://research.google/pubs/pub43438">Google 大规模运行生产工作负载十几年经验</a>的基础上， 结合了社区中最优秀的想法和实践。</p>
+<h1 id="为什么要用kubernetes"><a href="#为什么要用kubernetes" class="headerlink" title="为什么要用kubernetes"></a>为什么要用kubernetes</h1><p><img src="https://kubernetes.io/zh-cn/docs/images/Container_Evolution.svg" alt="部署演进"></p>
+<h2 id="传统部署："><a href="#传统部署：" class="headerlink" title="传统部署："></a>传统部署：</h2><p>缺点：</p>
+<ul>
+<li>隔离性差</li>
+<li>不能负载均衡</li>
+</ul>
+<h2 id="虚拟化部署："><a href="#虚拟化部署：" class="headerlink" title="虚拟化部署："></a>虚拟化部署：</h2><p>解决了隔离性差的问题，但是虚拟机会消耗大量的资源。</p>
+<p>缺点：</p>
+<ul>
+<li>不能负载均衡</li>
+<li>虚拟机消耗资源多</li>
+</ul>
+<h2 id="容器部署："><a href="#容器部署：" class="headerlink" title="容器部署："></a>容器部署：</h2><p>解决了上面的问题，即保证了隔离性和负载均衡，又不会消耗大量资源。</p>
+<h1 id="kubernetes特点"><a href="#kubernetes特点" class="headerlink" title="kubernetes特点"></a>kubernetes特点</h1><ul>
+<li>自我修复</li>
+<li>弹性伸缩</li>
+<li>自动部署和回滚</li>
+<li>服务发现和负载均衡</li>
+<li>机密和配置管理</li>
+<li>存储编排</li>
+<li>批处理</li>
+</ul>
+<h1 id="集群架构与组件"><a href="#集群架构与组件" class="headerlink" title="集群架构与组件"></a>集群架构与组件</h1><p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231122193719046.png" alt="image-20231122193719046"></p>
+<h1 id="有状态服务和无状态服务"><a href="#有状态服务和无状态服务" class="headerlink" title="有状态服务和无状态服务"></a>有状态服务和无状态服务</h1><h2 id="有状态服务"><a href="#有状态服务" class="headerlink" title="有状态服务"></a>有状态服务</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>会对运行环境产生依赖，比如会将文件存到本地硬盘等</p>
+<h3 id="代表应用"><a href="#代表应用" class="headerlink" title="代表应用"></a>代表应用</h3><p>mysql、redis等</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>可以独立存储数据，实现数据管理</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p>集群环境下需要实现主从、数据同步、备份、水平扩容等</p>
+<h2 id="无状态服务"><a href="#无状态服务" class="headerlink" title="无状态服务"></a>无状态服务</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><p>不会对运行环境产生依赖，比如不会将文件存到本地硬盘等</p>
+<h3 id="代表应用-1"><a href="#代表应用-1" class="headerlink" title="代表应用"></a>代表应用</h3><p>nginx、apache等</p>
+<h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><p>对客户端透明，无依赖关系、可以高效实现扩容、迁移</p>
+<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3><p>不能存储数据，需要额外的数据服务支撑</p>
+<h1 id="对象的规约和状态"><a href="#对象的规约和状态" class="headerlink" title="对象的规约和状态"></a>对象的规约和状态</h1><p><strong>规约</strong>是指用户期望的状态</p>
+<p><strong>状态</strong>是实际的状态</p>
+<h1 id="资源的分类"><a href="#资源的分类" class="headerlink" title="资源的分类"></a>资源的分类</h1><ul>
+<li><p>集群级别的资源</p>
+<ul>
+<li>Namespace</li>
+<li>Node</li>
+<li>ClusterRole</li>
+<li>CulsterRoleBinding</li>
+</ul>
+</li>
+<li><p>命名空间级别的资源</p>
+<ul>
+<li><p>Pod</p>
+<p><strong>Pod</strong> 是可以在 Kubernetes 中创建和管理的、最小的可部署的计算单元。</p>
+<p><strong>Pod</strong>（就像在鲸鱼荚或者豌豆荚中）是一组（一个或多个） <a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/concepts/overview/what-is-kubernetes/#why-containers">容器</a>； 这些容器共享存储、网络、以及怎样运行这些容器的声明。 Pod 中的内容总是并置（colocated）的并且一同调度，在共享的上下文中运行。 Pod 所建模的是特定于应用的 “逻辑主机”，其中包含一个或多个应用容器， 这些容器相对紧密地耦合在一起。</p>
+</li>
+<li><p>RC、RS和Deployment（适用于无状态服务）</p>
+<ul>
+<li>Replication Controller 简称 RC，RC 是 Kubernetes 系统中的核心概念之一，简单来说，RC 可以保证在任意时间运行 Pod 的副本数量，能够保证 Pod 总是可用的。</li>
+<li>ReplicaSet(RS) 跟 RC 没有本质的不同，只是名字不一样，并且 RS 支持集合式的 selector。</li>
+<li>Deployment 为 Pod 和 Replica Set 提供声明式更新。</li>
+</ul>
+</li>
+<li><p>StatefulSet（适用于有状态服务）</p>
+<ul>
+<li>稳定的持久化存储</li>
+<li>稳定的网络标志</li>
+<li>有序部署，有序扩展</li>
+<li>有序收缩，有序删除</li>
+</ul>
+</li>
+<li><p>DaemonSet（守护进程）</p>
+<p>DaemonSet 保证在每个 Node 上都运行一个容器副本，常用来部署一些集群的日志、监控或者其他系统管理应用。典型的应用包括：</p>
+<p>日志收集，比如 fluentd，logstash 等</p>
+<p>系统监控，比如 Prometheus Node Exporter，collectd，New Relic agent，Ganglia gmond 等</p>
+<p>系统程序，比如 kube-proxy, kube-dns, glusterd, ceph 等</p>
+</li>
+<li><p>Service</p>
+<p>“Service” 简写 “svc”。Pod 不能直接提供给外网访问，而是应该使用 service。Service 就是把 Pod 暴露出来提供服务，Service 才是真正的“服务”</p>
+</li>
+<li><p>Ingress</p>
+<p>Ingress 可以提供外网访问 Service 的能力。可以把某个请求地址映射、路由到特定的 service。</p>
+<p>ingress 需要配合 ingress controller 一起使用才能发挥作用，ingress 只是相当于路由规则的集合而已，真正实现路由功能的，是 Ingress Controller，ingress controller 和其它 k8s 组件一样，也是在 Pod 中运行。</p>
+</li>
+</ul>
+</li>
+<li><p>元数据级别的资源</p>
+<ul>
+<li>Horizontal Pod Autoscaler(HPA)</li>
+<li>PodTemplate</li>
+<li>LimitRage</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231124085551017.png" alt="image-20231124085551017"></p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/11/27/kubernetes%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">kubernetes集群搭建</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/11/22/portainer%E5%8F%AF%E8%A7%86%E5%8C%96/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">portainer可视化</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>91</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (24)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+  </div>
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>

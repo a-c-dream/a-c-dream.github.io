@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          flexblock 添加 aplayer 音乐播放器 | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://raw.githubusercontent.com/a-c-dream/imgs/master/img/v2-8afd27bed877754d3045acd1c832f9d4_r.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">flexblock 添加 aplayer 音乐播放器</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-01-01T08:57:48.017Z" itemprop="datePublished">2024-01-01</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/hexo/">📒 hexo</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="安装aplyer"><a href="#安装aplyer" class="headerlink" title="安装aplyer"></a>安装aplyer</h1><p>使用npm安装在博客文件夹的根目录输入以下命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">npm install --save hexo-tag-aplayer<br></code></pre></td></tr></table></figure>
+
+<p>安装完成后可以在<code>/node_modules</code>目录下发现多了一个aplayer</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101170117939.png" alt="image-20240101170117939">为了为了方便，将这个dist文件夹复制一份到主题目录下的source文件夹中。</p>
+<h1 id="创建样式"><a href="#创建样式" class="headerlink" title="创建样式"></a>创建样式</h1><h2 id="新建music-js"><a href="#新建music-js" class="headerlink" title="新建music.js"></a>新建music.js</h2><p>这一步可以根据<a target="_blank" rel="noopener" href="https://blog.yleao.com/2018/0902/hexo%E4%B8%8A%E7%9A%84aplayer%E5%BA%94%E7%94%A8.html">教程</a>选择自己喜欢的模式。新建一个music.js（名字随便起），放到主题的source文件夹里（我放在source/js/diy/music.js）例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> ap = <span class="hljs-keyword">new</span> APlayer(&#123;<br>    <span class="hljs-attr">container</span>: <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;aplayer&#x27;</span>),<br>    <span class="hljs-attr">autoplay</span>: <span class="hljs-literal">false</span>,<br>    <span class="hljs-attr">loop</span>: <span class="hljs-string">&#x27;all&#x27;</span>,<br>    <span class="hljs-attr">volume</span>: <span class="hljs-number">0.7</span>,<br>    <span class="hljs-attr">listFolded</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">listMaxHeight</span>: <span class="hljs-number">60</span>,<br>    <span class="hljs-attr">fixed</span>: <span class="hljs-literal">true</span>,<br>    <span class="hljs-attr">audio</span>: [<br>        &#123;<br>            <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;name1&#x27;</span>,<br>            <span class="hljs-attr">artist</span>: <span class="hljs-string">&#x27;artist1&#x27;</span>,<br>            <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;url1.mp3&#x27;</span>,<br>            <span class="hljs-attr">cover</span>: <span class="hljs-string">&#x27;cover1.jpg&#x27;</span>,<br>        &#125;,<br>        &#123;<br>            <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;name2&#x27;</span>,<br>            <span class="hljs-attr">artist</span>: <span class="hljs-string">&#x27;artist2&#x27;</span>,<br>            <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;url2.mp3&#x27;</span>,<br>            <span class="hljs-attr">cover</span>: <span class="hljs-string">&#x27;cover2.jpg&#x27;</span>,<br>        &#125;<br>    ]<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101170719551.png" alt="image-20240101170719551"></p>
+<h1 id="替换js中的音乐信息"><a href="#替换js中的音乐信息" class="headerlink" title="替换js中的音乐信息"></a>替换js中的音乐信息</h1><p><strong>TODO：这部分可以用爬虫来做，后面有时间再来更新</strong></p>
+<p>将js中的歌曲信息改为这样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js">audio: [<br>        &#123;<br>			<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;MOM&quot;</span>,<br>			<span class="hljs-attr">artist</span>: <span class="hljs-string">&#x27;是二智呀&#x27;</span>,<br>			<span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;http://music.163.com/song/media/outer/url?id=1433338551.mp3&#x27;</span>,<br>			<span class="hljs-attr">cover</span>: <span class="hljs-string">&#x27;https://p2.music.126.net/xpLjGFEOzWFhs_-4iMsnNw==/109951165112858259.jpg?param=130y130&#x27;</span>,	<br>        &#125;,<br>        &#123;<br>			<span class="hljs-attr">name</span>: <span class="hljs-string">&quot;知我（抒情版）&quot;</span>,<br>			<span class="hljs-attr">artist</span>: <span class="hljs-string">&#x27;尘ah&#x27;</span>,<br>			<span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;http://music.163.com/song/media/outer/url?id=1424343020.mp3&#x27;</span>,<br>			<span class="hljs-attr">cover</span>: <span class="hljs-string">&#x27;https://p2.music.126.net/lk6TRXO6aS1mOjJUdrZReA==/109951164867820981.jpg?param=130y130&#x27;</span>,	<br>        &#125;,<br>    ]<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>歌曲名</td>
+</tr>
+<tr>
+<td>artist</td>
+<td>歌手名</td>
+</tr>
+<tr>
+<td>url</td>
+<td>歌曲的url地址</td>
+</tr>
+<tr>
+<td>cover</td>
+<td>封面图片的url地址</td>
+</tr>
+</tbody></table>
+<p>下面以网易云音乐为例，介绍url和cover的获取方式</p>
+<h2 id="url的获取方法："><a href="#url的获取方法：" class="headerlink" title="url的获取方法："></a>url的获取方法：</h2><p>在网易云音乐中分享歌曲</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101191933895.png" alt="image-20240101191933895"></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">https</span>://music.<span class="hljs-number">163</span>.com/song?id=<span class="hljs-number">1433338551</span>&amp;userid=<span class="hljs-number">1517126418</span><br></code></pre></td></tr></table></figure>
+
+<p>这首歌的id是1433338551所以他的真实地址就是</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//mu</span>sic.<span class="hljs-number">163</span>.com<span class="hljs-regexp">/song/m</span>edia<span class="hljs-regexp">/outer/u</span>rl?id=<span class="hljs-number">1433338551</span>.mp3<br></code></pre></td></tr></table></figure>
+
+<p>公式如下</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//mu</span>sic.<span class="hljs-number">163</span>.com<span class="hljs-regexp">/song/m</span>edia<span class="hljs-regexp">/outer/u</span>rl?id=ID数字.mp3<br></code></pre></td></tr></table></figure>
+
+<h2 id="cover的获取方式"><a href="#cover的获取方式" class="headerlink" title="cover的获取方式"></a>cover的获取方式</h2><p>在网页版中找到该歌曲，F12中查看network，筛选Img即可找到</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101192333569.png" alt="image-20240101192333569"></p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101192354727.png" alt="image-20240101192354727"></p>
+<h1 id="部署到页面中"><a href="#部署到页面中" class="headerlink" title="部署到页面中"></a>部署到页面中</h1><p>将下面的代码添加到<code>~/themes/hexo-theme-flexblock-master/layout/_partial/footer.ejs</code>中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;link rel=<span class="hljs-string">&quot;stylesheet&quot;</span> href=<span class="hljs-string">&quot;/dist/APlayer.min.css&quot;</span>&gt;<br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;aplayer&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/dist/APlayer.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/js/diy/music.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101172737127.png" alt="image-20240101172737127"></p>
+<p>href中的路径不用改，我改了之后反而不能正常运行。。。。</p>
+<h1 id="使用pjax实现全局播放"><a href="#使用pjax实现全局播放" class="headerlink" title="使用pjax实现全局播放"></a>使用pjax实现全局播放</h1><hr>
+<p>更新提醒：在实现此功能是将上面部<strong>署到页面中</strong>部分部署aplayer的位置移动到了<code>~\hexo-theme-flexblock-master\layout\_partial\footer-other.ejs</code>中</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240102163453768.png" alt="image-20240102163453768"></p>
+<hr>
+<p>将以下代码放在主题文件夹下<code>layout/layout.ejs</code>文件里<code>&lt;/body&gt;</code>的前面：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript"></span><br><span class="javascript">  <span class="hljs-comment">// 对所有链接跳转事件绑定pjax容器pjax-container </span></span><br><span class="javascript">  $(<span class="hljs-built_in">document</span>).pjax(<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;#pjax-container&#x27;</span>, &#123;</span><br><span class="javascript">    <span class="hljs-attr">fragment</span>:<span class="hljs-string">&#x27;#pjax-container&#x27;</span>,</span><br><span class="javascript">    <span class="hljs-attr">timeout</span>:<span class="hljs-number">8000</span></span><br><span class="javascript">    &#125;);   </span><br><span class="javascript"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>  <br></code></pre></td></tr></table></figure>
+
+<p>pjax使用范例：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gams"><span class="hljs-symbol">$</span>(document).pjax(selector, [container], <span class="hljs-keyword">options</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上面的函数的意思是点击<code>&lt;a&gt;&lt;/a&gt;</code>时，所有<code>id=pjax-container</code>的容器将被刷新</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240102163015189.png" alt="image-20240102163015189"></p>
+<p>观察页面的结构（箭头所指的div是aplayer的div）发现，要刷新的部分只有上面那个class=root-container的div，只要在<code>layout.ejs</code>中添加上<code>id=&quot;pjax-container&quot;</code>即可</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240102163257483.png" alt="image-20240102163257483"></p>
+<p>然后你就随便点吧，音乐是不会中断的</p>
+<h1 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h1><p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240101192558071.png" alt="image-20240101192558071"></p>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>加入pjax之后从文章返回首页时，卡片的封面加载不出来了（可能是lazyload的问题？有时间再搞吧）</p>
+<h1 id="参考文献："><a href="#参考文献：" class="headerlink" title="参考文献："></a>参考文献：</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/wxmiy/article/details/89740575">网易云音乐mp3外链、真实地址下载方法-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.yleao.com/2018/0902/hexo%E4%B8%8A%E7%9A%84aplayer%E5%BA%94%E7%94%A8.html">hexo上的aplayer应用 | Y’s BLOG (yleao.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_41380292/article/details/121886741">hexo博客fluid主题添加aplayer组件_aplayer hexo-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.tempest.zone/archives/153">添加MetingJS音乐插件，实现站点背景音乐（另带PJAX无刷新） - Tempest</a></p>
+</blockquote>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+      <div class="card-cover" background-image-lazy data-img="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/QQ图片20211001175901.jpg"></div>
+    
+    <div class="card-text">
+      
+        <a href="/2024/01/01/Device-Plugin/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">Device Plugin</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>91</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (24)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+  </div>
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          深入pod | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">深入pod</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2023-11-27T07:46:33.822Z" itemprop="datePublished">2023-11-27</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/k8s/">📒 k8s</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="创建pod的配置文件"><a href="#创建pod的配置文件" class="headerlink" title="创建pod的配置文件"></a>创建pod的配置文件</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span> <span class="hljs-comment"># api 文档版本</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span>  <span class="hljs-comment"># 资源对象类型，也可以配置为像Deployment、StatefulSet这一类的对象</span><br><span class="hljs-attr">metadata:</span> <span class="hljs-comment"># Pod 相关的元数据，用于描述 Pod 的数据</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-demo</span> <span class="hljs-comment"># Pod 的名称</span><br>  <span class="hljs-attr">labels:</span> <span class="hljs-comment"># 定义 Pod 的标签</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">app</span> <span class="hljs-comment"># 自定义 label 标签，名字为 type，值为 app</span><br>    <span class="hljs-attr">test:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span> <span class="hljs-comment"># 自定义 label 标签，描述 Pod 版本号</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">&#x27;default&#x27;</span> <span class="hljs-comment"># 命名空间的配置</span><br><span class="hljs-attr">spec:</span> <span class="hljs-comment"># 期望 Pod 按照这里面的描述进行创建</span><br>  <span class="hljs-attr">containers:</span> <span class="hljs-comment"># 对于 Pod 中的容器描述</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span> <span class="hljs-comment"># 容器的名称</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.7.9</span> <span class="hljs-comment"># 指定容器的镜像</span><br>    <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span> <span class="hljs-comment"># 镜像拉取策略，指定如果本地有就用本地的，如果没有就拉取远程的</span><br>    <span class="hljs-attr">command:</span> <span class="hljs-comment"># 指定容器启动时执行的命令</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">-g</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;daemon off;&#x27;</span> <span class="hljs-comment"># nginx -g &#x27;daemon off;&#x27;</span><br>    <span class="hljs-attr">workingDir:</span> <span class="hljs-string">/usr/share/nginx/html</span> <span class="hljs-comment"># 定义容器启动后的工作目录</span><br>    <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span> <span class="hljs-comment"># 端口名称</span><br>      <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span> <span class="hljs-comment"># 描述容器内要暴露什么端口</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span> <span class="hljs-comment"># 描述该端口是基于哪种协议通信的</span><br>    <span class="hljs-attr">env:</span> <span class="hljs-comment"># 环境变量</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">JVM_OPTS</span> <span class="hljs-comment"># 环境变量名称</span><br>        <span class="hljs-attr">value:</span> <span class="hljs-string">&#x27;-Xms128m -Xmx128m&#x27;</span> <span class="hljs-comment"># 环境变量的值</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-attr">requests:</span> <span class="hljs-comment"># 最少需要多少资源</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span> <span class="hljs-comment"># 限制 cpu 最少使用 0.1 个核心</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span> <span class="hljs-comment"># 限制内存最少使用 128兆</span><br>      <span class="hljs-attr">limits:</span> <span class="hljs-comment"># 最多可以用多少资源</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">200m</span> <span class="hljs-comment"># 限制 cpu 最多使用 0.2 个核心</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span> <span class="hljs-comment"># 限制 最多使用 256兆</span><br>  <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">OnFailure</span> <span class="hljs-comment"># 重启策略，只有失败的情况才会重启</span><br></code></pre></td></tr></table></figure>
+
+<p>使用<code>kubectl create -f nginx-demo.yaml</code>命令创建pod</p>
+<p>使用<code>kubectl get po nginx-demo -o wide</code>可以查看该pod的详细信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@k8s-master pods]<span class="hljs-comment"># kubectl get po nginx-demo -o wide</span><br>NAME         READY   STATUS    RESTARTS   AGE   IP               NODE        NOMINATED NODE   READINESS GATES<br>nginx-demo   1/1     Running   0          59s   10.244.169.132   k8s-node2   &lt;none&gt;           &lt;none&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="k8s资源清单"><a href="#k8s资源清单" class="headerlink" title="k8s资源清单"></a>k8s资源清单</h2><table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>类型</th>
+<th>字段说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>apiVersion</td>
+<td>String</td>
+<td>K8S APl 的版本，可以用 kubectl api versions 命令查询</td>
+</tr>
+<tr>
+<td>kind</td>
+<td>String</td>
+<td>yam 文件定义的资源类型和角色</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>Object</td>
+<td>元数据对象，下面是它的属性</td>
+</tr>
+<tr>
+<td>metadata.name</td>
+<td>String</td>
+<td>元数据对象的名字，比如 pod 的名字</td>
+</tr>
+<tr>
+<td>metadata.namespace</td>
+<td>String</td>
+<td>元数据对象的命名空间</td>
+</tr>
+<tr>
+<td>Spec</td>
+<td>Object</td>
+<td>详细定义对象</td>
+</tr>
+<tr>
+<td>spec.containers[]</td>
+<td>list</td>
+<td>定义 Spec 对象的容器列表</td>
+</tr>
+<tr>
+<td>spec.containers[].name</td>
+<td>String</td>
+<td>为列表中的某个容器定义名称</td>
+</tr>
+<tr>
+<td>spec.containers[].image</td>
+<td>String</td>
+<td>为列表中的某个容器定义需要的镜像名称</td>
+</tr>
+<tr>
+<td>spec.containers[].imagePullPolicy</td>
+<td>string</td>
+<td>定义镜像拉取策略，有 Always、Never、IfNotPresent 三个值可选<br />  - Always（默认）：意思是每次都尝试重新拉取镜像<br />  - Never：表示仅适用本地镜像<br />  - IfNotPresent：如果本地有镜像就使用本地镜像，没有就拉取在线镜像。</td>
+</tr>
+<tr>
+<td>spec.containers[].command[]</td>
+<td>list</td>
+<td>指定容器启动命令，因为是数组可以指定多个，不指定则使用镜像打包时使用的启动命令。</td>
+</tr>
+<tr>
+<td>spec.containers[].args[]</td>
+<td>list</td>
+<td>指定容器启动命令参数，因为是数组可以指定多个。</td>
+</tr>
+<tr>
+<td>spec.containers[].workingDir</td>
+<td>string</td>
+<td>指定容器的工作目录</td>
+</tr>
+<tr>
+<td>spec.containers[].volumeMounts[]</td>
+<td>list</td>
+<td>指定容器内部的存储卷配置</td>
+</tr>
+<tr>
+<td>spec.containers[].volumeMounts[].name</td>
+<td>string</td>
+<td>指定可以被容器挂载的存储卷的名称</td>
+</tr>
+<tr>
+<td>spec.containers[].volumeMounts[].mountPath</td>
+<td>string</td>
+<td>指定可以被容器挂载的存储卷的路径</td>
+</tr>
+<tr>
+<td>spec.containers[].volumeMounts[].readOnly</td>
+<td>string</td>
+<td>设置存储卷路径的读写模式，ture 或者 false，默认是读写模式</td>
+</tr>
+<tr>
+<td>spec.containers[].ports[]</td>
+<td>list</td>
+<td>指定容器需要用到的端口列表</td>
+</tr>
+<tr>
+<td>spec.containers[].ports[].name</td>
+<td>string</td>
+<td>指定端口的名称</td>
+</tr>
+<tr>
+<td>spec.containers[].ports[].containerPort</td>
+<td>string</td>
+<td>指定容器需要监听的端口号</td>
+</tr>
+<tr>
+<td>spec.containers[].ports[].hostPort</td>
+<td>string</td>
+<td>指定容器所在主机需要监听的端口号，默认跟上面 containerPort 相同，注意设置了 hostPort 同一台主机无法启动该容器的相同副本（因为主机的端口号不能相同，这样会冲突）</td>
+</tr>
+<tr>
+<td>spec.containers[].ports[].protocol</td>
+<td>string</td>
+<td>指定端口协议，支持 TCP 和 UDP，默认值为 TCP</td>
+</tr>
+<tr>
+<td>spec.containers[].env[]</td>
+<td>list</td>
+<td>指定容器运行前需设置的环境变量列表</td>
+</tr>
+<tr>
+<td>spec.containers[].env[].name</td>
+<td>string</td>
+<td>指定环境变量名称</td>
+</tr>
+<tr>
+<td>spec.containers[].env[].value</td>
+<td>string</td>
+<td>指定环境变量值</td>
+</tr>
+<tr>
+<td>spec.containers[].resources</td>
+<td>Object</td>
+<td>指定资源限制和资源请求的值（这里开始就是设置容器的资源上限）</td>
+</tr>
+<tr>
+<td>spec.containers[].resources.limits</td>
+<td>Object</td>
+<td>指定设置容器运行时资源的运行上限</td>
+</tr>
+<tr>
+<td>spec.containers[].resources.limits.cpu</td>
+<td>string</td>
+<td>指定 CPU 的限制，单位为 Core 数，将用于 docker run –cpu-shares 参数</td>
+</tr>
+<tr>
+<td>spec.containers[].resources.limits.memory</td>
+<td>string</td>
+<td>指定 mem 内存的限制，单位为 MIB、GiB</td>
+</tr>
+<tr>
+<td>spec.containers[].resources.requests</td>
+<td>Object</td>
+<td>指定容器启动和调度时的限制设置</td>
+</tr>
+<tr>
+<td>spec.containers[].resources.requests.cpu</td>
+<td>string</td>
+<td>CPU请求，单位为core数，容器启动时初始化可用数量</td>
+</tr>
+<tr>
+<td>spec.containers[].resources.requests.memory</td>
+<td>string</td>
+<td>内存请求，单位为MIB、GiB，容器启动的初始化可用数量</td>
+</tr>
+<tr>
+<td>spec.restartPolicy</td>
+<td>string</td>
+<td>定义 pod 的重启策略，可选值为 Always、OnFailure、Never，默认值为 Always。<br />  - Always：pod 一旦终止运行，则无论容器是如何终止的，kubelet 服务都将重启它。<br />  - OnFailure：只有 pod 以非零退出码终止时，kubelet 才会重启该容器。如果容器正常结束（退出码为0），则 kubectl 将不会重启它。<br />  - Never：Pod 终止后，kubelet 将退出码报告给 master，不会重启该 pod</td>
+</tr>
+<tr>
+<td>spec.nodeSelector</td>
+<td>Object</td>
+<td>定义 Node 的 label 过滤标签，以 key：value 格式指定</td>
+</tr>
+<tr>
+<td>spec.imagePullSecrets</td>
+<td>Object</td>
+<td>定义 pull 镜像时使用 secret 名称，以 name：secretkey 格式指定</td>
+</tr>
+<tr>
+<td>spec.hostNetwork</td>
+<td>Boolean</td>
+<td>定义是否使用主机网络模式，默认值为 false。设置 true 表示使用宿主机网络，不使用 docker 网桥，同时设置了 true将无法在同一台宿主机上启动第二个副本</td>
+</tr>
+</tbody></table>
+<h1 id="探针"><a href="#探针" class="headerlink" title="探针"></a>探针</h1><h2 id="探针类型"><a href="#探针类型" class="headerlink" title="探针类型"></a>探针类型</h2><ul>
+<li><p>StartupProbe</p>
+<p>用于判断应用程序是否已经<strong>启动</strong>了。</p>
+<p>当配置了 startupProbe 后，会先<strong>禁用其他探针</strong>，直到 startupProbe 成功后，其他探针才会继续。</p>
+</li>
+<li><p>LivenessProbe</p>
+<p>用于探测容器中的应用是否<strong>运行</strong>，如果探测失败，kubelet 会根据配置的重启策略进行重启，若没有配置，默认就认为容器启动成功，不会执行重启策略。</p>
+</li>
+<li><p>ReadinessProbe</p>
+<p>用于探测容器内的程序是否健康，它的返回值如果返回 success，那么就认为该容器已经完全启动，并且该容器是可以<strong>接收外部流量</strong>的。</p>
+</li>
+</ul>
+<h2 id="探测方式"><a href="#探测方式" class="headerlink" title="探测方式"></a>探测方式</h2><ul>
+<li><p>ExecAction</p>
+<p>在容器内部执行一个命令，如果返回值为 0，则任务容器时健康的。</p>
+</li>
+<li><p>TCPSocketAction</p>
+<p>通过 tcp 连接监测容器内端口是否开放，如果开放则证明该容器健康</p>
+</li>
+<li><p>HTTPGetAction</p>
+<p>生产环境用的较多的方式，发送 HTTP 请求到容器内的应用程序，如果接口返回的状态码在 200~400 之间，则认为容器健康。</p>
+</li>
+</ul>
+<h2 id="一些参数"><a href="#一些参数" class="headerlink" title="一些参数"></a>一些参数</h2><table>
+<thead>
+<tr>
+<th>参数示例</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>initialDelaySeconds:10</td>
+<td>初始化时间</td>
+</tr>
+<tr>
+<td>timeoutSeconds: 2</td>
+<td>超时时间</td>
+</tr>
+<tr>
+<td>periodSeconds: 5</td>
+<td>监测间隔时间</td>
+</tr>
+<tr>
+<td>successThreshold: 1</td>
+<td>检查 1 次成功就表示成功</td>
+</tr>
+<tr>
+<td>failureThreshold: 2</td>
+<td>监测失败 2 次就表示失败</td>
+</tr>
+</tbody></table>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><h3 id="startupProbe"><a href="#startupProbe" class="headerlink" title="startupProbe"></a>startupProbe</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-po</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">app</span><br>    <span class="hljs-attr">test:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">&#x27;default&#x27;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.7.9</span><br>    <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>    <span class="hljs-attr">command:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">-g</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;daemon off;&#x27;</span><br>    <span class="hljs-attr">workingDir:</span> <span class="hljs-string">/usr/share/nginx/html</span><br>    <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>      <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">env:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">JVM_OPTS</span><br>        <span class="hljs-attr">value:</span> <span class="hljs-string">&#x27;-Xms128m -Xmx128m&#x27;</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-attr">requests:</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span><br>      <span class="hljs-attr">limits:</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">200m</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span><br>    <span class="hljs-attr">startupProbe:</span><br>      <span class="hljs-attr">httpGet:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">/api/startup</span><br>        <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span><br>      <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">OnFailure</span><br></code></pre></td></tr></table></figure>
+
+<p>运行后使用<code>kubectl describe po nginx-po </code>查看运行情况</p>
+<p>刚刚设置的startupProbe：</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127194524014.png" alt="image-20231127194524014"></p>
+<p>因为没有<code>/api/startup</code>接口所以探针探测失败</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127194645519.png" alt="image-20231127194645519"></p>
+<p>将探测接口改为index.html</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">startupProbe:</span><br>      <span class="hljs-attr">httpGet:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">/index.html</span><br>        <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+
+<p>启动成功</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127195129004.png" alt="image-20231127195129004"></p>
+<p>使用<code>TCPSocketAction</code>探测方式</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">startupProbe:</span><br>      <span class="hljs-attr">tcpSocket:</span><br>        <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br></code></pre></td></tr></table></figure>
+
+<p>探测成功</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127195629539.png" alt="image-20231127195629539"></p>
+<p>使用<code>EecAction</code>方式探测</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">startupProbe:</span><br>      <span class="hljs-attr">exec:</span><br>        <span class="hljs-attr">command:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">sh</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;echo success &gt; /succ&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>探测成功</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127200410883.png" alt="image-20231127200410883"></p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127200221489.png" alt="image-20231127200221489"></p>
+<h3 id="livenessProbe"><a href="#livenessProbe" class="headerlink" title="livenessProbe"></a>livenessProbe</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">livenessProbe:</span><br>      <span class="hljs-attr">httpGet:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">/hh.html</span><br>        <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span><br>      <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<p>hh.html并不存在，所以第一次探测一定会失败，此时使用<code>kubectl cp hh.html nginx-po:/usr/share/nginx/html</code>为nginx传入hh.html。重启后，再次探测发现hh.html存在，最后启动成功</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231127202116640.png" alt="image-20231127202116640"></p>
+<h3 id="readinessProbe"><a href="#readinessProbe" class="headerlink" title="readinessProbe"></a>readinessProbe</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">readinessProbe:</span><br>      <span class="hljs-attr">httpGet:</span><br>        <span class="hljs-attr">path:</span> <span class="hljs-string">/hh.html</span><br>        <span class="hljs-attr">port:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span><br>      <span class="hljs-attr">timeoutSeconds:</span> <span class="hljs-number">2</span><br>      <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<p>和livenessProbe结果差不多，没有hh.html之前外部不能访问，复制之后可以访问。</p>
+<h1 id="pod生命周期"><a href="#pod生命周期" class="headerlink" title="pod生命周期"></a>pod生命周期</h1><p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20231128092327522.png" alt="image-20231128092327522"></p>
+<p>ps:</p>
+<ul>
+<li>postStartStart一般不用，因为他和command的执行顺序并不确定。可以使用初始化阶段的替代，这样一定在command之前执行。</li>
+<li>preStopStop是在容器退出之前执行的函数，可以做注册中心下线、数据清理、数据保存等。ex：关掉word时弹窗提示是否保存</li>
+</ul>
+<h2 id="example："><a href="#example：" class="headerlink" title="example："></a>example：</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">nginx-po</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">type:</span> <span class="hljs-string">app</span><br>    <span class="hljs-attr">test:</span> <span class="hljs-number">1.0</span><span class="hljs-number">.0</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">&#x27;default&#x27;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx:1.7.9</span><br>    <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>    <span class="hljs-attr">command:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">-g</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;daemon off;&#x27;</span><br>    <span class="hljs-attr">workingDir:</span> <span class="hljs-string">/usr/share/nginx/html</span><br>    <span class="hljs-attr">ports:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">http</span><br>      <span class="hljs-attr">containerPort:</span> <span class="hljs-number">80</span><br>      <span class="hljs-attr">protocol:</span> <span class="hljs-string">TCP</span><br>    <span class="hljs-attr">env:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">JVM_OPTS</span><br>        <span class="hljs-attr">value:</span> <span class="hljs-string">&#x27;-Xms128m -Xmx128m&#x27;</span><br>    <span class="hljs-attr">resources:</span><br>      <span class="hljs-attr">requests:</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">100m</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">128Mi</span><br>      <span class="hljs-attr">limits:</span><br>        <span class="hljs-attr">cpu:</span> <span class="hljs-string">200m</span><br>        <span class="hljs-attr">memory:</span> <span class="hljs-string">256Mi</span><br>    <span class="hljs-attr">lifecycle:</span><br>      <span class="hljs-attr">postStart:</span><br>        <span class="hljs-attr">exec:</span><br>          <span class="hljs-attr">command:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">sh</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;echo &quot;&lt;h1&gt;postStart&lt;/h1&gt;&quot; &gt; /usr/share/nginx/html/test.html&#x27;</span><br>      <span class="hljs-attr">preStop:</span><br>        <span class="hljs-attr">exec:</span><br>          <span class="hljs-attr">command:</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">sh</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">-c</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;sleep 50;echo &quot;&lt;h1&gt;perStop&lt;/h1&gt;&quot; &gt;&gt; /usr/share/nginx/html/test.html&#x27;</span><br>  <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">OnFailure</span><br></code></pre></td></tr></table></figure>
+
+<p>创建完成后查看test.html的内容</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@k8s-master pods]<span class="hljs-comment"># kubectl exec nginx-po -it -c nginx  -- cat /usr/share/nginx/html/test.html</span><br>&lt;h1&gt;postStart&lt;/h1&gt;<br></code></pre></td></tr></table></figure>
+
+<p>使用time命令测试删除该容器的用时</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@k8s-master pods]<span class="hljs-comment"># time kubectl delete po nginx-po</span><br>pod <span class="hljs-string">&quot;nginx-po&quot;</span> deleted<br><br>real	0m32.801s<br>user	0m0.129s<br>sys	0m0.046s<br>[root@k8s-master pods]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+<p>在配置文件中使用preStop让pod在停止前sleep 50秒，但是删除时只用了30秒，这是因为<code>terminationGracePeriodSeconds</code>参数表示停止前的停留时间，默认为30秒。</p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/11/28/%E8%B5%84%E6%BA%90%E8%B0%83%E5%BA%A6/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">资源调度</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2023/11/27/kubernetes%E9%9B%86%E7%BE%A4%E6%90%AD%E5%BB%BA/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">kubernetes集群搭建</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>91</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (24)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+  </div>
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>

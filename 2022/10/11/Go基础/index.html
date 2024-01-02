@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          Go基础 | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">Go基础</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2022-10-11T07:24:16.886Z" itemprop="datePublished">2022-10-11</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h2 id="GOPATH设置"><a href="#GOPATH设置" class="headerlink" title="GOPATH设置"></a>GOPATH设置</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">export GOPATH=/home/apple/mygo<br></code></pre></td></tr></table></figure>
+
+<p>路径写工作目录即可，多个目录用冒号分隔</p>
+<p>以上 $GOPATH 目录约定有三个子目录：</p>
+<ul>
+<li>src 存放源代码（比如：.go .c .h .s 等）</li>
+<li>pkg 编译后生成的文件（比如：.a）</li>
+<li>bin 编译后生成的可执行文件（为了方便，可以把此目录加入到 $PATH 变量中，如果有多个 gopath，那么使用 <code>$&#123;GOPATH//://bin:&#125;/bin</code> 添加所有的 bin 目录）</li>
+</ul>
+<h2 id="Go-命令"><a href="#Go-命令" class="headerlink" title="Go 命令"></a>Go 命令</h2><h3 id="go-build"><a href="#go-build" class="headerlink" title="go build"></a>go build</h3><p>这个命令主要用于编译代码。在包的编译过程中，若有必要，会同时编译与之相关联的包。</p>
+<ul>
+<li><p>如果是普通包，当你执行 <code>go build</code> 之后，它不会产生任何文件。如果你需要在 <code>$GOPATH/pkg</code> 下生成相应的文件，那就得执行 <code>go install</code>。</p>
+</li>
+<li><p>如果是 <code>main</code> 包，当你执行 <code>go build</code> 之后，它就会在当前目录下生成一个可执行文件。如果你需要在 <code>$GOPATH/bin</code> 下生成相应的文件，需要执行 <code>go install</code>，或者使用 <code>go build -o 路径/a.exe</code>。</p>
+</li>
+<li><p>如果某个项目文件夹下有多个文件，而你只想编译某个文件，就可在 <code>go build</code> 之后加上文件名，例如 <code>go build a.go</code>；<code>go build</code> 命令默认会编译当前目录下的所有 go 文件。</p>
+</li>
+<li><p>你也可以指定编译输出的文件名。我们可以指定 <code>go build -o astaxie.exe</code>，默认情况是你的 package 名 (非 main 包)，或者是第一个源文件的文件名 (main 包)。</p>
+</li>
+<li><p>go build 会忽略目录下以 <code>_</code> 或 <code>.</code> 开头的 go 文件。</p>
+</li>
+<li><p>如果你的源代码针对不同的操作系统需要不同的处理，那么你可以根据不同的操作系统后缀来命名文件。例如有一个读取数组的程序，它对于不同的操作系统可能有如下几个源文件：</p>
+<p>array_linux.go<br>array_darwin.go<br>array_windows.go<br>array_freebsd.go</p>
+<p><code>go build</code> 的时候会选择性地编译以系统名结尾的文件（Linux、Darwin、Windows、Freebsd）。例如 Linux 系统下面编译只会选择 array_linux.go 文件，其它系统命名后缀文件全部忽略。</p>
+</li>
+</ul>
+<h3 id="go-clean"><a href="#go-clean" class="headerlink" title="go clean"></a>go clean</h3><p>这个命令是用来移除当前源码包和相关源码包里面编译生成的文件。这些文件包括</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs shell">_obj/            旧的 object 目录，由 Makefiles 遗留<br>_test/           旧的 test 目录，由 Makefiles 遗留<br>_testmain.go     旧的 gotest 文件，由 Makefiles 遗留<br>test.out         旧的 test 记录，由 Makefiles 遗留<br>build.out        旧的 test 记录，由 Makefiles 遗留<br>*.[568ao]        object 文件，由 Makefiles 遗留<br><br>DIR(.exe)        由 go build 产生<br>DIR.test(.exe)   由 go test -c 产生<br>MAINFILE(.exe)   由 go build MAINFILE.go 产生<br>*.so             由 SWIG 产生<br></code></pre></td></tr></table></figure>
+
+<h3 id="go-fmt"><a href="#go-fmt" class="headerlink" title="go fmt"></a>go fmt</h3><p>go 强制了代码格式（比如左大括号必须放在行尾）</p>
+<p>不按照此格式的代码将不能编译通过，为了减少浪费在排版上的时间，go 工具集中提供了一个 <code>go fmt</code> 命令它可以帮你格式化你写好的代码文件，使你写代码的时候不需要关心格式，你只需要在写完之后执行 <code>go fmt &lt;文件名&gt;.go</code>，你的代码就被修改成了标准格式</p>
+<p>使用 go fmt 命令，其实是调用了 gofmt，而且需要参数 -w，否则格式化结果不会写入文件。gofmt -w -l src，可以格式化整个项目。</p>
+<p>参数：</p>
+<ul>
+<li><code>-l</code> 显示那些需要格式化的文件</li>
+<li><code>-w</code> 把改写后的内容直接写入到文件中，而不是作为结果打印到标准输出。</li>
+</ul>
+<h3 id="go-get"><a href="#go-get" class="headerlink" title="go get"></a>go get</h3><p>这个命令是用来动态获取远程代码包的，目前支持的有 BitBucket、GitHub、Google Code 和 Launchpad。这个命令在内部实际上分成了两步操作：第一步是下载源码包，第二步是执行 <code>go install</code>。</p>
+<h3 id="go-install"><a href="#go-install" class="headerlink" title="go install"></a>go install</h3><p>这个命令在内部实际上分成了两步操作：第一步是生成结果文件 (可执行文件或者 .a 包)，第二步会把编译好的结果移到 <code>$GOPATH/pkg</code> 或者 <code>$GOPATH/bin</code>。</p>
+<p>参数支持 <code>go build</code> 的编译参数。大家只要记住一个参数 <code>-v</code> 就好了，这个随时随地的可以查看底层的执行信息。</p>
+<h3 id="go-test"><a href="#go-test" class="headerlink" title="go test"></a>go test</h3><p>执行这个命令，会自动读取源码目录下面名为 <code>*_test.go</code> 的文件，生成并运行测试用的可执行文件。</p>
+<h3 id="go-tool"><a href="#go-tool" class="headerlink" title="go tool"></a>go tool</h3><h3 id="go-generate"><a href="#go-generate" class="headerlink" title="go generate"></a>go generate</h3><p>这个命令是从 Go1.4 开始才设计的，用于在编译前自动化生成某类代码。</p>
+<h3 id="godoc"><a href="#godoc" class="headerlink" title="godoc"></a>godoc</h3><p>在 Go1.2 版本之前还支持 <code>go doc</code> 命令，但是之后全部移到了 godoc 这个命令下，需要这样安装 <code>go get golang.org/x/tools/cmd/godoc</code></p>
+<h3 id="其他命令"><a href="#其他命令" class="headerlink" title="其他命令"></a>其他命令</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">go</span> version 查看 <span class="hljs-keyword">go</span> 当前的版本<br><span class="hljs-keyword">go</span> env 查看当前 <span class="hljs-keyword">go</span> 的环境变量<br><span class="hljs-keyword">go</span> list 列出当前全部安装的 <span class="hljs-keyword">package</span><br><span class="hljs-keyword">go</span> run 编译并运行 Go 程序<br></code></pre></td></tr></table></figure>
+
+<h2 id="Go-基本语法"><a href="#Go-基本语法" class="headerlink" title="Go 基本语法"></a>Go 基本语法</h2><p>首先我们要了解一个概念，Go 程序是通过 <code>package</code> 来组织的</p>
+<p><code>package &lt;pkgName&gt;</code>（在我们的例子中是 <code>package main</code> ）这一行告诉我们当前文件属于哪个包，而包名 <code>main</code> 则告诉我们它是一个可独立运行的包，它在编译后会产生可执行文件。除了 <code>main</code> 包之外，其它的包最后都会生成<code> *.a</code> 文件（也就是包文件）并放置在 <code>$GOPATH/pkg/$GOOS_$GOARCH</code> 中（以 Mac 为例就是 <code>$GOPATH/pkg/darwin_amd64</code>）。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">每一个可独立运行的 Go 程序，必定包含一个 package <span class="hljs-selector-tag">main</span>，在这个 <span class="hljs-selector-tag">main</span> 包中必定包含一个入口函数 <span class="hljs-selector-tag">main</span>，而这个函数既没有参数，也没有返回值。<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span>&#123;<br>	fmt.Printf(<span class="hljs-string">&quot;Hello, world or 你好，世界 or καλημ ́ρα κóσμ or こんにちはせかい\n&quot;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h2><h3 id="先定义再赋值"><a href="#先定义再赋值" class="headerlink" title="先定义再赋值"></a>先定义再赋值</h3><p>使用 <code>var</code> 关键字是 Go 最基本的定义变量方式，与 C 语言不同的是 Go 把变量类型放在变量名后面：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> message <span class="hljs-keyword">string</span><br>message = fmt.Sprintf(<span class="hljs-string">&quot;Hi, %v. Welcome!&quot;</span>, name)<br></code></pre></td></tr></table></figure>
+
+<h3 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h3><p>现在是不是看上去非常简洁了？<code>:= </code>这个符号直接取代了<code> var</code> 和<code> type</code>, 这种形式叫做简短声明。不过它有一个限制，那就是它只能用在函数内部；在函数外部使用则会无法编译通过，所以一般用<code> var</code> 方式来定义全局变量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">message := fmt.Sprintf(<span class="hljs-string">&quot;Hi, %v. Welcome!&quot;</span>, name)<br></code></pre></td></tr></table></figure>
+
+<p><code>_</code>（下划线）是个特殊的变量名，任何赋予它的值都会被丢弃。在这个例子中，我们将值 <code>35</code> 赋予 <code>b</code>，并同时丢弃 <code>34</code>：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go">_,b = <span class="hljs-number">34</span>,<span class="hljs-number">35</span><br></code></pre></td></tr></table></figure>
+
+<p>Go 对于已声明但未使用的变量会在编译阶段报错，比如下面的代码就会产生一个错误：声明了 <code>i</code> 但未使用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-keyword">var</span> i <span class="hljs-keyword">int</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="定义常量"><a href="#定义常量" class="headerlink" title="定义常量"></a>定义常量</h2><p>所谓常量，也就是在程序编译阶段就确定下来的值，而程序在运行时无法改变该值。在 Go 程序中，常量可定义为数值、布尔值或字符串等类型。</p>
+<p>它的语法如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">const</span> constantName = value<br><span class="hljs-comment">// 如果需要，也可以明确指定常量的类型：</span><br><span class="hljs-keyword">const</span> Pi <span class="hljs-keyword">float32</span> = <span class="hljs-number">3.1415926</span><br><br><br><br><br><span class="hljs-keyword">const</span> Pi = <span class="hljs-number">3.1415926</span><br><span class="hljs-keyword">const</span> i = <span class="hljs-number">10000</span><br><span class="hljs-keyword">const</span> MaxThread = <span class="hljs-number">10</span><br><span class="hljs-keyword">const</span> prefix = <span class="hljs-string">&quot;astaxie_&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go">需要注意的一点是，这些类型的变量之间不允许互相赋值或操作，不然会在编译时引起编译器报错。<br><br>如下的代码会产生错误：invalid operation: a + b (mismatched types <span class="hljs-keyword">int8</span> and <span class="hljs-keyword">int32</span>)<br><br><span class="hljs-keyword">var</span> a <span class="hljs-keyword">int8</span><br><br><span class="hljs-keyword">var</span> b <span class="hljs-keyword">int32</span><br><br>c:=a + b<br><br>另外，尽管 <span class="hljs-keyword">int</span> 的长度是 <span class="hljs-number">32</span> bit, 但 <span class="hljs-keyword">int</span> 与 <span class="hljs-keyword">int32</span> 并不可以互用。<br></code></pre></td></tr></table></figure>
+
+<p>浮点数的类型有 <code>float32</code> 和 <code>float64</code> 两种（没有 <code>float</code> 类型），默认是 <code>float64</code>。</p>
+<p>它的默认类型是 complex128（64 位实数 + 64 位虚数）。如果需要小一些的，也有 complex64 (32 位实数 + 32 位虚数)。复数的形式为 RE + IMi，其中 RE 是实数部分，IM 是虚数部分，而最后的 i 是虚数单位。下面是一个使用复数的例子：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> c <span class="hljs-keyword">complex64</span> = <span class="hljs-number">5</span>+<span class="hljs-number">5i</span><br><span class="hljs-comment">//output: (5+5i)</span><br>fmt.Printf(<span class="hljs-string">&quot;Value is: %v&quot;</span>, c)<br></code></pre></td></tr></table></figure>
+
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>我们在上一节中讲过，Go 中的字符串都是采用 <code>UTF-8</code> 字符集编码。字符串是用一对双引号（<code>&quot;&quot;</code>）或反引号（<code> </code>）括起来定义，它的类型是 <code>string</code>。</p>
+<p>在 Go 中字符串是不可变的</p>
+<p>修改字符串代码：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go"><br>s := <span class="hljs-string">&quot;hello&quot;</span><br>c := []<span class="hljs-keyword">byte</span>(s)  <span class="hljs-comment">// 将字符串 s 转换为 []byte 类型</span><br>c[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;c&#x27;</span><br>s2 := <span class="hljs-keyword">string</span>(c)  <span class="hljs-comment">// 再转换回 string 类型</span><br>fmt.Printf(<span class="hljs-string">&quot;%s\n&quot;</span>, s2)<br></code></pre></td></tr></table></figure>
+
+<p>Go 中可以使用 <code>+</code> 操作符来连接两个字符串</p>
+<p>字符串虽不能更改，但可进行切片操作</p>
+<p>可以通过 ` 声明一个多行的字符串</p>
+<h2 id="错误类型"><a href="#错误类型" class="headerlink" title="错误类型"></a>错误类型</h2><p>Go 内置有一个 <code>error</code> 类型，专门用来处理错误信息，Go 的 <code>package</code> 里面还专门有一个包 <code>errors</code> 来处理错误</p>
+<h2 id="Go-程序设计的一些规则"><a href="#Go-程序设计的一些规则" class="headerlink" title="Go 程序设计的一些规则"></a>Go 程序设计的一些规则</h2><p>Go 之所以会那么简洁，是因为它有一些默认的行为：</p>
+<ul>
+<li>大写字母开头的变量是可导出的，也就是其它包可以读取的，是公有变量；小写字母开头的就是不可导出的，是私有变量。</li>
+<li>大写字母开头的函数也是一样，相当于 <code>class</code> 中的带 <code>public</code> 关键词的公有函数；小写字母开头的就是有 <code>private</code> 关键词的私有函数。</li>
+</ul>
+<h2 id="array、slice、map"><a href="#array、slice、map" class="headerlink" title="array、slice、map"></a>array、slice、map</h2><h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p><code>array</code> 就是数组，它的定义方式如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">var</span> arr [n]<span class="hljs-keyword">type</span><br></code></pre></td></tr></table></figure>
+
+<p>在 <code>[n]type</code> 中，<code>n</code> 表示数组的长度，<code>type</code> 表示存储元素的类型。对数组的操作和其它语言类似，都是通过 <code>[]</code> 来进行读取或赋值</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs go">a := [<span class="hljs-number">3</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125; <span class="hljs-comment">// 声明了一个长度为3的int数组</span><br><br>b := [<span class="hljs-number">10</span>]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>&#125; <span class="hljs-comment">// 声明了一个长度为 10 的 int 数组，其中前三个元素初始化为 1、2、3，其它默认为 0</span><br><br>c := [...]<span class="hljs-keyword">int</span>&#123;<span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>&#125; <span class="hljs-comment">// 可以省略长度而采用 `...` 的方式，Go 会自动根据元素个数来计算长度</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="slice"><a href="#slice" class="headerlink" title="slice"></a>slice</h3><p>在很多应用场景中，数组并不能满足我们的需求。在初始定义数组时，我们并不知道需要多大的数组，因此我们就需要 “动态数组”。在 Go 里面这种数据结构叫 <code>slice</code></p>
+<p><code>slice</code> 并不是真正意义上的动态数组，而是一个引用类型。<code>slice</code> 总是指向一个底层 <code>array</code>，<code>slice</code> 的声明也可以像 <code>array</code> 一样，只是不需要长度。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 和声明 array 一样，只是少了长度</span><br><span class="hljs-keyword">var</span> fslice []<span class="hljs-keyword">int</span><br></code></pre></td></tr></table></figure>
+
+<p><code>slice</code> 可以从一个数组或一个已经存在的 <code>slice</code> 中再次声明。<code>slice</code> 通过 <code>array[i:j]</code> 来获取，其中 <code>i</code> 是数组的开始位置，<code>j</code> 是结束位置，但不包含 <code>array[j]</code>，它的长度是 <code>j-i</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">var</span> ar = [<span class="hljs-number">10</span>]<span class="hljs-keyword">byte</span>&#123;<span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-string">&#x27;c&#x27;</span>, <span class="hljs-string">&#x27;d&#x27;</span>, <span class="hljs-string">&#x27;e&#x27;</span>, <span class="hljs-string">&#x27;f&#x27;</span>&#125;<br>	<span class="hljs-keyword">var</span> a, b []<span class="hljs-keyword">byte</span><br><br>	a = ar[<span class="hljs-number">2</span>:<span class="hljs-number">5</span>]<br>	b = ar[<span class="hljs-number">3</span>:<span class="hljs-number">5</span>]<br>	fmt.Println(a, b)<br>&#125;<br><br><br><br><br>output:<br>[<span class="hljs-number">99</span> <span class="hljs-number">100</span> <span class="hljs-number">101</span>] [<span class="hljs-number">100</span> <span class="hljs-number">101</span>]<br></code></pre></td></tr></table></figure>
+
+<p>slice 有一些简便的操作</p>
+<ul>
+<li><p><code>slice</code> 的默认开始位置是 0，<code>ar[:n]</code> 等价于 <code>ar[0:n]</code></p>
+</li>
+<li><p><code>slice</code> 的第二个序列默认是数组的长度，<code>ar[n:]</code> 等价于 <code>ar[n:len(ar)]</code></p>
+</li>
+<li><p>如果从一个数组里面直接获取 <code>slice</code>，可以这样 <code>ar[:]</code>，因为默认第一个序列是 0，第二个是数组的长度，即等价于 <code>ar[0:len(ar)]</code></p>
+<p><code>slice</code> 是引用类型，所以当引用改变其中元素的值时，其它的所有引用都会改变该值</p>
+</li>
+</ul>
+<p>对于 <code>slice</code> 有几个有用的内置函数：</p>
+<ul>
+<li><code>len</code> 获取 <code>slice</code> 的长度</li>
+<li><code>cap</code> 获取 <code>slice</code> 的最大容量</li>
+<li><code>append</code> 向 <code>slice</code> 里面追加一个或者多个元素，然后返回一个和 <code>slice</code> 一样类型的 <code>slice</code></li>
+<li><code>copy</code> 函数 <code>copy</code> 从源 <code>slice</code> 的 <code>src</code> 中复制元素到目标 <code>dst</code>，并且返回复制的元素的个数</li>
+</ul>
+<h2 id="map"><a href="#map" class="headerlink" title="map"></a>map</h2><p><code>map</code> 也就是 Python 中字典的概念，它的格式为 <code>map[keyType]valueType</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// one way to make a map</span><br>	<span class="hljs-keyword">var</span> numbers <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span><br>	numbers = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">int</span>)<br>	<br>	<span class="hljs-comment">// another way</span><br>	<span class="hljs-comment">// numbers := make(map[string]int)</span><br>	<br>	numbers[<span class="hljs-string">&quot;one&quot;</span>] = <span class="hljs-number">1</span><br>	numbers[<span class="hljs-string">&quot;ten&quot;</span>] = <span class="hljs-number">10</span><br>	numbers[<span class="hljs-string">&quot;three&quot;</span>] = <span class="hljs-number">3</span><br>	fmt.Println(<span class="hljs-string">&quot;第三个数字是: &quot;</span>, numbers[<span class="hljs-string">&quot;three&quot;</span>])<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><code>map</code> 是无序的，每次打印出来的 <code>map</code> 都会不一样，它不能通过 <code>index</code> 获取，而必须通过 <code>key</code> 获取</li>
+<li><code>map</code> 的长度是不固定的，也就是和 <code>slice</code> 一样，也是一种引用类型</li>
+<li>内置的 <code>len</code> 函数同样适用于 <code>map</code>，返回 <code>map</code> 拥有的 <code>key</code> 的数量</li>
+<li><code>map</code> 的值可以很方便的修改，通过 <code>numbers[&quot;one&quot;]=11</code> 可以很容易的把 key 为 <code>one</code> 的字典值改为 <code>11</code></li>
+</ul>
+<h2 id="make、new操作"><a href="#make、new操作" class="headerlink" title="make、new操作"></a>make、new操作</h2><p><code>make</code> 用于内建类型（<code>map</code>、<code>slice</code> 和 <code>channel</code>）的内存分配。<code>new</code> 用于各种类型的内存分配。</p>
+<p>内建函数 <code>new</code> 本质上说跟其它语言中的同名函数功能一样：<code>new(T)</code> 分配了零值填充的 <code>T</code> 类型的内存空间，并且返回其地址，即一个 <code>*T</code> 类型的值。用 Go 的术语说，它返回了一个指针，指向新分配的类型 <code>T</code> 的零值。有一点非常重要：</p>
+<p><strong><code>new</code> 返回指针。</strong></p>
+<p>内建函数 <code>make(T, args)</code> 与 <code>new(T)</code> 有着不同的功能，make 只能创建 <code>slice</code>、<code>map</code> 和 <code>channel</code>，并且返回一个有初始值 (非零) 的 <code>T</code> 类型，而不是 <code>*T</code>。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。</p>
+<p><strong><code>make</code> 返回初始化后的（非零）值。</strong></p>
+<p><img src="https://cdn.learnku.com/build-web-application-with-golang/images/2.2.makenew.png?raw=true" alt="img"></p>
+<h2 id="零值"><a href="#零值" class="headerlink" title="零值"></a>零值</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">int</span>     <span class="hljs-number">0</span><br><span class="hljs-keyword">int8</span>    <span class="hljs-number">0</span><br><span class="hljs-keyword">int32</span>   <span class="hljs-number">0</span><br><span class="hljs-keyword">int64</span>   <span class="hljs-number">0</span><br><span class="hljs-keyword">uint</span>    <span class="hljs-number">0x0</span><br><span class="hljs-keyword">rune</span>    <span class="hljs-number">0</span> <span class="hljs-comment">// rune 的实际类型是 int32</span><br><span class="hljs-keyword">byte</span>    <span class="hljs-number">0x0</span> <span class="hljs-comment">// byte 的实际类型是 uint8</span><br><span class="hljs-keyword">float32</span> <span class="hljs-number">0</span> <span class="hljs-comment">// 长度为 4 byte</span><br><span class="hljs-keyword">float64</span> <span class="hljs-number">0</span> <span class="hljs-comment">// 长度为 8 byte</span><br><span class="hljs-keyword">bool</span>    <span class="hljs-literal">false</span><br><span class="hljs-keyword">string</span>  <span class="hljs-string">&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h2><h3 id="struct-声明"><a href="#struct-声明" class="headerlink" title="struct 声明"></a>struct 声明</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">type</span> person <span class="hljs-keyword">struct</span> &#123;<br>    name <span class="hljs-keyword">string</span><br>    age <span class="hljs-keyword">int</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="struct-的匿名字段"><a href="#struct-的匿名字段" class="headerlink" title="struct 的匿名字段"></a>struct 的匿名字段</h3><p>我们上面介绍了如何定义一个 struct，定义的时候是字段名与其类型一一对应，实际上 Go 支持只提供类型，而不写字段名的方式，也就是匿名字段，也称为嵌入字段。</p>
+<p>当匿名字段是一个 struct 的时候，那么这个 struct 所拥有的全部字段都被隐式地引入了当前定义的这个 struct。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Human <span class="hljs-keyword">struct</span> &#123;<br>    name <span class="hljs-keyword">string</span><br>    age <span class="hljs-keyword">int</span><br>    weight <span class="hljs-keyword">int</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Student <span class="hljs-keyword">struct</span> &#123;<br>    Human  <span class="hljs-comment">// 匿名字段，那么默认 Student 就包含了 Human 的所有字段</span><br>    speciality <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    <span class="hljs-comment">// 我们初始化一个学生</span><br>    mark := Student&#123;Human&#123;<span class="hljs-string">&quot;Mark&quot;</span>, <span class="hljs-number">25</span>, <span class="hljs-number">120</span>&#125;, <span class="hljs-string">&quot;Computer Science&quot;</span>&#125;<br><br>    <span class="hljs-comment">// 我们访问相应的字段</span><br>    fmt.Println(<span class="hljs-string">&quot;His name is &quot;</span>, mark.name)<br>    fmt.Println(<span class="hljs-string">&quot;His age is &quot;</span>, mark.age)<br>    fmt.Println(<span class="hljs-string">&quot;His weight is &quot;</span>, mark.weight)<br>    fmt.Println(<span class="hljs-string">&quot;His speciality is &quot;</span>, mark.speciality)<br>    <span class="hljs-comment">// 修改对应的备注信息</span><br>    mark.speciality = <span class="hljs-string">&quot;AI&quot;</span><br>    fmt.Println(<span class="hljs-string">&quot;Mark changed his speciality&quot;</span>)<br>    fmt.Println(<span class="hljs-string">&quot;His speciality is &quot;</span>, mark.speciality)<br>    <span class="hljs-comment">// 修改他的年龄信息</span><br>    fmt.Println(<span class="hljs-string">&quot;Mark become old&quot;</span>)<br>    mark.age = <span class="hljs-number">46</span><br>    fmt.Println(<span class="hljs-string">&quot;His age is&quot;</span>, mark.age)<br>    <span class="hljs-comment">// 修改他的体重信息</span><br>    fmt.Println(<span class="hljs-string">&quot;Mark is not an athlet anymore&quot;</span>)<br>    mark.weight += <span class="hljs-number">60</span><br>    fmt.Println(<span class="hljs-string">&quot;His weight is&quot;</span>, mark.weight)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p> struct 不仅仅能够将 struct 作为匿名字段，自定义类型、内置类型都可以作为匿名字段，而且可以在相应的字段上面进行函数操作</p>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><h3 id="method"><a href="#method" class="headerlink" title="method"></a>method</h3><ul>
+<li>虽然 method 的名字一模一样，但是如果接收者不一样，那么 method 就不一样</li>
+<li>method 里面可以访问接收者的字段</li>
+<li>调用 method 通过 <code>.</code> 访问，就像 struct 里面访问字段一样</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;math&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> Rectangle <span class="hljs-keyword">struct</span> &#123;<br>	width, height <span class="hljs-keyword">float64</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Circle <span class="hljs-keyword">struct</span> &#123;<br>	radius <span class="hljs-keyword">float64</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(r Rectangle)</span> <span class="hljs-title">area</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> &#123;<br>	<span class="hljs-keyword">return</span> r.width * r.height<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(c Circle)</span> <span class="hljs-title">area</span><span class="hljs-params">()</span> <span class="hljs-title">float64</span></span> &#123;<br>	<span class="hljs-keyword">return</span> c.radius * c.radius * math.Pi<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	r1 := Rectangle&#123;<span class="hljs-number">12</span>, <span class="hljs-number">2</span>&#125;<br>	r2 := Rectangle&#123;<span class="hljs-number">4</span>, <span class="hljs-number">9</span>&#125;<br>	c1 := Circle&#123;<span class="hljs-number">10</span>&#125;<br>	c2 := Circle&#123;<span class="hljs-number">25</span>&#125;<br><br>	fmt.Println(<span class="hljs-string">&quot;Area of r1 is:&quot;</span>, r1.area())<br>	fmt.Println(<span class="hljs-string">&quot;Area of r2 is:&quot;</span>, r2.area())<br>	fmt.Println(<span class="hljs-string">&quot;Area of c1 is:&quot;</span>, c1.area())<br>	fmt.Println(<span class="hljs-string">&quot;Area of c2 is:&quot;</span>, c2.area())<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="method-继承"><a href="#method-继承" class="headerlink" title="method 继承"></a>method 继承</h3><p>method 也是可以继承的。如果匿名字段实现了一个 method，那么包含这个匿名字段的 struct 也能调用该 method。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Human <span class="hljs-keyword">struct</span> &#123;<br>    name <span class="hljs-keyword">string</span><br>    age <span class="hljs-keyword">int</span><br>    phone <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Student <span class="hljs-keyword">struct</span> &#123;<br>    Human <span class="hljs-comment">// 匿名字段</span><br>    school <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Employee <span class="hljs-keyword">struct</span> &#123;<br>    Human <span class="hljs-comment">// 匿名字段</span><br>    company <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">// 在 human 上面定义了一个 method</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Human)</span> <span class="hljs-title">SayHi</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Printf(<span class="hljs-string">&quot;Hi, I am %s you can call me on %s\n&quot;</span>, h.name, h.phone)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    mark := Student&#123;Human&#123;<span class="hljs-string">&quot;Mark&quot;</span>, <span class="hljs-number">25</span>, <span class="hljs-string">&quot;222-222-YYYY&quot;</span>&#125;, <span class="hljs-string">&quot;MIT&quot;</span>&#125;<br>    sam := Employee&#123;Human&#123;<span class="hljs-string">&quot;Sam&quot;</span>, <span class="hljs-number">45</span>, <span class="hljs-string">&quot;111-888-XXXX&quot;</span>&#125;, <span class="hljs-string">&quot;Golang Inc&quot;</span>&#125;<br><br>    mark.SayHi()<br>    sam.SayHi()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="method重写"><a href="#method重写" class="headerlink" title="method重写"></a>method重写</h3><p>上面的例子中，如果 Employee 想要实现自己的 SayHi, 怎么办？简单，和匿名字段冲突一样的道理，我们可以在 Employee 上面定义一个 method，重写了匿名字段的方法。请看下面的例子</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span><br><br><span class="hljs-keyword">type</span> Human <span class="hljs-keyword">struct</span> &#123;<br>    name <span class="hljs-keyword">string</span><br>    age <span class="hljs-keyword">int</span><br>    phone <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Student <span class="hljs-keyword">struct</span> &#123;<br>    Human <span class="hljs-comment">// 匿名字段</span><br>    school <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-keyword">type</span> Employee <span class="hljs-keyword">struct</span> &#123;<br>    Human <span class="hljs-comment">// 匿名字段</span><br>    company <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">// Human 定义 method</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(h *Human)</span> <span class="hljs-title">SayHi</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Printf(<span class="hljs-string">&quot;Hi, I am %s you can call me on %s\n&quot;</span>, h.name, h.phone)<br>&#125;<br><br><span class="hljs-comment">// Employee 的 method 重写 Human 的 method</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(e *Employee)</span> <span class="hljs-title">SayHi</span><span class="hljs-params">()</span></span> &#123;<br>    fmt.Printf(<span class="hljs-string">&quot;Hi, I am %s, I work at %s. Call me on %s\n&quot;</span>, e.name,<br>        e.company, e.phone) <span class="hljs-comment">//Yes you can split into 2 lines here.</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>    mark := Student&#123;Human&#123;<span class="hljs-string">&quot;Mark&quot;</span>, <span class="hljs-number">25</span>, <span class="hljs-string">&quot;222-222-YYYY&quot;</span>&#125;, <span class="hljs-string">&quot;MIT&quot;</span>&#125;<br>    sam := Employee&#123;Human&#123;<span class="hljs-string">&quot;Sam&quot;</span>, <span class="hljs-number">45</span>, <span class="hljs-string">&quot;111-888-XXXX&quot;</span>&#125;, <span class="hljs-string">&quot;Golang Inc&quot;</span>&#125;<br><br>    mark.SayHi()<br>    sam.SayHi()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="并发"><a href="#并发" class="headerlink" title="并发"></a>并发</h2><p>goroutine 是 Go 并行设计的核心。goroutine 说到底其实就是协程，但是它比线程更小，十几个 goroutine 可能体现在底层就是五六个线程，执行 goroutine 只需极少的栈内存 (大概是 4~5 KB)，goroutine 比 thread 更易用、更高效、更轻便。</p>
+<p>goroutine 是通过 Go 的 runtime 管理的一个线程管理器。goroutine 通过 <code>go</code> 关键字实现了，其实就是一个普通的函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;runtime&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">say</span><span class="hljs-params">(s <span class="hljs-keyword">string</span>)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++ &#123;<br>		runtime.Gosched()<br>		fmt.Println(s)<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-keyword">go</span> say(<span class="hljs-string">&quot;world&quot;</span>)<br>	say(<span class="hljs-string">&quot;hello&quot;</span>)<br>&#125;<br><br><br>output:<br>hello<br>world<br>world<br>world<br>world<br>world<br>hello<br>hello<br>hello<br>hello<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到 go 关键字很方便的就实现了并发编程。<br>上面的多个 goroutine 运行在同一个进程里面，共享内存数据，不过设计上我们要遵循：不要通过共享来通信，而要通过通信来共享。</p>
+<h3 id="channels"><a href="#channels" class="headerlink" title="channels"></a>channels</h3><p>goroutine 运行在相同的地址空间，因此访问共享内存必须做好同步。那么 goroutine 之间如何进行数据的通信呢，Go 提供了一个很好的通信机制 channel。channel 可以与 Unix shell 中的双向管道做类比：可以通过它发送或者接收值。这些值只能是特定的类型： channel 类型。定义一个 channel 时，也需要定义发送到 channel 的值的类型。注意，必须使用 make 创建 channel：</p>
+<p>channel 通过操作符 <code>&lt;-</code> 来接收和发送数据</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go"><br>ch &lt;- v    <span class="hljs-comment">// 发送 v 到 channel ch.</span><br>v := &lt;-ch  <span class="hljs-comment">// 从 ch 中接收数据，并赋值给v</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h2><p><img src="C:/Users/windows/AppData/Roaming/Typora/typora-user-images/image-20221011153204410.png" alt="image-20221011153204410"></p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2022/10/12/%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92Linear-Regression/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">线性回归(Linear-Regression)</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2022/10/05/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E4%BB%8E%E6%A6%82%E5%BF%B5%E5%88%B0C++%E5%AE%9E%E7%8E%B0%E8%AF%BE%E5%90%8E%E9%A2%98%E7%AD%94%E6%A1%88ch2/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">数据结构——从概念到C++实现课后题答案ch2</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>91</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (24)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+  </div>
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>
