@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+  
+  
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          helm包管理器 | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://gitee.com/a-c-dream/cloudimage/raw/master/img/1549677e99d4ee77df6a6c85ad0b892f.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">helm包管理器</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-01-10T01:42:50.995Z" itemprop="datePublished">2024-01-10</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+    <li><a href="/categories/k8s/">📒 k8s</a></li>
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <h1 id="什么是Helm"><a href="#什么是Helm" class="headerlink" title="什么是Helm"></a>什么是Helm</h1><p>Kubernetes 包管理器</p>
+<p>Helm 是查找、分享和使用软件构件 Kubernetes 的最优方式。</p>
+<p>对于Helm，有<strong>三个重要的概念</strong>：</p>
+<p>chart 创建Kubernetes应用程序所必需的一组信息。</p>
+<p>config 包含了可以合并到打包的chart中的配置信息，用于创建一个可发布的对象。</p>
+<p>release 是一个与特定配置相结合的chart的运行实例。</p>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>helm repo</td>
+<td>列出、增加、更新、删除 chart 仓库</td>
+</tr>
+<tr>
+<td>helm search</td>
+<td>使用关键词搜索 chart</td>
+</tr>
+<tr>
+<td>helm pull</td>
+<td>拉取远程仓库中的 chart 到本地</td>
+</tr>
+<tr>
+<td>helm create</td>
+<td>在本地创建新的 chart</td>
+</tr>
+<tr>
+<td>helm dependency</td>
+<td>管理 chart 依赖</td>
+</tr>
+<tr>
+<td>helm install</td>
+<td>安装 chart</td>
+</tr>
+<tr>
+<td>helm list</td>
+<td>列出所有 release</td>
+</tr>
+<tr>
+<td>helm lint</td>
+<td>检查 chart 配置是否有误</td>
+</tr>
+<tr>
+<td>helm package</td>
+<td>打包本地 chart</td>
+</tr>
+<tr>
+<td>helm rollback</td>
+<td>回滚 release 到历史版本</td>
+</tr>
+<tr>
+<td>helm uninstall</td>
+<td>卸载 release</td>
+</tr>
+<tr>
+<td>helm upgrade</td>
+<td>升级 release</td>
+</tr>
+</tbody></table>
+<h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">mychart</span><br><span class="hljs-string">├──</span> <span class="hljs-string">Chart.yaml</span><br><span class="hljs-string">├──</span> <span class="hljs-string">charts</span> <span class="hljs-comment"># 该目录保存其他依赖的 chart（子 chart）</span><br><span class="hljs-string">├──</span> <span class="hljs-string">templates</span> <span class="hljs-comment"># chart 配置模板，用于渲染最终的 Kubernetes YAML 文件</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">NOTES.txt</span> <span class="hljs-comment"># 用户运行 helm install 时候的提示信息</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">_helpers.tpl</span> <span class="hljs-comment"># 用于创建模板时的帮助类</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">deployment.yaml</span> <span class="hljs-comment"># Kubernetes deployment 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">ingress.yaml</span> <span class="hljs-comment"># Kubernetes ingress 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">service.yaml</span> <span class="hljs-comment"># Kubernetes service 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">serviceaccount.yaml</span> <span class="hljs-comment"># Kubernetes serviceaccount 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">└──</span> <span class="hljs-string">tests</span><br><span class="hljs-string">│</span>       <span class="hljs-string">└──</span> <span class="hljs-string">test-connection.yaml</span><br><span class="hljs-string">└──</span> <span class="hljs-string">values.yaml</span> <span class="hljs-comment"># 定义 chart 模板中的自定义配置的默认值，可以在执行 helm install 或 helm update 的时候覆盖</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="Helm-命令-Tab-补全"><a href="#Helm-命令-Tab-补全" class="headerlink" title="Helm 命令 Tab 补全"></a>Helm 命令 Tab 补全</h1><p>Helm 有很多子命令和参数，为了提高使用命令行的效率，通常建议安装 helm 的 bash 命令补全脚本。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">helm completion bash &gt; .helmrc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source .helmrc&quot;</span> &gt;&gt; .bashrc<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果出现<code>[root@k8s-master ~]# helm ge-bash: _get_comp_words_by_ref: command not found</code>错误</p>
+<p>可以参考[K8s kubectl 报错 c-bash: _get_comp_words_by_ref: command not found解决过程-CSDN博客](<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29974229/article/details/102890267#:~:text=[root%40master">https://blog.csdn.net/qq_29974229/article/details/102890267#:~:text=[root%40master</a> bin]%23 kubectl c-bash%3A _get_comp_words_by_ref%3A command not found,-y 2.执行bash_completion [root%40master bin]%23 source %2Fusr%2Fshare%2Fbash-completion%2Fbash_completion 3.重新加载kubectl completion)解决</p>
+</blockquote>
+<h1 id="实例（安装mysql）"><a href="#实例（安装mysql）" class="headerlink" title="实例（安装mysql）"></a>实例（安装mysql）</h1><h2 id="安装NFS-Server"><a href="#安装NFS-Server" class="headerlink" title="安装NFS Server"></a>安装NFS Server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum -y install rpcbind<br>yum -y install nfs-utils<br></code></pre></td></tr></table></figure>
+
+<h2 id="启动-NFS-Server"><a href="#启动-NFS-Server" class="headerlink" title="启动 NFS Server"></a>启动 NFS Server</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl start nfs-server<br>systemctl <span class="hljs-built_in">enable</span> nfs-server<br>systemctl start rpcbind<br>systemctl <span class="hljs-built_in">enable</span> rpcbind<br></code></pre></td></tr></table></figure>
+
+<h2 id="验证-NFS-Server-是否启动"><a href="#验证-NFS-Server-是否启动" class="headerlink" title="验证 NFS Server 是否启动"></a>验证 NFS Server 是否启动</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl status nfs.service<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240114114002417.png" alt="image-20240114114002417"></p>
+<h2 id="配置文件共享路径"><a href="#配置文件共享路径" class="headerlink" title="配置文件共享路径"></a>配置文件共享路径</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">/home/data/app 192.168.192.0/24(rw,no_root_squash,sync)<br>/home/data/app 192.168.101.0/24(rw,no_root_squash,sync)<br><br><span class="hljs-comment"># 说明</span><br><span class="hljs-comment"># /home/data/app：是要共享的目录</span><br><span class="hljs-comment"># 192.168.56.0/24：授权的目标主机（即允许访问共享目录的主机或IP地址范围）</span><br><span class="hljs-comment"># rw：表示共享是可读写的，允许客户端对共享的目录执行读取和写入操作</span><br><span class="hljs-comment"># no_root_squash：这个选项表示在客户端使用 root 权限（超级用户权限）访问共享目录时，不会将其权限限制为匿名用户（通常映射为&quot;nobody&quot;）。</span><br>这意味着 root 用户可以在共享目录上执行操作，而不会受到权限的限制<br><span class="hljs-comment"># sync：这个选项指定NFS服务器应该采用同步写入模式。这意味着在数据写入共享目录之前，NFS服务器会等待确认写入操作，以确保数据的稳定性和一</span><br>致性。这可以降低性能，但可以提供更高的数据一致性<br></code></pre></td></tr></table></figure>
+
+<h2 id="验证-NFS-Server-是否生效"><a href="#验证-NFS-Server-是否生效" class="headerlink" title="验证 NFS Server 是否生效"></a><strong>验证 NFS Server 是否生效</strong></h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">showmount -e<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240114114751294.png" alt="image-20240114114751294"></p>
+<blockquote>
+<p>如果执行后出现下面的情况，可以先执行<code>exportfs -r</code>重新挂载/etc/exports中的设置</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240114114846066.png" alt="image-20240114114846066"></p>
+<p>重新挂载后</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240114114926831.png" alt="image-20240114114926831"></p>
+</blockquote>
+<h2 id="创建namespace"><a href="#创建namespace" class="headerlink" title="创建namespace"></a>创建namespace</h2><p><code>kubectl create namespace mysql</code></p>
+<h2 id="创建PV"><a href="#创建PV" class="headerlink" title="创建PV"></a>创建PV</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vim mysql-helm-pv1.yaml<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolume</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">mysql-helm-pv1</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">mysql</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">&quot;nfs-mysql&quot;</span><br>  <span class="hljs-attr">capacity:</span><br>    <span class="hljs-attr">storage:</span> <span class="hljs-string">512Mi</span><br>  <span class="hljs-attr">accessModes:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span><br>  <span class="hljs-attr">persistentVolumeReclaimPolicy:</span> <span class="hljs-string">Recycle</span><br>  <span class="hljs-attr">nfs:</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/home/data/app</span><br>    <span class="hljs-attr">server:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.192</span><span class="hljs-number">.133</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">kubectl apply -f mysql-helm-pv1.yaml<br></code></pre></td></tr></table></figure>
+
+<h2 id="创建PVC"><a href="#创建PVC" class="headerlink" title="创建PVC"></a>创建PVC</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">vim mysql-helm-pvc1.yaml<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">PersistentVolumeClaim</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">mysql-pvc1</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">mysql</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">storageClassName:</span> <span class="hljs-string">&quot;nfs-mysql&quot;</span><br>  <span class="hljs-attr">accessModes:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">ReadWriteOnce</span><br>  <span class="hljs-attr">volumeName:</span> <span class="hljs-string">&quot;mysql-helm-pv1&quot;</span><br>  <span class="hljs-attr">resources:</span><br>    <span class="hljs-attr">requests:</span><br>      <span class="hljs-attr">storage:</span> <span class="hljs-string">512Mi</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">kubectl apply -f mysql-helm-pvc1.yaml<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="下载-chart"><a href="#下载-chart" class="headerlink" title="下载 chart"></a>下载 chart</h2><p>执行<code>helm search repo mysql</code>,搜索mysql</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240111160537673.png" alt="image-20240111160537673"></p>
+<p>执行<code>helm fetch azure/mysql </code>下载压缩包</p>
+<p>执行<code>tar -zxvf mysql-1.6.9.tgz </code>解压</p>
+<p>进入<code>mysql</code>文件夹，打开<code>values.yaml</code>，进行配置</p>
+<p>可以在这里设置密码</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240111161000114.png" alt="image-20240111161000114"></p>
+<p>默认的CluestrIP这个类型在外部无法访问，需要修改</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240111161230883.png" alt="image-20240111161230883"></p>
+<p>修改后，类型变成了NodePort,外部端口是32000:</p>
+<p><img src="https://gitee.com/a-c-dream/cloudimage/raw/master/img/image-20240114121011344.png" alt="image-20240114121011344"></p>
+<h2 id="创建namespace-1"><a href="#创建namespace-1" class="headerlink" title="创建namespace"></a>创建namespace</h2><p>创建名为test001的namespace：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl create namespace test001<br></code></pre></td></tr></table></figure>
+
+<h2 id="配置数据存储"><a href="#配置数据存储" class="headerlink" title="配置数据存储"></a>配置数据存储</h2><p>将persistence.storageClass设置为<code>managed-nfs-storage</code></p>
+<h2 id="部署mysql"><a href="#部署mysql" class="headerlink" title="部署mysql"></a>部署mysql</h2><p>以上配置完成后，接下来就是运行 MySQL 服务了。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 进入values.yaml文件所在目录执行</span><br>helm install --name-template mysql -f values.yaml . --namespace mysql <br></code></pre></td></tr></table></figure>
+
+<h1 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h1><h2 id="修改helm源"><a href="#修改helm源" class="headerlink" title="修改helm源"></a>修改helm源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看默认仓库</span><br>helm repo list<br><br><span class="hljs-comment"># 添加仓库</span><br>helm repo add bitnami https://charts.bitnami.com/bitnami<br>helm repo add azure http://mirror.azure.cn/kubernetes/charts<br></code></pre></td></tr></table></figure>
+
+<h2 id="搜索readis-chart"><a href="#搜索readis-chart" class="headerlink" title="搜索readis chart"></a>搜索readis chart</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 搜索 redis chart</span><br>helm search repo redis<br><br><span class="hljs-comment"># 查看安装说明</span><br>helm show readme bitnami/redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="修改配置安装"><a href="#修改配置安装" class="headerlink" title="修改配置安装"></a>修改配置安装</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#先将chart拉到本地</span><br>helm pull bitnami/redis<br><span class="hljs-comment">#解压后，修改values. yaml中的参数</span><br>tar -xvf redis-18.6.3.tgz<br><span class="hljs-comment">#修改storageClass为managed-nfs-storage</span><br><span class="hljs-comment">#设置redis密码password</span><br><span class="hljs-comment">#修改集群架构architecture，默认是主从（replication，3个节点），可以修改为standalone单机模式</span><br><span class="hljs-comment">#修改实例存储大小persistence.size为需要的大小</span><br><span class="hljs-comment">#修改service. nodePorts. redis向外暴露端口，范围&lt;30000-32767&gt;</span><br><span class="hljs-comment">#安装操作</span><br><span class="hljs-comment">#创建命名空间</span><br>kubectl create namespace redis<br><span class="hljs-comment">#安装</span><br><span class="hljs-built_in">cd</span> ../<br>helm install redis ./redis -n redis<br></code></pre></td></tr></table></figure>
+
+<h2 id="查看安装情况"><a href="#查看安装情况" class="headerlink" title="查看安装情况"></a>查看安装情况</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看 helm 安装列表</span><br>helm list<br><br><span class="hljs-comment"># 查看 redis 命名空间下所有对象信息</span><br>kubectl get all -n redis<br></code></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/IT_ZRS/article/details/133985291">K8s 之 Helm 部署 MySQL 5.7_helm安装特定版本的mysql-CSDN博客</a></p>
+</blockquote>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+      <!-- <div class="card-cover" background-image-lazy data-img="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/v2-8afd27bed877754d3045acd1c832f9d4_r.jpg"></div> -->
+      <div class="card-cover" data-img="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/v2-8afd27bed877754d3045acd1c832f9d4_r.jpg"></div>
+    
+    <div class="card-text">
+      
+        <a href="/2024/01/01/flexblock-%E6%B7%BB%E5%8A%A0-aplayer-%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">flexblock 添加 aplayer 音乐播放器</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>92</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (25)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+</div>
+
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>
