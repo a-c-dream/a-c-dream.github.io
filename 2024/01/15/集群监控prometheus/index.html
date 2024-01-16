@@ -40,6 +40,7 @@
 
                       <title>
                         
+                          集群监控prometheus | 
                               a-c-dream
                       </title>
 
@@ -72,7 +73,7 @@
 <!-- header container -->
 <header class="header-container post" id="pjax-container">
   
-    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+    <div class="post-image" style="background-image: url(https://img2.baidu.com/it/u=2072065255,2878465820&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=800&amp;h=500)"></div>
   
 
   <!-- navbar -->
@@ -123,13 +124,15 @@
     <div class="header-content">
       <div class="post-text layout-block">
         <div class="layout-margin">
-          <h1 class="title-wrap"></h1>
+          <h1 class="title-wrap">集群监控prometheus</h1>
           <h2 class="title-sub-wrap">
             <strong>a-c-dream</strong>
             <span>发布于</span>
-            <time  class="article-date" datetime="2021-09-06T22:25:27.428Z" itemprop="datePublished">2021-09-07</time>
+            <time  class="article-date" datetime="2024-01-15T07:35:00.295Z" itemprop="datePublished">2024-01-15</time>
           </h2>
           <ul class="wrap-list dark">
+  
+    <li><a href="/categories/k8s/">📒 k8s</a></li>
   
 </ul>
           <ul class="wrap-list dark">
@@ -156,9 +159,36 @@
       
       
       <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
-        <p>nmcli n off &amp;&amp; nmcli n on </p>
-<p>/etc/sysconfig/network-scripts</p>
-<p>IP、关闭防火墙</p>
+        <h1 id="自定义配置"><a href="#自定义配置" class="headerlink" title="自定义配置"></a>自定义配置</h1><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs sh">kubectl apply -f prometheus/kube-monitoring.yml <br>kubectl apply -f prometheus/<br><br>kubectl get all -n kube-monitoring<br>NAME                                    READY   STATUS    RESTARTS   AGE<br>pod/blackbox-exporter-c74476589-666pr   1/1     Running   0          79s<br>pod/grafana-core-0                      1/1     Running   0          79s<br>pod/node-exporter-4rchc                 1/1     Running   0          79s<br>pod/node-exporter-lwdzv                 1/1     Running   0          79s<br>pod/prometheus-8dddc46f6-xwbls          1/1     Running   0          79s<br><br>NAME                        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE<br>service/blackbox-exporter   ClusterIP   10.99.8.217     &lt;none&gt;        9115/TCP         79s<br>service/grafana             NodePort    10.105.75.210   &lt;none&gt;        3000:30011/TCP   79s<br>service/prometheus          NodePort    10.111.64.106   &lt;none&gt;        9090:30732/TCP   79s<br><br>NAME                           DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE<br>daemonset.apps/node-exporter   2         2         2       2            2           &lt;none&gt;          79s<br><br>NAME                                READY   UP-TO-DATE   AVAILABLE   AGE<br>deployment.apps/blackbox-exporter   1/1     1            1           79s<br>deployment.apps/prometheus          1/1     1            1           79s<br><br>NAME                                          DESIRED   CURRENT   READY   AGE<br>replicaset.apps/blackbox-exporter-c74476589   1         1         1       79s<br>replicaset.apps/prometheus-8dddc46f6          1         1         1       79s<br><br>NAME                            READY   AGE<br>statefulset.apps/grafana-core   1/1     79s<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="访问prometheus"><a href="#访问prometheus" class="headerlink" title="访问prometheus"></a>访问prometheus</h2><p>访问IP:30732即可访问prometheus</p>
+<p>在Status-&gt;Targets中即可看到监控的内容</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116105202128.png" alt="image-20240116105202128"></p>
+<h2 id="访问grafana"><a href="#访问grafana" class="headerlink" title="访问grafana"></a>访问grafana</h2><p>访问IP:30011即可访问grafana</p>
+<p>第一次登陆，用户名和密码都是admin</p>
+<p>只要按照首页的提示完成下面的步骤即可使用Grafana</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116105550692.png" alt="image-20240116105550692"></p>
+<h3 id="Add-data-source"><a href="#Add-data-source" class="headerlink" title="Add data source"></a>Add data source</h3><p>选择Prometheus</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116105834687.png" alt="image-20240116105834687"></p>
+<h3 id="New-dashboard"><a href="#New-dashboard" class="headerlink" title="New dashboard"></a>New dashboard</h3><p>点击左上角的New dashboard，然后点击Find dashboards on Grafana.com</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116110332789.png" alt="image-20240116110332789"></p>
+<p>选择打开<a target="_blank" rel="noopener" href="https://grafana.com/grafana/dashboards/8588-1-kubernetes-deployment-statefulset-daemonset-metrics/%E5%90%8E%E5%A4%8D%E5%88%B6ID%EF%BC%8C%E7%84%B6%E5%90%8E%E7%82%B9%E5%87%BB%E4%B8%8A%E5%9B%BE%E4%B8%AD%E7%9A%84Import">https://grafana.com/grafana/dashboards/8588-1-kubernetes-deployment-statefulset-daemonset-metrics/后复制ID，然后点击上图中的Import</a> dashboard</p>
+<p>粘贴ID后，选择数据源，然后import</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116110703354.png" alt="image-20240116110703354"></p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116111305138.png" alt="image-20240116111305138"></p>
+<h1 id="基于kube-prometheus安装"><a href="#基于kube-prometheus安装" class="headerlink" title="基于kube-prometheus安装"></a>基于kube-prometheus安装</h1><p>如果已经使用自定义的方法安装了，要先执行<code>kubectl delete -f prometheus</code>卸载</p>
+<h2 id="换国内源"><a href="#换国内源" class="headerlink" title="换国内源"></a>换国内源</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs sh">sed -i <span class="hljs-string">&#x27;s/quay.io/quay.mirrors.ustc.edu.cn/g&#x27;</span> prometheusOperator-deployment.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/quay.io/quay.mirrors.ustc.edu.cn/g&#x27;</span> prometheus-prometheus.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/quay.io/quay.mirrors.ustc.edu.cn/g&#x27;</span> alertmanager-alertmanager.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/quay.io/quay.mirrors.ustc.edu.cn/g&#x27;</span> kubeStateMetrics-deployment.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/k8s.gcr.io/lank8s.cn/g&#x27;</span> kubeStateMetrics-deployment.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/quay.io/quay.mirrors.ustc.edu.cn/g&#x27;</span> nodeExporter-daemonset.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/quay.io/quay.mirrors.ustc.edu.cn/g&#x27;</span> prometheusAdapter-deployment.yaml<br><br>sed -i <span class="hljs-string">&#x27;s/k8s.gcr.io/lank8s.cn/g&#x27;</span> prometheusAdapter-deployment.yaml<br><br><br><br><span class="hljs-comment"># 查看是否还有国外镜像</span><br><br>grep <span class="hljs-string">&quot;image: &quot;</span> * -r<br></code></pre></td></tr></table></figure>
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gauss">kubectl <span class="hljs-keyword">create</span> -f setup/<br>kubectl <span class="hljs-keyword">create</span> -f manifests/<br></code></pre></td></tr></table></figure>
+
+<h2 id="修改hosts文件"><a href="#修改hosts文件" class="headerlink" title="修改hosts文件"></a>修改hosts文件</h2><p>在hosts文件中添加下面内容</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs accesslog"><span class="hljs-number">192.168.192.134</span>   grafana.wolfcode.cn<br><span class="hljs-number">192.168.192.134</span>   prometheus.wolfcode.cn<br><span class="hljs-number">192.168.192.134</span>   alertmanager.wolfcode.cn<br></code></pre></td></tr></table></figure>
+
+<h2 id="访问Granfana"><a href="#访问Granfana" class="headerlink" title="访问Granfana"></a>访问Granfana</h2><p>直接访问 <a href="grafana.wolfcode.cn">grafana.wolfcode.cn</a>即可</p>
+<p>添加数据源</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116160041960.png" alt="image-20240116160041960"></p>
+<p>然后可以创建Dashboard</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240116161535682.png" alt="image-20240116161535682"></p>
 
       </section>
 
@@ -166,28 +196,17 @@
       
         <nav class="article-nav">
           
-            <div class="article-nav-item layout-padding">
-  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
-    
-    <div class="card-text">
-      
-        <a href="/2021/09/07/%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">(no title)</h2>
-        </a>
-      
-      <div class="card-text--row">Newer</div>
-    </div>
-  </article>
-</div>
-          
           
             <div class="article-nav-item layout-padding">
   <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
     
+      <!-- <div class="card-cover" background-image-lazy data-img="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/1549677e99d4ee77df6a6c85ad0b892f.jpg"></div> -->
+      <div class="card-cover" data-img="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/1549677e99d4ee77df6a6c85ad0b892f.jpg"></div>
+    
     <div class="card-text">
       
-        <a href="/2021/09/05/test/" itemprop="url">
-          <h2 class="card-text--title text-ellipsis">test</h2>
+        <a href="/2024/01/10/helm%E5%8C%85%E7%AE%A1%E7%90%86%E5%99%A8/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">helm包管理器</h2>
         </a>
       
       <div class="card-text--row">Older</div>

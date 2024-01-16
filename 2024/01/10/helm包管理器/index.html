@@ -73,7 +73,7 @@
 <!-- header container -->
 <header class="header-container post" id="pjax-container">
   
-    <div class="post-image" style="background-image: url(https://gitee.com/a-c-dream/cloudimage/raw/master/img/1549677e99d4ee77df6a6c85ad0b892f.jpg)"></div>
+    <div class="post-image" style="background-image: url(https://raw.githubusercontent.com/a-c-dream/imgs/master/img/1549677e99d4ee77df6a6c85ad0b892f.jpg)"></div>
   
 
   <!-- navbar -->
@@ -223,6 +223,13 @@
 </tbody></table>
 <h1 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h1><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-string">mychart</span><br><span class="hljs-string">├──</span> <span class="hljs-string">Chart.yaml</span><br><span class="hljs-string">├──</span> <span class="hljs-string">charts</span> <span class="hljs-comment"># 该目录保存其他依赖的 chart（子 chart）</span><br><span class="hljs-string">├──</span> <span class="hljs-string">templates</span> <span class="hljs-comment"># chart 配置模板，用于渲染最终的 Kubernetes YAML 文件</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">NOTES.txt</span> <span class="hljs-comment"># 用户运行 helm install 时候的提示信息</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">_helpers.tpl</span> <span class="hljs-comment"># 用于创建模板时的帮助类</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">deployment.yaml</span> <span class="hljs-comment"># Kubernetes deployment 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">ingress.yaml</span> <span class="hljs-comment"># Kubernetes ingress 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">service.yaml</span> <span class="hljs-comment"># Kubernetes service 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">├──</span> <span class="hljs-string">serviceaccount.yaml</span> <span class="hljs-comment"># Kubernetes serviceaccount 配置</span><br><span class="hljs-string">│</span>   <span class="hljs-string">└──</span> <span class="hljs-string">tests</span><br><span class="hljs-string">│</span>       <span class="hljs-string">└──</span> <span class="hljs-string">test-connection.yaml</span><br><span class="hljs-string">└──</span> <span class="hljs-string">values.yaml</span> <span class="hljs-comment"># 定义 chart 模板中的自定义配置的默认值，可以在执行 helm install 或 helm update 的时候覆盖</span><br></code></pre></td></tr></table></figure>
 
+<h1 id="Helm升级"><a href="#Helm升级" class="headerlink" title="Helm升级"></a>Helm升级</h1><p><code>helm upgrade [RELEASE] [CHART] [flags]</code></p>
+<h1 id="Helm回滚"><a href="#Helm回滚" class="headerlink" title="Helm回滚"></a>Helm回滚</h1><p>使用 helm ls 的命令查看当前运行的 chart 的 release 版本，并使用下面的命令回滚到历史版本：</p>
+<p><code>helm rollback &lt;RELEASE&gt; [REVISION] [flags]</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 查看历史</span><br>helm <span class="hljs-built_in">history</span> redis<br><br><span class="hljs-comment"># 回退到上一版本</span><br>helm rollback redis<br><br><span class="hljs-comment"># 回退到指定版本</span><br>helm rollback redis 3<br></code></pre></td></tr></table></figure>
+
+
+
 <h1 id="Helm-命令-Tab-补全"><a href="#Helm-命令-Tab-补全" class="headerlink" title="Helm 命令 Tab 补全"></a>Helm 命令 Tab 补全</h1><p>Helm 有很多子命令和参数，为了提高使用命令行的效率，通常建议安装 helm 的 bash 命令补全脚本。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sh">helm completion bash &gt; .helmrc<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;source .helmrc&quot;</span> &gt;&gt; .bashrc<br></code></pre></td></tr></table></figure>
 
@@ -289,15 +296,50 @@
 
 <h2 id="查看安装情况"><a href="#查看安装情况" class="headerlink" title="查看安装情况"></a>查看安装情况</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看 helm 安装列表</span><br>helm list<br><br><span class="hljs-comment"># 查看 redis 命名空间下所有对象信息</span><br>kubectl get all -n redis<br></code></pre></td></tr></table></figure>
 
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><blockquote>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/IT_ZRS/article/details/133985291">K8s 之 Helm 部署 MySQL 5.7_helm安装特定版本的mysql-CSDN博客</a></p>
-</blockquote>
+<h2 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h2><p>修改value.yaml将password改为123456hhh</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240115101315969.png" alt="image-20240115101315969.png"></p>
+<p>执行<code>helm upgrade redis . -n redis</code>进行升级</p>
+<p>进入容器后发现密码已经更改为<code>123456hhh</code>，但是原来的数据还在</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240115102446822.png" alt="image-20240115102446822"></p>
+<h2 id="回滚"><a href="#回滚" class="headerlink" title="回滚"></a>回滚</h2><p>首先使用<code>helm history redis -n redis</code>查看历史版本</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240115103555840.png" alt="image-20240115103555840"></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 回退到上一版本</span><br>helm rollback redis<br><br><span class="hljs-comment"># 回退到指定版本</span><br>helm rollback redis 3<br></code></pre></td></tr></table></figure>
+
+<p>回滚成功</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240115103758564.png" alt="image-20240115103758564"></p>
+<p>回滚后密码又改了回去</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240115104142527.png" alt="image-20240115104142527"></p>
+<h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>执行<code>helm delete redis -n redis</code>删除，删除后发现PVC还在</p>
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240115104936031.png" alt="image-20240115104936031"></p>
+<p>这里使用<code>helm uninstall redis -n redis</code>删除也不会删的PVC，<code>delete</code>和<code>uninstall</code>的区别如下</p>
+<p>helm delete 是 helm uninstall 的别名</p>
+<p>执行 helm uninstall … 不仅会删除 pod，还会删除 helm 在安装Chart时创建的所有资源。 对于单个 pod，这可能与使用 kubectl delete 没有任何不同…但是当您有数十或数百个不同的资源和依赖Chart时，通过 kubectl delete 手动完成所有这些…变得麻烦、耗时且容易出错。</p>
+<p>一般来说，如果您要从集群中<strong>删除某些内容</strong>，请使用与最初<strong>安装它相同的方法</strong>。 也就是说，如果您使用 helm <strong>install</strong> 或 helm <strong>upload</strong> –install 将其安装到集群中，请使用 helm <strong>uninstall</strong> 将其删除（如果您仍在运行 Helm v2，则使用 helm delete –purge）； 如果您使用 <strong>kubectl create</strong> 或 <strong>kubectl apply</strong>，请使用 <strong>kubectl delete</strong> 将其删除。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/IT_ZRS/article/details/133985291">K8s 之 Helm 部署 MySQL 5.7_helm安装特定版本的mysql-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/71222072/whats-the-difference-between-helm-uninstall-helm-delete-and-kubectl-delete">https://stackoverflow.com/questions/71222072/whats-the-difference-between-helm-uninstall-helm-delete-and-kubectl-delete</a></p>
 
       </section>
 
       
       
         <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+      <!-- <div class="card-cover" background-image-lazy data-img="https://img2.baidu.com/it/u=2072065255,2878465820&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=800&amp;h=500"></div> -->
+      <div class="card-cover" data-img="https://img2.baidu.com/it/u=2072065255,2878465820&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=JPEG?w=800&amp;h=500"></div>
+    
+    <div class="card-text">
+      
+        <a href="/2024/01/15/%E9%9B%86%E7%BE%A4%E7%9B%91%E6%8E%A7prometheus/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">集群监控prometheus</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
           
           
             <div class="article-nav-item layout-padding">
@@ -351,7 +393,7 @@
         <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
 </svg>
-        <span>92</span>
+        <span>93</span>
       </div>
       <div class="count-box--item">
         <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -397,7 +439,7 @@
       
         <li class="categorys-list-item">
           <a href="/categories/k8s/">
-            k8s (25)
+            k8s (26)
           </a>
         </li>
       
