@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+  
+  
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          英伟达network-operator源码阅读 | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">英伟达network-operator源码阅读</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-06-18T02:24:35.373Z" itemprop="datePublished">2024-06-18</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <p><a target="_blank" rel="noopener" href="https://github.com/Mellanox/network-operator">GitHub - Mellanox/network-operator: Mellanox Network Operator</a></p>
+<p>找不到包用这个</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">go clean --modcache<br>go mod download    <br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h1><p><code>README.md</code>：通常包含项目的概述、安装和使用说明。</p>
+<p><code>docs/</code>：可能包含详细的文档和设计说明。</p>
+<p><code>pkg/</code>：包含Go语言的源代码。</p>
+<p><code>cmd/</code>：包含项目的主程序入口。</p>
+<p><code>deploy/</code>：包含部署相关的YAML文件。</p>
+<h1 id="概念和一些信息"><a href="#概念和一些信息" class="headerlink" title="概念和一些信息"></a>概念和一些信息</h1><p>海光不需要加载</p>
+<p>寒武纪使用<code>sudo modprobe cambricon-peermem</code>加载peermem</p>
+<p>目标：通过修改英伟达network-operator实现自动加载peermem</p>
+<h2 id="OFED-driver-container"><a href="#OFED-driver-container" class="headerlink" title="OFED driver container"></a><a target="_blank" rel="noopener" href="https://github.com/Mellanox/ofed-docker">OFED driver container</a></h2><p>只会部署到支持Mellanox的node上</p>
+<p>只要在主机上安装该镜像，容器将完成下面的功能</p>
+<ul>
+<li>重新加载 Mellanox OFED 提供的内核模块</li>
+<li>将容器的根目录挂载到 <code>/run/mellanox/drivers/</code>。如果该目录被映射到主机，该容器的内容就可以与主机或其他容器共享。它的一个用例是编译 Nvidia Peer Memory 客户端模块。</li>
+</ul>
+<h2 id="RDMA-shared-device-plugin"><a href="#RDMA-shared-device-plugin" class="headerlink" title="RDMA shared device plugin"></a><a target="_blank" rel="noopener" href="https://github.com/Mellanox/k8s-rdma-shared-dev-plugin">RDMA shared device plugin</a></h2><p>支持 <code>IB and RoCE HCA</code>的plugin，作为<code>daemonset</code>运行</p>
+<h2 id="InfiniBand-Kubernetes"><a href="#InfiniBand-Kubernetes" class="headerlink" title="InfiniBand Kubernetes"></a><a target="_blank" rel="noopener" href="https://github.com/Mellanox/ib-kubernetes/">InfiniBand Kubernetes</a></h2><p><code>InfiniBand Kubernetes</code> 提供了一个守护进程 <code>ib-kubernetes</code>，它与 <code>InfiniBand SR-IOV CNI</code> 和 <code>Multus CNI</code> 一起工作，<code>Pod</code> 发生变化（创建/更新/删除）时，它会读取 Pod 的网络<code>annotation</code>并获取其对应的网络 CRD 并读取 PKey，对于带有注释 <code>mellanox.infiniband.app</code> 的 <code>Pod</code>，将新生成的 Guid 或 CRD cni-args 的 guid 字段中的预定义 Guid 添加到该 PKey。</p>
+<h2 id="secondaryNetwork"><a href="#secondaryNetwork" class="headerlink" title="secondaryNetwork"></a>secondaryNetwork</h2><p>辅助网络，目前支持下面几种</p>
+<p>Multus-CNI：支持 Kubernetes 中二级网络的委托 CNI 插件<br>CNI 插件： 目前仅支持 containernetworking-plugins<br>IP Over Infiniband（IPoIB）CNI 插件： 允许用户创建 IPoIB 子链接并将其移动到 pod。<br>IPAM CNI：IPAM CNI 和相关配置的去向</p>
+<h1 id="nicclusterpolicy-controller"><a href="#nicclusterpolicy-controller" class="headerlink" title="nicclusterpolicy_controller"></a>nicclusterpolicy_controller</h1><h3 id="NicClusterPolicyReconciler-结构体"><a href="#NicClusterPolicyReconciler-结构体" class="headerlink" title="NicClusterPolicyReconciler 结构体"></a>NicClusterPolicyReconciler 结构体</h3><p><code>NicClusterPolicyReconciler</code> 是一个结构体，包含了用于管理 <code>NicClusterPolicy</code> 自定义资源状态的客户端、方案和各种提供者。</p>
+<ul>
+<li><code>client.Client</code>: 与 Kubernetes API 进行交互。</li>
+<li><code>Scheme</code>: 定义资源的运行时方案。</li>
+<li><code>ClusterTypeProvider</code>、<code>StaticConfigProvider</code>、<code>DocaDriverImagesProvider</code>: 提供必要的配置和驱动镜像。</li>
+<li><code>MigrationCh</code>: 用于处理迁移流程的通道。</li>
+<li><code>stateManager</code>: 管理自定义资源的状态同步。</li>
+</ul>
+<h3 id="Reconcile-方法"><a href="#Reconcile-方法" class="headerlink" title="Reconcile 方法"></a>Reconcile 方法</h3><p><code>Reconcile</code>方法是控制器的核心，负责：</p>
+<ol>
+<li><strong>处理迁移流程</strong>: 确保迁移通道被处理。</li>
+<li><strong>获取自定义资源</strong>: 根据请求检索 <code>NicClusterPolicy</code> 实例。</li>
+<li><strong>处理 NotFound 错误</strong>: 如果资源被删除，则进行清理。</li>
+<li><strong>检查资源名称</strong>: 确保只处理特定名称的资源。</li>
+<li><strong>创建状态服务目录</strong>: 初始化状态服务目录，并添加必要的信息。</li>
+<li><strong>节点信息提供者</strong>: 如果指定了 OFED 驱动程序，则收集节点信息并更新状态目录。</li>
+<li><strong>同步状态并更新状态</strong>: 同步状态并更新自定义资源状态。</li>
+<li><strong>处理 OFED 等待标签</strong>: 更新与 OFED 驱动程序就绪状态相关的节点标签。</li>
+</ol>
+<h3 id="辅助方法"><a href="#辅助方法" class="headerlink" title="辅助方法"></a>辅助方法</h3><ul>
+<li><code>requeue()</code>: 触发带有延迟的重新排队。</li>
+<li><code>handleMOFEDWaitLabels()</code>: 更新节点标签，以指示 OFED 驱动程序是否应等待。</li>
+<li><code>handleMOFEDWaitLabelsNoConfig()</code>: 处理未配置 OFED 的场景，并相应地更新标签。</li>
+<li><code>setOFEDWaitLabel()</code>: 设置或删除节点上的 OFED 等待标签。</li>
+<li><code>updateCrStatus()</code>: 根据状态同步结果更新自定义资源的状态。</li>
+<li><code>handleUnsupportedInstance()</code>: 通过将其状态更新为忽略来处理不受支持的实例。</li>
+</ul>
+<h3 id="SetupWithManager-方法"><a href="#SetupWithManager-方法" class="headerlink" title="SetupWithManager 方法"></a>SetupWithManager 方法</h3><p><code>SetupWithManager</code>使用提供的管理器设置控制器。</p>
+<ul>
+<li>它创建一个状态管理器，并设置对 <code>NicClusterPolicy</code> 和相关资源的监视。</li>
+<li>它定义了事件的谓词和处理程序，以确保高效的协调。</li>
+</ul>
+<p>此控制器确保 <code>NicClusterPolicy</code> 资源得到正确管理，同步 Kubernetes 集群中的期望状态与实际状态，并处理 OFED 驱动程序的节点特定配置。</p>
+<h1 id="peermem模块"><a href="#peermem模块" class="headerlink" title="peermem模块"></a>peermem模块</h1><blockquote>
+<p>Starting from v465 NVIDIA GPU driver includes a built-in nvidia_peermem module which is a replacement for nv_peer_mem module. NVIDIA GPU operator manages nvidia_peermem module loading.</p>
+</blockquote>
+<p>由于现在peermem已经由NVIDIA GPU operator manages负责，所以用之前的代码。最低版本为<a target="_blank" rel="noopener" href="https://github.com/Mellanox/network-operator/tree/v0.1.0"><code>0.1.0</code></a>，最高版本为<a target="_blank" rel="noopener" href="https://github.com/Mellanox/network-operator/tree/v23.5.0"><code>v23.5.0</code></a></p>
+<p>还是从<code>nicclusterpolicy_controller.go</code>入手</p>
+<h2 id="nicclusterpolicy-controller-go"><a href="#nicclusterpolicy-controller-go" class="headerlink" title="nicclusterpolicy_controller.go"></a>nicclusterpolicy_controller.go</h2><p>在Reconcile中，判断是否写了ofed，nvpeermem，rdma share等，如果写了将信息存入infoProvider，然后将infoProvider添加到sc中，最后调用r.stateManager.SyncState(instance, sc)进行同步。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">if</span> instance.Spec.OFEDDriver != <span class="hljs-literal">nil</span> || instance.Spec.NVPeerDriver != <span class="hljs-literal">nil</span> ||<br>		instance.Spec.RdmaSharedDevicePlugin != <span class="hljs-literal">nil</span> || instance.Spec.SriovDevicePlugin != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-comment">// Create node infoProvider and add to the service catalog</span><br>		reqLogger.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;Creating Node info provider&quot;</span>)<br>		nodeList := &amp;corev1.NodeList&#123;&#125;<br>		err = r.List(context.TODO(), nodeList, nodeinfo.MellanoxNICListOptions...)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// Failed to get node list</span><br>			reqLogger.V(consts.LogLevelError).Info(<span class="hljs-string">&quot;Error occurred on LIST nodes request from API server.&quot;</span>, <span class="hljs-string">&quot;error:&quot;</span>, err)<br>			<span class="hljs-keyword">return</span> reconcile.Result&#123;&#125;, err<br>		&#125;<br>		nodePtrList := <span class="hljs-built_in">make</span>([]*corev1.Node, <span class="hljs-built_in">len</span>(nodeList.Items))<br>		nodeNames := <span class="hljs-built_in">make</span>([]*<span class="hljs-keyword">string</span>, <span class="hljs-built_in">len</span>(nodeList.Items))<br>		<span class="hljs-keyword">for</span> i := <span class="hljs-keyword">range</span> nodePtrList &#123;<br>			nodePtrList[i] = &amp;nodeList.Items[i]<br>			nodeNames[i] = &amp;nodeList.Items[i].Name<br>		&#125;<br>		reqLogger.V(consts.LogLevelDebug).Info(<span class="hljs-string">&quot;Node info provider with&quot;</span>, <span class="hljs-string">&quot;Nodes:&quot;</span>, nodeNames)<br>		infoProvider := nodeinfo.NewProvider(nodePtrList)<br>		sc.Add(state.InfoTypeNodeInfo, infoProvider)<br>	&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接下来具体来看SyncState的实现</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// SyncState attempts to reconcile the system by invoking Sync on each of the states</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(smgr *stateManager)</span> <span class="hljs-title">SyncState</span><span class="hljs-params">(customResource <span class="hljs-keyword">interface</span>&#123;&#125;, infoCatalog InfoCatalog)</span> <span class="hljs-params">(Results, error)</span></span> &#123;<br>	<span class="hljs-comment">// Sync groups of states, transition from one group to the other when a group finishes</span><br>	log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;Syncing system state&quot;</span>)<br>	managerResult := Results&#123;<br>		Status: SyncStateNotReady,<br>	&#125;<br>	statesReady := <span class="hljs-literal">true</span><br><br>	<span class="hljs-keyword">for</span> i, stateGroup := <span class="hljs-keyword">range</span> smgr.stateGroups &#123;<br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;Sync State group&quot;</span>, <span class="hljs-string">&quot;index&quot;</span>, i)<br>		results := stateGroup.Sync(customResource, infoCatalog)<br>		managerResult.StatesStatus = <span class="hljs-built_in">append</span>(managerResult.StatesStatus, results...)<br><br>		done, err := stateGroup.SyncDone()<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			log.V(consts.LogLevelError).Info(<span class="hljs-string">&quot;Error while syncing states&quot;</span>, <span class="hljs-string">&quot;Error:&quot;</span>, err)<br>			<span class="hljs-keyword">return</span> managerResult, err<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> !done &#123;<br>			<span class="hljs-comment">// We need to have at lease one not ready state to mark CR as notReady</span><br>			statesReady = <span class="hljs-literal">false</span><br>			log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;State Group Not ready&quot;</span>)<br>		&#125; <span class="hljs-keyword">else</span> &#123;<br>			log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;Sync Completed successfully for State group&quot;</span>, <span class="hljs-string">&quot;index&quot;</span>, i)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">if</span> statesReady &#123;<br>		<span class="hljs-comment">// Done Syncing CR</span><br>		managerResult.Status = SyncStateReady<br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;Sync Done for custom resource&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-keyword">return</span> managerResult, <span class="hljs-literal">nil</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里又调用了下面的函数进行处理</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs go">stateGroup.Sync(customResource, infoCatalog)<br>sg.states[i].Sync(customResource, infoCatalog)<br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateNVPeer)</span> <span class="hljs-title">Sync</span><span class="hljs-params">(customResource <span class="hljs-keyword">interface</span>&#123;&#125;, infoCatalog InfoCatalog)</span> <span class="hljs-params">(SyncState, error)</span></span><br></code></pre></td></tr></table></figure>
+
+<p>最后发现关于peermem的代码在<code>pkg/state/state_nv_peer.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> state<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;strconv&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/pkg/errors&quot;</span><br>	appsv1 <span class="hljs-string">&quot;k8s.io/api/apps/v1&quot;</span><br>	v1 <span class="hljs-string">&quot;k8s.io/api/core/v1&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/apis/meta/v1/unstructured&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime&quot;</span><br>	<span class="hljs-string">&quot;sigs.k8s.io/controller-runtime/pkg/client&quot;</span><br>	<span class="hljs-string">&quot;sigs.k8s.io/controller-runtime/pkg/controller/controllerutil&quot;</span><br>	<span class="hljs-string">&quot;sigs.k8s.io/controller-runtime/pkg/source&quot;</span><br><br>	mellanoxv1alpha1 <span class="hljs-string">&quot;github.com/Mellanox/network-operator/api/v1alpha1&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/config&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/consts&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/nodeinfo&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/render&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/utils&quot;</span><br>)<br><br><span class="hljs-keyword">const</span> (<br>	stateNVPeerName        = <span class="hljs-string">&quot;state-NV-Peer&quot;</span><br>	stateNVPeerDescription = <span class="hljs-string">&quot;Nvidia Peer Memory driver deployed in the cluster&quot;</span><br><br>	<span class="hljs-comment">// 从这个GPU驱动版本开始，nvPeerMem驱动程序不应部署</span><br>	maxCudaVersionMajor = <span class="hljs-number">465</span><br>)<br><br><span class="hljs-comment">// NewStateNVPeer 创建一个新的NVPeer驱动状态</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewStateNVPeer</span><span class="hljs-params">(k8sAPIClient client.Client, scheme *runtime.Scheme, manifestDir <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(State, error)</span></span> &#123;<br>	files, err := utils.GetFilesWithSuffix(manifestDir, render.ManifestFileSuffix...)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;无法从清单目录获取文件&quot;</span>)<br>	&#125;<br><br>	renderer := render.NewRenderer(files)<br>	<span class="hljs-keyword">return</span> &amp;stateNVPeer&#123;<br>		stateSkel: stateSkel&#123;<br>			name:        stateNVPeerName,<br>			description: stateNVPeerDescription,<br>			client:      k8sAPIClient,<br>			scheme:      scheme,<br>			renderer:    renderer,<br>		&#125;&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// stateNVPeer 结构体</span><br><span class="hljs-keyword">type</span> stateNVPeer <span class="hljs-keyword">struct</span> &#123;<br>	stateSkel<br>&#125;<br><br><span class="hljs-comment">// nvPeerRuntimeSpec 运行时配置</span><br><span class="hljs-keyword">type</span> nvPeerRuntimeSpec <span class="hljs-keyword">struct</span> &#123;<br>	runtimeSpec<br>	CPUArch        <span class="hljs-keyword">string</span><br>	OSName         <span class="hljs-keyword">string</span><br>	OSVer          <span class="hljs-keyword">string</span><br>	UseHostOFED    <span class="hljs-keyword">bool</span><br>	MaxCudaVersion <span class="hljs-keyword">int</span><br>&#125;<br><br><span class="hljs-comment">// nvPeerManifestRenderData 清单渲染数据</span><br><span class="hljs-keyword">type</span> nvPeerManifestRenderData <span class="hljs-keyword">struct</span> &#123;<br>	CrSpec       *mellanoxv1alpha1.NVPeerDriverSpec<br>	NodeAffinity *v1.NodeAffinity<br>	RuntimeSpec  *nvPeerRuntimeSpec<br>&#125;<br><br><span class="hljs-comment">// Sync 尝试让系统与State表示的所需状态匹配。同步操作必须相对较短且不能阻塞执行线程。</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateNVPeer)</span> <span class="hljs-title">Sync</span><span class="hljs-params">(customResource <span class="hljs-keyword">interface</span>&#123;&#125;, infoCatalog InfoCatalog)</span> <span class="hljs-params">(SyncState, error)</span></span> &#123;<br>	cr := customResource.(*mellanoxv1alpha1.NicClusterPolicy)<br>	log.V(consts.LogLevelInfo).Info(<br>		<span class="hljs-string">&quot;同步自定义资源&quot;</span>, <span class="hljs-string">&quot;状态:&quot;</span>, s.name, <span class="hljs-string">&quot;名称:&quot;</span>, cr.Name, <span class="hljs-string">&quot;命名空间:&quot;</span>, cr.Namespace)<br><br>	<span class="hljs-keyword">if</span> cr.Spec.NVPeerDriver == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-comment">// 如果不需要运行此状态或发生更新且需要删除已创建的资源。</span><br>		<span class="hljs-keyword">return</span> s.handleStateObjectsDeletion()<br>	&#125;<br><br>	<span class="hljs-comment">// 填充清单渲染数据并渲染对象</span><br>	nodeInfo := infoCatalog.GetNodeInfoProvider()<br>	<span class="hljs-keyword">if</span> nodeInfo == <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> SyncStateError, errors.New(<span class="hljs-string">&quot;意外状态，目录不提供节点信息&quot;</span>)<br>	&#125;<br><br>	objs, err := s.getManifestObjects(cr, nodeInfo)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> SyncStateNotReady, errors.Wrap(err, <span class="hljs-string">&quot;无法从清单创建k8s对象&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(objs) == <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-comment">// getManifestObjects 返回没有对象，这意味着没有对象需要应用到集群中，</span><br>		<span class="hljs-comment">// 因为（很可能）没有找到Mellanox/Nvidia硬件（没有找到Mellanox和Nvidia标签）。</span><br>		<span class="hljs-comment">// 返回SyncStateNotReady以便我们重试同步。</span><br>		<span class="hljs-keyword">return</span> SyncStateNotReady, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	<span class="hljs-comment">// 创建对象（如果不存在），更新对象（如果存在）</span><br>	err = s.createOrUpdateObjs(<span class="hljs-function"><span class="hljs-keyword">func</span><span class="hljs-params">(obj *unstructured.Unstructured)</span> <span class="hljs-title">error</span></span> &#123;<br>		<span class="hljs-keyword">if</span> err := controllerutil.SetControllerReference(cr, obj, s.scheme); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> errors.Wrap(err, <span class="hljs-string">&quot;无法为对象设置控制器引用&quot;</span>)<br>		&#125;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>	&#125;, objs)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> SyncStateNotReady, errors.Wrap(err, <span class="hljs-string">&quot;无法创建/更新对象&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-comment">// 检查是否应忽略nvPeerMem状态</span><br>	<span class="hljs-comment">// 支持从nv_peer_mem模块升级到nvidia_peermem模块的解决方法</span><br>	<span class="hljs-keyword">if</span> s.shouldIgnoreStatus(nodeInfo) &#123;<br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;检测到具有内置nvidia_peermem模块的GPU驱动程序版本。&quot;</span> +<br>			<span class="hljs-string">&quot;忽略NV Peer驱动程序状态&quot;</span>)<br>		<span class="hljs-keyword">return</span> SyncStateIgnore, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	<span class="hljs-comment">// 检查对象状态</span><br>	syncState, err := s.getSyncState(objs)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> SyncStateNotReady, errors.Wrap(err, <span class="hljs-string">&quot;无法获取同步状态&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">return</span> syncState, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// GetWatchSources 获取应监视的源种类映射，按源种类名称键入</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateNVPeer)</span> <span class="hljs-title">GetWatchSources</span><span class="hljs-params">()</span> <span class="hljs-title">map</span>[<span class="hljs-title">string</span>]*<span class="hljs-title">source</span>.<span class="hljs-title">Kind</span></span> &#123;<br>	wr := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]*source.Kind)<br>	wr[<span class="hljs-string">&quot;DaemonSet&quot;</span>] = &amp;source.Kind&#123;Type: &amp;appsv1.DaemonSet&#123;&#125;&#125;<br>	<span class="hljs-keyword">return</span> wr<br>&#125;<br><br><span class="hljs-comment">// getManifestObjects 获取清单对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateNVPeer)</span> <span class="hljs-title">getManifestObjects</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">	cr *mellanoxv1alpha1.NicClusterPolicy,</span></span><br><span class="hljs-params"><span class="hljs-function">	nodeInfo nodeinfo.Provider)</span> <span class="hljs-params">([]*unstructured.Unstructured, error)</span></span> &#123;<br>	attrs := nodeInfo.GetNodesAttributes(<br>		nodeinfo.NewNodeLabelFilterBuilder().<br>			WithLabel(nodeinfo.NodeLabelMlnxNIC, <span class="hljs-string">&quot;true&quot;</span>).<br>			WithLabel(nodeinfo.NodeLabelNvGPU, <span class="hljs-string">&quot;true&quot;</span>).<br>			Build())<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(attrs) == <span class="hljs-number">0</span> &#123;<br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;在集群中未找到具有Mellanox NIC和Nvidia GPU的节点。&quot;</span>)<br>		<span class="hljs-keyword">return</span> []*unstructured.Unstructured&#123;&#125;, <span class="hljs-literal">nil</span><br>	&#125;<br><br>	<span class="hljs-comment">// <span class="hljs-doctag">TODO:</span> 根据CPUXOS矩阵多次渲染daemonset（目前假设所有节点都是相同的）</span><br>	<span class="hljs-keyword">if</span> err := s.checkAttributesExist(attrs[<span class="hljs-number">0</span>],<br>		nodeinfo.AttrTypeCPUArch, nodeinfo.AttrTypeOSName, nodeinfo.AttrTypeOSVer); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, err<br>	&#125;<br><br>	renderData := &amp;nvPeerManifestRenderData&#123;<br>		CrSpec:       cr.Spec.NVPeerDriver,<br>		NodeAffinity: cr.Spec.NodeAffinity,<br>		RuntimeSpec: &amp;nvPeerRuntimeSpec&#123;<br>			runtimeSpec:    runtimeSpec&#123;config.FromEnv().State.NetworkOperatorResourceNamespace&#125;,<br>			CPUArch:        attrs[<span class="hljs-number">0</span>].Attributes[nodeinfo.AttrTypeCPUArch],<br>			OSName:         attrs[<span class="hljs-number">0</span>].Attributes[nodeinfo.AttrTypeOSName],<br>			OSVer:          attrs[<span class="hljs-number">0</span>].Attributes[nodeinfo.AttrTypeOSVer],<br>			UseHostOFED:    cr.Spec.OFEDDriver == <span class="hljs-literal">nil</span>,<br>			MaxCudaVersion: maxCudaVersionMajor,<br>		&#125;,<br>	&#125;<br>	<span class="hljs-comment">// 渲染对象</span><br>	log.V(consts.LogLevelDebug).Info(<span class="hljs-string">&quot;渲染对象&quot;</span>, <span class="hljs-string">&quot;数据:&quot;</span>, renderData)<br>	objs, err := s.renderer.RenderObjects(&amp;render.TemplatingData&#123;Data: renderData&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>, errors.Wrap(err, <span class="hljs-string">&quot;渲染对象失败&quot;</span>)<br>	&#125;<br>	log.V(consts.LogLevelDebug).Info(<span class="hljs-string">&quot;已渲染&quot;</span>, <span class="hljs-string">&quot;对象:&quot;</span>, objs)<br>	<span class="hljs-keyword">return</span> objs, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// shouldIgnoreStatus 检查是否应忽略nvPeerMem DS状态</span><br><span class="hljs-comment">// 支持从nv_peer_mem模块切换到nvidia_peermem模块的解决方法，从v465版本开始，这个模块是GPU驱动程序的一部分。</span><br><span class="hljs-comment">// 如果集群中的所有节点GPU驱动程序版本大于465，则应忽略nvPeerMem状态。</span><br><span class="hljs-comment">// 如果某些节点仍使用GPU驱动程序版本小于465或没有节点具有GPU驱动程序，则应继续同步尝试。</span><br><span class="hljs-comment">// 我们不会删除DS，只是忽略其状态。这是为了在GPU驱动程序版本降级或在具有混合版本GPU驱动程序的环境中</span><br><span class="hljs-comment">// 节点在具有新版本的节点之后出现时能够恢复nv-peer-mem。</span><br><span class="hljs-comment">// NV PeerMem配置应从NicClusterPolicy中显式删除以删除DS。</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateNVPeer)</span> <span class="hljs-title">shouldIgnoreStatus</span><span class="hljs-params">(nodeInfo nodeinfo.Provider)</span> <span class="hljs-title">bool</span></span> &#123;<br>	attrs := nodeInfo.GetNodesAttributes(<br>		nodeinfo.NewNodeLabelNoValFilterBuilderr().<br>			WithLabel(nodeinfo.NodeLabelCudaVersionMajor).<br>			Build())<br>	<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(attrs) == <span class="hljs-number">0</span> &#123;<br>		<span class="hljs-comment">// 没有驱动程序信息可用，应继续同步</span><br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>	&#125;<br>	<span class="hljs-keyword">for</span> _, attr := <span class="hljs-keyword">range</span> attrs &#123;<br>		cudaVersion, err := strconv.Atoi(attr.Attributes[nodeinfo.AttrTypeCudaVersionMajor])<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 未知的cuda版本，继续同步</span><br>			log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;检查GPU驱动程序版本失败&quot;</span>)<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> cudaVersion &lt; maxCudaVersionMajor &#123;<br>			<span class="hljs-comment">// 找到旧的GPU驱动程序的节点，继续同步</span><br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p><code>pkg/state/state_skel.go</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> state<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;encoding/json&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/pkg/errors&quot;</span><br>	appsv1 <span class="hljs-string">&quot;k8s.io/api/apps/v1&quot;</span><br>	k8serrors <span class="hljs-string">&quot;k8s.io/apimachinery/pkg/api/errors&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/api/meta&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/apis/meta/v1/unstructured&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime/schema&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/types&quot;</span><br>	<span class="hljs-string">&quot;sigs.k8s.io/controller-runtime/pkg/client&quot;</span><br><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/consts&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/nodeinfo&quot;</span><br>	<span class="hljs-string">&quot;github.com/Mellanox/network-operator/pkg/render&quot;</span><br>)<br><br><span class="hljs-comment">// 运行时配置</span><br><span class="hljs-keyword">type</span> runtimeSpec <span class="hljs-keyword">struct</span> &#123;<br>	Namespace <span class="hljs-keyword">string</span><br>&#125;<br><br><span class="hljs-comment">// 状态骨架，嵌入实现State接口的结构体中，提供实现状态所需的常见结构和功能</span><br><span class="hljs-keyword">type</span> stateSkel <span class="hljs-keyword">struct</span> &#123;<br>	name        <span class="hljs-keyword">string</span><br>	description <span class="hljs-keyword">string</span><br><br>	client   client.Client<br>	scheme   *runtime.Scheme<br>	renderer render.Renderer<br>&#125;<br><br><span class="hljs-comment">// Name 返回状态名称</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">Name</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;<br>	<span class="hljs-keyword">return</span> s.name<br>&#125;<br><br><span class="hljs-comment">// Description 返回状态描述</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">Description</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;<br>	<span class="hljs-keyword">return</span> s.description<br>&#125;<br><br><span class="hljs-comment">// 获取支持的GVK（Group Version Kind）</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">getSupportedGVKs</span><span class="hljs-params">()</span> []<span class="hljs-title">schema</span>.<span class="hljs-title">GroupVersionKind</span></span> &#123;<br>	<span class="hljs-keyword">return</span> []schema.GroupVersionKind&#123;<br>		&#123;Group: <span class="hljs-string">&quot;&quot;</span>, Kind: <span class="hljs-string">&quot;ServiceAccount&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;&quot;</span>, Kind: <span class="hljs-string">&quot;ConfigMap&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;apps&quot;</span>, Kind: <span class="hljs-string">&quot;DaemonSet&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;apps&quot;</span>, Kind: <span class="hljs-string">&quot;Deployment&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;apiextensions.k8s.io&quot;</span>, Kind: <span class="hljs-string">&quot;CustomResourceDefinition&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;rbac.authorization.k8s.io&quot;</span>, Kind: <span class="hljs-string">&quot;ClusterRole&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;rbac.authorization.k8s.io&quot;</span>, Kind: <span class="hljs-string">&quot;ClusterRoleBinding&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;rbac.authorization.k8s.io&quot;</span>, Kind: <span class="hljs-string">&quot;Role&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;rbac.authorization.k8s.io&quot;</span>, Kind: <span class="hljs-string">&quot;RoleBinding&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;k8s.cni.cncf.io&quot;</span>, Kind: <span class="hljs-string">&quot;NetworkAttachmentDefinition&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;batch&quot;</span>, Kind: <span class="hljs-string">&quot;CronJob&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>		&#123;Group: <span class="hljs-string">&quot;security.openshift.io&quot;</span>, Kind: <span class="hljs-string">&quot;SecurityContextConstraints&quot;</span>, Version: <span class="hljs-string">&quot;v1&quot;</span>&#125;,<br>	&#125;<br>&#125;<br><br><span class="hljs-comment">// 获取对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">getObj</span><span class="hljs-params">(obj *unstructured.Unstructured)</span> <span class="hljs-title">error</span></span> &#123;<br>	log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;获取对象&quot;</span>, <span class="hljs-string">&quot;命名空间:&quot;</span>, obj.GetNamespace(), <span class="hljs-string">&quot;名称:&quot;</span>, obj.GetName())<br>	err := s.client.Get(<br>		context.TODO(), types.NamespacedName&#123;Name: obj.GetName(), Namespace: obj.GetNamespace()&#125;, obj)<br>	<span class="hljs-keyword">if</span> k8serrors.IsNotFound(err) &#123;<br>		<span class="hljs-comment">// 对象不存在</span><br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;对象不存在&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">return</span> err<br>&#125;<br><br><span class="hljs-comment">// 创建对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">createObj</span><span class="hljs-params">(obj *unstructured.Unstructured)</span> <span class="hljs-title">error</span></span> &#123;<br>	s.checkDeleteSupported(obj)<br>	log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;创建对象&quot;</span>, <span class="hljs-string">&quot;命名空间:&quot;</span>, obj.GetNamespace(), <span class="hljs-string">&quot;名称:&quot;</span>, obj.GetName())<br>	toCreate := obj.DeepCopy()<br>	<span class="hljs-keyword">if</span> err := s.client.Create(context.TODO(), toCreate); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">if</span> k8serrors.IsAlreadyExists(err) &#123;<br>			log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;对象已存在&quot;</span>)<br>		&#125;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;对象创建成功&quot;</span>)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 检查是否支持删除对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">checkDeleteSupported</span><span class="hljs-params">(obj *unstructured.Unstructured)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, gvk := <span class="hljs-keyword">range</span> getSupportedGVKs() &#123;<br>		objGvk := obj.GroupVersionKind()<br>		<span class="hljs-keyword">if</span> objGvk.Group == gvk.Group &amp;&amp; objGvk.Version == gvk.Version &amp;&amp; objGvk.Kind == gvk.Kind &#123;<br>			<span class="hljs-keyword">return</span><br>		&#125;<br>	&#125;<br>	log.V(consts.LogLevelWarning).Info(<span class="hljs-string">&quot;对象不支持删除&quot;</span>,<br>		<span class="hljs-string">&quot;命名空间:&quot;</span>, obj.GetNamespace(), <span class="hljs-string">&quot;名称:&quot;</span>, obj.GetName(), <span class="hljs-string">&quot;GVK&quot;</span>, obj.GroupVersionKind())<br>&#125;<br><br><span class="hljs-comment">// 更新对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">updateObj</span><span class="hljs-params">(obj *unstructured.Unstructured)</span> <span class="hljs-title">error</span></span> &#123;<br>	log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;更新对象&quot;</span>, <span class="hljs-string">&quot;命名空间:&quot;</span>, obj.GetNamespace(), <span class="hljs-string">&quot;名称:&quot;</span>, obj.GetName())<br>	desired := obj.DeepCopy()<br>	<span class="hljs-keyword">if</span> err := s.client.Update(context.TODO(), desired); err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> errors.Wrap(err, <span class="hljs-string">&quot;更新资源失败&quot;</span>)<br>	&#125;<br>	log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;对象更新成功&quot;</span>)<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 创建或更新对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">createOrUpdateObjs</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">	setControllerReference <span class="hljs-keyword">func</span>(obj *unstructured.Unstructured)</span> <span class="hljs-title">error</span>,</span><br>	objs []*unstructured.Unstructured) error &#123;<br>	<span class="hljs-keyword">for</span> _, desiredObj := <span class="hljs-keyword">range</span> objs &#123;<br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;处理清单对象&quot;</span>, <span class="hljs-string">&quot;类型:&quot;</span>, desiredObj.GetKind(), <span class="hljs-string">&quot;名称&quot;</span>, desiredObj.GetName())<br>		<span class="hljs-comment">// 为对象设置控制器引用，以便在CR删除时进行清理</span><br>		<span class="hljs-keyword">if</span> err := setControllerReference(desiredObj); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> errors.Wrap(err, <span class="hljs-string">&quot;设置对象控制器引用失败&quot;</span>)<br>		&#125;<br><br>		s.addStateSpecificLabels(desiredObj)<br><br>		err := s.createObj(desiredObj)<br>		<span class="hljs-keyword">if</span> err == <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 对象创建成功</span><br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> !k8serrors.IsAlreadyExists(err) &#123;<br>			<span class="hljs-comment">// 发生某些错误</span><br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br><br>		currentObj := desiredObj.DeepCopy()<br>		<span class="hljs-keyword">if</span> err := s.getObj(currentObj); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-comment">// 发生某些错误</span><br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br><br>		<span class="hljs-keyword">if</span> err := s.mergeObjects(desiredObj, currentObj); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br><br>		<span class="hljs-comment">// 对象已存在，更新它</span><br>		<span class="hljs-keyword">if</span> err := s.updateObj(desiredObj); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 添加状态特定标签</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">addStateSpecificLabels</span><span class="hljs-params">(obj *unstructured.Unstructured)</span></span> &#123;<br>	labels := obj.GetLabels()<br>	<span class="hljs-keyword">if</span> labels == <span class="hljs-literal">nil</span> &#123;<br>		labels = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>)<br>	&#125;<br>	labels[consts.StateLabel] = s.name<br>	obj.SetLabels(labels)<br>&#125;<br><br><span class="hljs-comment">// 处理状态对象的删除</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">handleStateObjectsDeletion</span><span class="hljs-params">()</span> <span class="hljs-params">(SyncState, error)</span></span> &#123;<br>	log.V(consts.LogLevelInfo).Info(<br>		<span class="hljs-string">&quot;CR中的状态规范为空，如果需要，删除现有对象&quot;</span>, <span class="hljs-string">&quot;状态:&quot;</span>, s.name)<br>	found, err := s.deleteStateRelatedObjects()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> SyncStateError, errors.Wrap(err, <span class="hljs-string">&quot;删除k8s对象失败&quot;</span>)<br>	&#125;<br>	<span class="hljs-keyword">if</span> found &#123;<br>		log.V(consts.LogLevelInfo).Info(<span class="hljs-string">&quot;状态正在删除对象&quot;</span>, <span class="hljs-string">&quot;状态:&quot;</span>, s.name)<br>		<span class="hljs-keyword">return</span> SyncStateNotReady, <span class="hljs-literal">nil</span><br>	&#125;<br>	<span class="hljs-keyword">return</span> SyncStateIgnore, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 删除与状态相关的对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">deleteStateRelatedObjects</span><span class="hljs-params">()</span> <span class="hljs-params">(<span class="hljs-keyword">bool</span>, error)</span></span> &#123;<br>	stateLabel := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>&#123;<br>		consts.StateLabel: s.name,<br>	&#125;<br>	found := <span class="hljs-literal">false</span><br>	<span class="hljs-keyword">for</span> _, gvk := <span class="hljs-keyword">range</span> getSupportedGVKs() &#123;<br>		l := &amp;unstructured.UnstructuredList&#123;&#125;<br>		l.SetGroupVersionKind(gvk)<br>		err := s.client.List(context.Background(), l, client.MatchingLabels(stateLabel))<br>		<span class="hljs-keyword">if</span> meta.IsNoMatchError(err) &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, err<br>		&#125;<br>		<span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(l.Items) &gt; <span class="hljs-number">0</span> &#123;<br>			found = <span class="hljs-literal">true</span><br>		&#125;<br>		<span class="hljs-keyword">for</span> _, obj := <span class="hljs-keyword">range</span> l.Items &#123;<br>			obj := obj<br>			<span class="hljs-keyword">if</span> obj.GetDeletionTimestamp() == <span class="hljs-literal">nil</span> &#123;<br>				err := s.client.Delete(context.TODO(), &amp;obj)<br>				<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>					<span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>, err<br>				&#125;<br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> found, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 合并对象</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">mergeObjects</span><span class="hljs-params">(updated, current *unstructured.Unstructured)</span> <span class="hljs-title">error</span></span> &#123;<br>	<span class="hljs-comment">// 设置资源版本</span><br>	updated.SetResourceVersion(current.GetResourceVersion())<br><br>	gvk := updated.GroupVersionKind()<br>	<span class="hljs-keyword">if</span> gvk.Group == <span class="hljs-string">&quot;&quot;</span> &amp;&amp; gvk.Kind == <span class="hljs-string">&quot;ServiceAccount&quot;</span> &#123;<br>		<span class="hljs-keyword">return</span> s.mergeServiceAccount(updated, current)<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 对于ServiceAccount，保留现有的secrets</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">mergeServiceAccount</span><span class="hljs-params">(updated, current *unstructured.Unstructured)</span> <span class="hljs-title">error</span></span> &#123;<br>	curSecrets, ok, err := unstructured.NestedSlice(current.Object, <span class="hljs-string">&quot;secrets&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	<span class="hljs-keyword">if</span> ok &#123;<br>		<span class="hljs-keyword">if</span> err := unstructured.SetNestedField(updated.Object, curSecrets, <span class="hljs-string">&quot;secrets&quot;</span>); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>	&#125;<br><br>	curImagePullSecrets, ok, err := unstructured.NestedSlice(current.Object, <span class="hljs-string">&quot;imagePullSecrets&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> err<br>	&#125;<br>	<span class="hljs-keyword">if</span> ok &#123;<br>		<span class="hljs-keyword">if</span> err := unstructured.SetNestedField(updated.Object, curImagePullSecrets, <span class="hljs-string">&quot;imagePullSecrets&quot;</span>); err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">return</span> err<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 获取对象同步状态</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">getSyncState</span><span class="hljs-params">(objs []*unstructured.Unstructured)</span> <span class="hljs-params">(SyncState, error)</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, obj := <span class="hljs-keyword">range</span> objs &#123;<br>		<span class="hljs-keyword">if</span> obj == <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-keyword">continue</span><br>		&#125;<br>		gvk := obj.GroupVersionKind()<br>		<span class="hljs-keyword">if</span> gvk.Group == <span class="hljs-string">&quot;apps&quot;</span> &amp;&amp; gvk.Kind == <span class="hljs-string">&quot;DaemonSet&quot;</span> &#123;<br>			ready, err := s.isDaemonSetReady(obj)<br>			<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>				<span class="hljs-keyword">return</span> SyncStateError, errors.Wrapf(err, <span class="hljs-string">&quot;检查DaemonSet就绪状态失败&quot;</span>)<br>			&#125;<br>			<span class="hljs-keyword">if</span> !ready &#123;<br>				<span class="hljs-keyword">return</span> SyncStateNotReady, <span class="hljs-literal">nil</span><br>			&#125;<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> SyncStateReady, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 检查DaemonSet是否就绪</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">isDaemonSetReady</span><span class="hljs-params">(uds *unstructured.Unstructured)</span> <span class="hljs-params">(<span class="hljs-keyword">bool</span>, error)</span></span> &#123;<br>	bs, err := uds.MarshalJSON()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, err<br>	&#125;<br><br>	ds := appsv1.DaemonSet&#123;&#125;<br>	err = json.Unmarshal(bs, &amp;ds)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>, err<br>	&#125;<br><br>	status := ds.Status<br>	log.V(consts.LogLevelDebug).Info(<br>		<span class="hljs-string">&quot;检查DaemonSet就绪状态&quot;</span>,<br>		<span class="hljs-string">&quot;状态:&quot;</span>, ds.Status,<br>		<span class="hljs-string">&quot;期望副本数:&quot;</span>, status.DesiredNumberScheduled,<br>		<span class="hljs-string">&quot;当前副本数:&quot;</span>, status.CurrentNumberScheduled,<br>		<span class="hljs-string">&quot;可用副本数:&quot;</span>, status.NumberAvailable,<br>		<span class="hljs-string">&quot;已准备副本数:&quot;</span>, status.NumberReady,<br>		<span class="hljs-string">&quot;更新副本数:&quot;</span>, status.UpdatedNumberScheduled)<br><br>	<span class="hljs-keyword">return</span> status.DesiredNumberScheduled &gt; <span class="hljs-number">0</span> &amp;&amp;<br>		status.DesiredNumberScheduled == status.NumberReady &amp;&amp;<br>		status.UpdatedNumberScheduled == status.DesiredNumberScheduled &amp;&amp;<br>		status.NumberAvailable == status.DesiredNumberScheduled, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 检查属性是否存在</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(s *stateSkel)</span> <span class="hljs-title">checkAttributesExist</span><span class="hljs-params">(</span></span><br><span class="hljs-params"><span class="hljs-function">	attrs nodeinfo.NodeAttributes, attrTypes ...nodeinfo.AttributeType)</span> <span class="hljs-title">error</span></span> &#123;<br>	<span class="hljs-keyword">for</span> _, attrType := <span class="hljs-keyword">range</span> attrTypes &#123;<br>		<span class="hljs-keyword">if</span> _, ok := attrs[attrType]; !ok &#123;<br>			<span class="hljs-keyword">return</span> fmt.Errorf(<span class="hljs-string">&quot;缺少所需属性类型:%s&quot;</span>, attrType)<br>		&#125;<br>	&#125;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="manifests-stage-nv-peer-mem-driver"><a href="#manifests-stage-nv-peer-mem-driver" class="headerlink" title="manifests/stage-nv-peer-mem-driver"></a>manifests/stage-nv-peer-mem-driver</h2><ol>
+<li><p>这些文件定义了一个DaemonSet,用于在每个符合条件的节点上部署nv_peer_mem驱动。</p>
+</li>
+<li><p>主要的实现在0050_nv-peer-mem-driver-ds.yaml文件中:</p>
+<p>a) DaemonSet确保在每个满足nodeSelector条件的节点上运行一个Pod:</p>
+   <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">nodeSelector:</span><br>  <span class="hljs-attr">feature.node.kubernetes.io/pci-15b3.present:</span> <span class="hljs-string">&quot;true&quot;</span><br>  <span class="hljs-attr">nvidia.com/gpu.present:</span> <span class="hljs-string">&quot;true&quot;</span><br>  <span class="hljs-attr">network.nvidia.com/operator.mofed.wait:</span> <span class="hljs-string">&quot;false&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>b) 使用initContainer确保NVIDIA驱动已加载:</p>
+   <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">initContainers:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">gpu-driver-validation</span><br>  <span class="hljs-string">...</span><br>  <span class="hljs-attr">args:</span> [<span class="hljs-string">&quot;... until nvidia-smi; do echo waiting for nvidia drivers to be loaded; sleep 5; done&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>c) 主容器负责加载nv_peer_mem模块:</p>
+   <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> &#123;&#123; <span class="hljs-string">.CrSpec.Repository</span> &#125;&#125;<span class="hljs-string">/&#123;&#123;</span> <span class="hljs-string">.CrSpec.Image</span> <span class="hljs-string">&#125;&#125;-&#123;&#123;</span> <span class="hljs-string">.CrSpec.Version</span> <span class="hljs-string">&#125;&#125;:&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.CPUArch</span> <span class="hljs-string">&#125;&#125;-&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSName</span> <span class="hljs-string">&#125;&#125;&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSVer</span> <span class="hljs-string">&#125;&#125;</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">nv-peer-mem-driver-container</span><br></code></pre></td></tr></table></figure>
+
+<p>d) 使用livenessProbe和readinessProbe检查nv_peer_mem模块是否已加载:</p>
+   <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">livenessProbe:</span><br>  <span class="hljs-attr">exec:</span><br>    <span class="hljs-attr">command:</span><br>      [<span class="hljs-string">sh</span>, <span class="hljs-string">-c</span>, <span class="hljs-string">&#x27;lsmod | grep nv_peer_mem&#x27;</span>]<br></code></pre></td></tr></table></figure></li>
+<li><p>该DaemonSet会自动在符合条件的节点上部署和运行,从而实现nv_peer_mem的自动加载。</p>
+</li>
+<li><p>其他YAML文件(0010到0040)定义了必要的RBAC权限和安全上下文约束,确保Pod有足够的权限来加载内核模块。</p>
+</li>
+<li><p>注意到有一个版本检查,防止在CUDA驱动版本&gt;=465的节点上调度此Pod,因为较新版本的CUDA驱动应该包含内置的nvidia_peermem模块:</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">key:</span> <span class="hljs-string">nvidia.com/cuda.driver.major</span><br>  <span class="hljs-attr">operator:</span> <span class="hljs-string">Lt</span><br>  <span class="hljs-attr">values:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;<span class="hljs-template-variable">&#123;&#123; .RuntimeSpec.MaxCudaVersion &#125;&#125;</span>&quot;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>总之,这个实现通过Kubernetes的DaemonSet机制,在每个符合条件的节点上自动部署和运行一个负责加载nv_peer_mem模块的Pod,从而实现了nv_peer_mem的自动加载。</p>
+<h2 id="修改manifests-stage-nv-peer-mem-driver-0050-nv-peer-mem-driver-ds-yaml"><a href="#修改manifests-stage-nv-peer-mem-driver-0050-nv-peer-mem-driver-ds-yaml" class="headerlink" title="修改manifests/stage-nv-peer-mem-driver/0050_nv-peer-mem-driver-ds.yaml"></a>修改manifests/stage-nv-peer-mem-driver/0050_nv-peer-mem-driver-ds.yaml</h2><p>通过阅读源码打算修改<code>manifests/stage-nv-peer-mem-driver/0050_nv-peer-mem-driver-ds.yaml</code>来实现寒武纪的peermem模块的加载。</p>
+<p>在v23.5.0的代码基础上进行修改</p>
+<p>非常抱歉我之前的误解。根据您的需求，我们需要执行 <code>sudo modprobe cambricon-peermem</code> 命令。让我为您重新说明需要修改的部分：</p>
+<ol>
+<li>修改 initContainer 部分：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">initContainers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">load-cambricon-peermem</span><br>        <span class="hljs-attr">image:</span> &#123;&#123; <span class="hljs-string">.CrSpec.Repository</span> &#125;&#125;<span class="hljs-string">/&#123;&#123;</span> <span class="hljs-string">.CrSpec.Image</span> <span class="hljs-string">&#125;&#125;-&#123;&#123;</span> <span class="hljs-string">.CrSpec.Version</span> <span class="hljs-string">&#125;&#125;:&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.CPUArch</span> <span class="hljs-string">&#125;&#125;-&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSName</span> <span class="hljs-string">&#125;&#125;&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSVer</span> <span class="hljs-string">&#125;&#125;</span><br>        <span class="hljs-attr">command:</span> [<span class="hljs-string">&quot;/bin/sh&quot;</span>, <span class="hljs-string">&quot;-c&quot;</span>]<br>        <span class="hljs-attr">args:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-string">|</span><br><span class="hljs-string">            set -e</span><br><span class="hljs-string">            echo &quot;Loading cambricon-peermem module...&quot;</span><br><span class="hljs-string">            modprobe cambricon-peermem || echo &quot;Failed to load cambricon-peermem module&quot;</span><br><span class="hljs-string">            echo &quot;cambricon-peermem module load attempt completed&quot;</span><br><span class="hljs-string"></span>        <span class="hljs-attr">securityContext:</span><br>          <span class="hljs-attr">privileged:</span> <span class="hljs-literal">true</span><br>        <span class="hljs-attr">volumeMounts:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">host-modules</span><br>            <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/lib/modules</span><br>            <span class="hljs-attr">readOnly:</span> <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>在 volumes 部分添加：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">volumes:</span><br><span class="hljs-comment"># ... (保持原有的卷配置)</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">host-modules</span><br>  <span class="hljs-attr">hostPath:</span><br>    <span class="hljs-attr">path:</span> <span class="hljs-string">/lib/modules</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>修改主容器的探针：</li>
+</ol>
+<p>将原来检查 <code>nv_peer_mem</code> 的探针改为检查 <code>cambricon-peermem</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">cambricon-peermem-driver-container</span><br>    <span class="hljs-comment"># ... (其他配置保持不变)</span><br>    <span class="hljs-attr">livenessProbe:</span><br>      <span class="hljs-attr">exec:</span><br>        <span class="hljs-attr">command:</span><br>          [<span class="hljs-string">sh</span>, <span class="hljs-string">-c</span>, <span class="hljs-string">&#x27;lsmod | grep cambricon-peermem&#x27;</span>]<br>      <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">30</span><br>      <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">30</span><br>      <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">successThreshold:</span> <span class="hljs-number">1</span><br>    <span class="hljs-attr">readinessProbe:</span><br>      <span class="hljs-attr">exec:</span><br>        <span class="hljs-attr">command:</span><br>          [<span class="hljs-string">sh</span>, <span class="hljs-string">-c</span>, <span class="hljs-string">&#x27;lsmod | grep cambricon-peermem&#x27;</span>]<br>      <span class="hljs-attr">periodSeconds:</span> <span class="hljs-number">30</span><br>      <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">10</span><br>      <span class="hljs-attr">failureThreshold:</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>更新 DaemonSet 的名称和标签（可选，但建议为了清晰）：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">cambricon-peermem-driver-&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.CPUArch</span> <span class="hljs-string">&#125;&#125;-&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSName</span> <span class="hljs-string">&#125;&#125;&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSVer</span> <span class="hljs-string">&#125;&#125;</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">cambricon-peermem-driver-&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.CPUArch</span> <span class="hljs-string">&#125;&#125;-&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSName</span> <span class="hljs-string">&#125;&#125;&#123;&#123;</span> <span class="hljs-string">.RuntimeSpec.OSVer</span> <span class="hljs-string">&#125;&#125;-ds</span><br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>更新节点选择器（如果需要）：</li>
+</ol>
+<p>如果 cambricon-peermem 模块需要特定的硬件支持，您可能需要更新节点选择器。例如：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">nodeSelector:</span><br>  <span class="hljs-attr">cambricon.com/device:</span> <span class="hljs-string">&quot;true&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>请注意，您可能需要根据实际情况调整节点选择器。</p>
+<p>这些修改将使 DaemonSet 在每个符合条件的节点上执行 <code>modprobe cambricon-peermem</code> 命令，从而加载 cambricon-peermem 模块。同时，它还会检查模块是否成功加载。</p>
+<p>记住，这种方法假设 cambricon-peermem 模块已经在主机上可用。如果模块不存在，modprobe 命令会失败。另外，使用 <code>privileged: true</code> 会给予容器很高的权限，这可能会带来安全风险。请确保在生产环境中谨慎使用，并相应地调整您的安全策略。</p>
+<h1 id="编译部署"><a href="#编译部署" class="headerlink" title="编译部署"></a>编译部署</h1><p>要通过编译源码部署NVIDIA Network Operator，可以按照以下步骤进行：</p>
+<ol>
+<li><p><strong>克隆仓库</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> https://github.com/Mellanox/network-operator.git<br><span class="hljs-built_in">cd</span> network-operator<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>安装依赖</strong>：<br>确保你的系统安装了Go编译器和Docker。</p>
+</li>
+<li><p><strong>编译操作符</strong>：<br>在项目根目录下运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">make build<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>构建Docker镜像</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">make docker-build<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>推送Docker镜像</strong>：<br>将镜像推送到你的Docker仓库（例如Docker Hub）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker tag network-operator:latest &lt;your-repo&gt;/network-operator:latest<br>docker push &lt;your-repo&gt;/network-operator:latest<br></code></pre></td></tr></table></figure></li>
+<li><p><strong>部署操作符</strong>：<br>编辑部署文件，将镜像路径更新为你的仓库路径，然后应用这些文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl apply -f deploy/<br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>通过这些步骤，你可以从源码编译并部署NVIDIA Network Operator。如果需要详细信息，可以参考项目中的 <code>README.md</code> 文件或其他文档。</p>
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/06/19/%E4%B8%80%E6%9C%9F%E9%80%9A%E4%BF%A1%E6%B5%8B%E8%AF%95/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">一期通信测试</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/06/04/kubernetes%E9%83%A8%E7%BD%B2rdma-share/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">kubernetes部署rdma share</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>109</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (26)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+</div>
+
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>

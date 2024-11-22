@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#3367D6" />
+  <link rel="apple-touch-icon" href="/icons-192.png">
+  <link rel="manifest" href="/manifest.json">
+
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery/1.8.3/jquery.min.js'></script>
+  <script src='https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.min.js'></script>
+  <script>
+    // 对所有链接跳转事件绑定pjax容器pjax-container 
+    $(document).pjax('a', '#pjax-container', {
+      fragment: '#pjax-container',
+      timeout: 8000
+    });   
+  </script>
+  
+  
+  <meta name="generator" content="Hexo 5.4.0">
+
+    
+      <meta name="description" content="大数据时代的AI">
+      
+
+        
+          <meta name="keywords" content="AI,CSS,HTML,JavaScript,Hadoop,Hbase,大数据,人工智能">
+          
+
+            
+              <meta name="author" content="a-c-dream">
+              
+
+                
+
+                    
+
+                      <title>
+                        
+                          kubernetes自定义scheduler | 
+                              a-c-dream
+                      </title>
+
+                      
+
+                          
+                            <link rel="shortcut icon" href="/icons8-ai-64.png">
+                              
+
+                                
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@1.1.3/index.min.css">
+                                  <link rel="stylesheet"
+                                    href="https://cdn.jsdelivr.net/npm/highlightjs@9.16.2/styles/monokai.css">
+                                  
+
+                                    
+<link rel="stylesheet" href="/css/style.css">
+
+
+</head>
+
+<body>
+
+
+
+
+  <div class="root-container" id="pjax-container">
+    
+<!-- header container -->
+<header class="header-container post" id="pjax-container">
+  
+    <div class="post-image" style="background-image: url(https://qiniu.sukoshi.xyz/src/images/68686407_p0.jpg)"></div>
+  
+
+  <!-- navbar -->
+<nav class="navbar">
+  <div class="navbar-content" id="pjax-container">
+    <!-- logo -->
+    <div class="navbar-logo">
+      <a href="/">
+        
+          a-c-dream
+        
+      </a>
+    </div>
+    <!-- link -->
+    <div class="navbar-link">
+      <div class="navbar-btn">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="navbar-list">
+        
+          <li class="navbar-list-item"><a href="/">首页</a></li>
+        
+          <li class="navbar-list-item"><a href="/links">友链</a></li>
+        
+          <li class="navbar-list-item"><a href="/about">关于</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+
+  
+  
+    <div class="header-content">
+      <div class="post-text layout-block">
+        <div class="layout-margin">
+          <h1 class="title-wrap">kubernetes自定义scheduler</h1>
+          <h2 class="title-sub-wrap">
+            <strong>a-c-dream</strong>
+            <span>发布于</span>
+            <time  class="article-date" datetime="2024-03-31T11:43:27.596Z" itemprop="datePublished">2024-03-31</time>
+          </h2>
+          <ul class="wrap-list dark">
+  
+</ul>
+          <ul class="wrap-list dark">
+  
+</ul>
+        </div>
+      </div>
+    </div>
+  
+
+  
+  
+  
+
+</header>
+
+      <!-- 文章 -->
+<!-- 文章内容 -->
+<div class="body-container">
+  <article class="content-container layout-block post-container">
+    <div class="article-info">
+      
+      
+      
+      
+      <section class="article-entry markdown-body layout-margin content-padding--large soft-size--large soft-style--box">
+        <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_24433609/article/details/128855174">【K8S之调度器流程和扩展】如何给 scheduler 添加扩展插件、关闭默认插件、创建多个 scheduler？_kubernetes scheduler 插件-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://arthurchiao.art/blog/k8s-scheduling-plugins-zh/">K8s 调度框架设计与 scheduler plugins 开发部署示例（2024） (arthurchiao.art)</a></p>
+<p>A.实现的例子<a target="_blank" rel="noopener" href="https://blog.wubw.fun/2021/12/build-kubernetes-scheduler-framework-plugin.html">https://blog.wubw.fun/2021/12/build-kubernetes-scheduler-framework-plugin.html</a></p>
+<p>B.这个比较新可以考虑<a target="_blank" rel="noopener" href="https://github.com/rossgray/custom-k8s-scheduler/tree/main">https://github.com/rossgray/custom-k8s-scheduler/tree/main</a></p>
+<p>部署可以参考这个<a target="_blank" rel="noopener" href="https://kubernetes.io/zh-cn/docs/tasks/extend-kubernetes/configure-multiple-schedulers/">配置多个调度器 | Kubernetes</a></p>
+<p>参考文献</p>
+<p><a target="_blank" rel="noopener" href="http://cjc.ict.ac.cn/online/bfpub/wad-2023316104301.pdf">http://cjc.ict.ac.cn/online/bfpub/wad-2023316104301.pdf</a></p>
+<p><a target="_blank" rel="noopener" href="https://kns.cnki.net/kcms2/article/abstract?v=ttOPOQ75YvKHqMWDNXHR4_yDGLYGnz2J-X9pXL9xUGIzaveE3k9xthxPJMuebHIUgCF5ldJSHO4WdCa0HZ1IJRjcP1cldKy35ho1C19Dcc7flv7aj7khLDKwZGag4QbEdgw9PTNnXis=&uniplatform=NZKPT&language=CHS">云计算研究综述及未来发展 - 中国知网 (cnki.net)</a></p>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><p>√已经成功部署，在这个的基础上写自己的</p>
+<p>构建docker镜像使用deployment进行部署</p>
+<p>可以改进：使用map储存podName</p>
+<h2 id="使用docker镜像"><a href="#使用docker镜像" class="headerlink" title="使用docker镜像"></a>使用docker镜像</h2><h3 id="制作镜像"><a href="#制作镜像" class="headerlink" title="制作镜像"></a>制作镜像</h3><p>Dockerfile</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># 基于 golang 官方镜像构建</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.19</span> AS builder<br><br><span class="hljs-comment"># 设置工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> /app</span><br><br><span class="hljs-comment"># 将本地代码复制到容器中</span><br><span class="hljs-keyword">COPY</span><span class="bash"> . .</span><br><br><span class="hljs-comment"># COPY /etc/kubernetes/scheduler.conf .</span><br><br><span class="hljs-keyword">ENV</span> GOPROXY=https://goproxy.cn<br><br><span class="hljs-keyword">RUN</span><span class="bash"> go get sample-scheduler</span><br><span class="hljs-comment"># 编译可执行文件</span><br><span class="hljs-keyword">RUN</span><span class="bash"> go build -o sample-scheduler .</span><br><br><span class="hljs-comment"># 使用轻量级基础镜像作为最终镜像</span><br><span class="hljs-comment"># FROM alpine:latest</span><br><br><span class="hljs-comment"># 在最终镜像中创建一个目录用于存放调度器程序</span><br><span class="hljs-comment"># RUN mkdir /app</span><br><br><span class="hljs-comment"># 从构建阶段复制编译后的可执行文件到最终镜像</span><br><span class="hljs-comment"># COPY --from=builder /app/sample-scheduler /app/sample-scheduler</span><br><br><span class="hljs-comment"># 设置可执行权限</span><br><span class="hljs-keyword">RUN</span><span class="bash"> chmod +x sample-scheduler</span><br><br><span class="hljs-comment"># 定义镜像启动时运行的命令</span><br><span class="hljs-comment"># CMD [&quot;./sample-scheduler --authentication-kubeconfig=scheduler.conf --authorization-kubeconfig=scheduler.conf --config=scheduler-config.yaml --secure-port=10260&quot;]</span><br><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;ls&quot;</span>]</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment">#3.2</span><br><span class="hljs-comment"># 基于 golang 官方镜像构建</span><br><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.19</span> AS builder<br><br><span class="hljs-comment"># 设置工作目录</span><br><span class="hljs-keyword">WORKDIR</span><span class="bash"> /app</span><br><br><span class="hljs-comment"># 将本地代码复制到容器中</span><br><span class="hljs-keyword">COPY</span><span class="bash"> . .</span><br><br><span class="hljs-comment"># 使用 goproxy.cn 代理下载依赖包</span><br><span class="hljs-keyword">ENV</span> GOPROXY=https://goproxy.cn<br><br><span class="hljs-comment"># 下载依赖包</span><br><span class="hljs-keyword">RUN</span><span class="bash"> go mod download</span><br><span class="hljs-keyword">RUN</span><span class="bash"> go get sample-scheduler</span><br><br><span class="hljs-comment"># 编译可执行文件</span><br><span class="hljs-keyword">RUN</span><span class="bash"> go build -o sample-scheduler .</span><br><br><span class="hljs-comment"># 使用轻量级基础镜像作为最终镜像</span><br><span class="hljs-keyword">FROM</span> alpine:latest<br><br><span class="hljs-comment"># 在最终镜像中创建一个目录用于存放调度器程序</span><br><span class="hljs-keyword">RUN</span><span class="bash"> mkdir /app</span><br><br><span class="hljs-comment"># 从构建阶段复制编译后的可执行文件到最终镜像</span><br><span class="hljs-keyword">COPY</span><span class="bash"> --from=builder /app/sample-scheduler /app/sample-scheduler</span><br><br><span class="hljs-comment"># 复制配置文件到最终镜像</span><br><span class="hljs-keyword">COPY</span><span class="bash"> --from=builder /app/scheduler.conf /app/scheduler.conf</span><br><br><span class="hljs-comment"># 设置可执行权限</span><br><span class="hljs-keyword">RUN</span><span class="bash"> chmod +x /app/sample-scheduler</span><br><br><span class="hljs-comment"># 定义镜像启动时运行的命令</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="bash"> [<span class="hljs-string">&quot;/app/sample-scheduler&quot;</span>]</span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;--authentication-kubeconfig=scheduler.conf&quot;</span>, <span class="hljs-string">&quot;--authorization-kubeconfig=scheduler.conf&quot;</span>, <span class="hljs-string">&quot;--config=scheduler-config.yaml&quot;</span>, <span class="hljs-string">&quot;--secure-port=10260&quot;</span>]</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs sh"><span class="hljs-comment"># 3.3</span><br><br><span class="hljs-comment"># 基于 golang 官方镜像构建</span><br>FROM golang:1.19 AS builder<br><br><span class="hljs-comment"># 设置工作目录</span><br>WORKDIR /app<br><br><span class="hljs-comment"># 将本地代码复制到容器中</span><br>COPY . .<br><br><span class="hljs-comment"># COPY /etc/kubernetes/scheduler.conf .</span><br><br>ENV GOPROXY=https://goproxy.cn<br><br>RUN go get sample-scheduler<br><span class="hljs-comment"># 编译可执行文件</span><br>RUN go build -o sample-scheduler .<br><br><span class="hljs-comment"># 使用轻量级基础镜像作为最终镜像</span><br>FROM alpine:latest<br><br><span class="hljs-comment"># 在最终镜像中创建一个目录用于存放调度器程序</span><br>RUN mkdir /app<br><br><span class="hljs-comment"># 从构建阶段复制编译后的可执行文件到最终镜像</span><br>COPY --from=builder /app/sample-scheduler /app/sample-scheduler<br><br>CMD [<span class="hljs-string">&quot;ls&quot;</span>]<br><br>COPY --from=builder /app/scheduler.conf /app/scheduler.conf<br><br>CMD [<span class="hljs-string">&quot;ls&quot;</span>]<br><br><span class="hljs-comment"># 设置可执行权限</span><br>RUN chmod +x sample-scheduler<br><br><span class="hljs-comment"># 定义镜像启动时运行的命令</span><br>CMD [<span class="hljs-string">&quot;./sample-scheduler --authentication-kubeconfig=scheduler.conf --authorization-kubeconfig=scheduler.conf --config=scheduler-config.yaml --secure-port=10260&quot;</span>]<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>构建镜像</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo docker build -t my_scheduler:3.0 .<br></code></pre></td></tr></table></figure>
+
+<p>上传阿里云镜像仓库</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sh">sudo docker login --username=aliyun7797214054 registry.cn-hangzhou.aliyuncs.com<br><br>docker tag [ImageId] registry.cn-hangzhou.aliyuncs.com/szy_is_me/my_scheduler:[镜像版本号]<br>docker push registry.cn-hangzhou.aliyuncs.com/szy_is_me/my_scheduler:[镜像版本号]<br></code></pre></td></tr></table></figure>
+
+<p> 拉取镜像</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker pull registry.cn-hangzhou.aliyuncs.com/szy_is_me/my_scheduler:[镜像版本号]<br></code></pre></td></tr></table></figure>
+
+<p>运行容器</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker run -p 10260:10260 registry.cn-hangzhou.aliyuncs.com/szy_is_me/my_scheduler:[镜像版本号]<br></code></pre></td></tr></table></figure>
+
+
+
+<p>编译的时候在win上编译liunx</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sh"> CGO_ENABLED=0  GOOS=linux  GOARCH=amd64 go build sample-scheduler.go<br> <br> sudo ./sample-scheduler --authentication-kubeconfig=/etc/kubernetes/scheduler.conf --authorization-kubeconfig=/etc/kubernetes/scheduler.conf --config=scheduler-config.yaml --secure-port=10260<br> <br>./sample-scheduler --authentication-kubeconfig=scheduler.conf --authorization-kubeconfig=scheduler.conf --config=scheduler-config.yaml --secure-port=10260<br></code></pre></td></tr></table></figure>
+
+
+
+<p><a target="_blank" rel="noopener" href="https://github.com/ozota1/k8s-scheduling-framework-small-sample/tree/main">ozota1/k8s-scheduling-framework-small-sample: small sample implementation of kubernetes scheduling-framework (github.com)</a></p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">sudo</span> docker tag my_cluster_scheduler acdream<span class="hljs-number">666</span>/my_scheduler_c:<span class="hljs-number">1</span>.<span class="hljs-number">1</span><br><span class="hljs-attribute">sudo</span> docker push acdream<span class="hljs-number">666</span>/my_scheduler_c:<span class="hljs-number">1</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">docker</span> pull acdream<span class="hljs-number">666</span>/my_scheduler_c:<span class="hljs-number">1</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">docker</span> run -p <span class="hljs-number">10260</span>:<span class="hljs-number">10260</span> registry.cn-hangzhou.aliyuncs.com/szy_is_me/my_cluster_scheduler:<span class="hljs-number">1</span>.<span class="hljs-number">0</span><br><span class="hljs-attribute">docker</span> run -p <span class="hljs-number">10260</span>:<span class="hljs-number">10260</span> my_cluster_scheduler:<span class="hljs-number">1</span>.<span class="hljs-number">1</span><br><br><br></code></pre></td></tr></table></figure>
+
+<p>1.1 可以运行</p>
+<h2 id="调度器拓展思路"><a href="#调度器拓展思路" class="headerlink" title="调度器拓展思路"></a>调度器拓展思路</h2><h3 id="QueueSort"><a href="#QueueSort" class="headerlink" title="QueueSort"></a>QueueSort</h3><p>默认提供了优先级但是，默认的优先级需要创建priorityClass类才能使用，这里可以考虑增加一个字段直接使用。</p>
+<p>在 Pod YAML 中定义重要度的字段名可以通过 Annotations 字段来实现。Annotations 是一个用于存储额外信息的字段，可以在 Pod 的 YAML 文件中以键值对的形式定义。你可以为 Pod 定义一个自定义的 Annotation，用来表示其重要度。以下是一个示例 Pod YAML 文件，其中定义了一个名为 <code>importance</code> 的 Annotation：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Pod</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-pod</span><br>  <span class="hljs-attr">annotations:</span><br>    <span class="hljs-attr">importance:</span> <span class="hljs-string">&quot;5&quot;</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">containers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">my-container</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<p>在这个示例中，<code>metadata.annotations.importance</code> 字段指定了 Pod 的重要度，其值为 <code>5</code>。你可以根据实际需求将不同的重要度值分配给不同的 Pod，以便在调度时根据重要度进行排序。</p>
+<h3 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h3><p>可以过滤适合的硬件，没有对应硬件的node直接过滤掉</p>
+<h3 id="Score"><a href="#Score" class="headerlink" title="Score"></a>Score</h3><p>这里可以用来实现固定宿主机</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">Error response <span class="hljs-built_in">from</span> daemon: failed <span class="hljs-built_in">to</span> <span class="hljs-built_in">create</span> shim task: OCI runtime <span class="hljs-built_in">create</span> failed: runc <span class="hljs-built_in">create</span> failed: unable <span class="hljs-built_in">to</span> <span class="hljs-built_in">start</span> container <span class="hljs-built_in">process</span>: exec: <span class="hljs-string">&quot;/usr/local/bin/kube-scheduler&quot;</span>: stat /usr/<span class="hljs-built_in">local</span>/bin/kube-scheduler: no such <span class="hljs-built_in">file</span> <span class="hljs-keyword">or</span> <span class="hljs-built_in">directory</span>: unknown<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">hello-minikube-1</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">hello-minikube-1</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">hello-minikube-1</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">hello-minikube-1</span><br>        <span class="hljs-attr">nodeGroup:</span> <span class="hljs-string">&quot;1&quot;</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">kicbase/echo-server:1.0</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">echo-server</span><br>      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span><br>      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">custom-scheduler</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">app:</span> <span class="hljs-string">hello-minikube-2</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">hello-minikube-2</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">default</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">2</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">app:</span> <span class="hljs-string">hello-minikube-2</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">app:</span> <span class="hljs-string">hello-minikube-2</span><br>        <span class="hljs-attr">nodeGroup:</span> <span class="hljs-string">&quot;2&quot;</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">image:</span> <span class="hljs-string">kicbase/echo-server:1.0</span><br>        <span class="hljs-attr">imagePullPolicy:</span> <span class="hljs-string">IfNotPresent</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">echo-server</span><br>      <span class="hljs-attr">restartPolicy:</span> <span class="hljs-string">Always</span><br>      <span class="hljs-attr">schedulerName:</span> <span class="hljs-string">custom-scheduler</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>安装minikube</p>
+<p>将B部署到minikube</p>
+<p>7ee438bac860</p>
+<p> docker tag 7ee438bac860 registry.cn-hangzhou.aliyuncs.com/szy_is_me/custom-k8s-scheduler_test:1.0</p>
+<p>registry.cn-hangzhou.aliyuncs.com/szy_is_me/custom-k8s-scheduler_test:1.0</p>
+<p>kubectl describe po custom-scheduler-f88b6bcbb-7rsfz –namespace=kube-system</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler-as-kube-scheduler</span><br><span class="hljs-attr">subjects:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">system:kube-scheduler</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ConfigMap</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler-config</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-attr">data:</span><br>  <span class="hljs-attr">my-scheduler-config.yaml:</span> <span class="hljs-string">|</span><br><span class="hljs-string">    apiVersion: kubescheduler.config.k8s.io/v1beta2</span><br><span class="hljs-string">    kind: KubeSchedulerConfiguration</span><br><span class="hljs-string">    profiles:</span><br><span class="hljs-string">      - schedulerName: my-scheduler</span><br><span class="hljs-string">    leaderElection:</span><br><span class="hljs-string">      leaderElect: false    </span><br><span class="hljs-string"></span><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler-as-volume-scheduler</span><br><span class="hljs-attr">subjects:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">system:volume-scheduler</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">apps/v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">Deployment</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">component:</span> <span class="hljs-string">scheduler</span><br>    <span class="hljs-attr">tier:</span> <span class="hljs-string">control-plane</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-attr">spec:</span><br>  <span class="hljs-attr">selector:</span><br>    <span class="hljs-attr">matchLabels:</span><br>      <span class="hljs-attr">component:</span> <span class="hljs-string">scheduler</span><br>      <span class="hljs-attr">tier:</span> <span class="hljs-string">control-plane</span><br>  <span class="hljs-attr">replicas:</span> <span class="hljs-number">1</span><br>  <span class="hljs-attr">template:</span><br>    <span class="hljs-attr">metadata:</span><br>      <span class="hljs-attr">labels:</span><br>        <span class="hljs-attr">component:</span> <span class="hljs-string">scheduler</span><br>        <span class="hljs-attr">tier:</span> <span class="hljs-string">control-plane</span><br>        <span class="hljs-attr">version:</span> <span class="hljs-string">second</span><br>    <span class="hljs-attr">spec:</span><br>      <span class="hljs-attr">serviceAccountName:</span> <span class="hljs-string">my-scheduler</span><br>      <span class="hljs-attr">containers:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">command:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">/usr/local/bin/kube-scheduler</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">--config=/etc/kubernetes/my-scheduler/my-scheduler-config.yaml</span><br>        <span class="hljs-attr">image:</span> <span class="hljs-string">registry.cn-hangzhou.aliyuncs.com/szy_is_me/custom-k8s-scheduler_test:1.0</span><br>        <span class="hljs-attr">livenessProbe:</span><br>          <span class="hljs-attr">httpGet:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/healthz</span><br>            <span class="hljs-attr">port:</span> <span class="hljs-number">10259</span><br>            <span class="hljs-attr">scheme:</span> <span class="hljs-string">HTTPS</span><br>          <span class="hljs-attr">initialDelaySeconds:</span> <span class="hljs-number">15</span><br>        <span class="hljs-attr">name:</span> <span class="hljs-string">kube-second-scheduler</span><br>        <span class="hljs-attr">readinessProbe:</span><br>          <span class="hljs-attr">httpGet:</span><br>            <span class="hljs-attr">path:</span> <span class="hljs-string">/healthz</span><br>            <span class="hljs-attr">port:</span> <span class="hljs-number">10259</span><br>            <span class="hljs-attr">scheme:</span> <span class="hljs-string">HTTPS</span><br>        <span class="hljs-attr">resources:</span><br>          <span class="hljs-attr">requests:</span><br>            <span class="hljs-attr">cpu:</span> <span class="hljs-string">&#x27;0.1&#x27;</span><br>        <span class="hljs-attr">securityContext:</span><br>          <span class="hljs-attr">privileged:</span> <span class="hljs-literal">false</span><br>        <span class="hljs-attr">volumeMounts:</span><br>          <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">config-volume</span><br>            <span class="hljs-attr">mountPath:</span> <span class="hljs-string">/etc/kubernetes/my-scheduler</span><br>      <span class="hljs-attr">hostNetwork:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">hostPID:</span> <span class="hljs-literal">false</span><br>      <span class="hljs-attr">volumes:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">config-volume</span><br>          <span class="hljs-attr">configMap:</span><br>            <span class="hljs-attr">name:</span> <span class="hljs-string">my-scheduler-config</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="将B部署到minikube"><a href="#将B部署到minikube" class="headerlink" title="将B部署到minikube"></a>将B部署到minikube</h2><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">minikube start --force --nodes <span class="hljs-number">3</span> -p custom-<span class="hljs-keyword">scheduler-demo</span><br><span class="hljs-keyword"></span>sudo minikube <span class="hljs-keyword">addons </span>enable registry -p custom-<span class="hljs-keyword">scheduler-demo</span><br><span class="hljs-keyword"></span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h2><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs vim"><span class="hljs-keyword">go</span> env -<span class="hljs-keyword">w</span>  GOPROXY=http<span class="hljs-variable">s:</span>//goproxy.<span class="hljs-keyword">cn</span>,direct<br></code></pre></td></tr></table></figure>
+
+<h2 id="调度器的目录结构"><a href="#调度器的目录结构" class="headerlink" title="调度器的目录结构"></a>调度器的目录结构</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sh">custom-scheduler/<br>├── cmd/<br>│   └── custom-scheduler/<br>│       └── main.go                <span class="hljs-comment"># 调度器程序的入口文件</span><br>├── pkg/<br>│   └── scheduler/<br>│       ├── scheduler.go          <span class="hljs-comment"># 自定义调度器的实现</span><br>│       └── ...<br>├── go.mod                        <span class="hljs-comment"># Go 模块文件</span><br>└── README.md                     <span class="hljs-comment"># 项目文档</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个目录结构中：</p>
+<ul>
+<li><code>cmd/custom-scheduler/main.go</code>：是调度器程序的入口文件，包含调度器的启动逻辑。</li>
+<li><code>pkg/scheduler/</code>：是自定义调度器的实现目录，包含调度器的代码文件。您可以根据需要在这个目录下创建更多的子目录来组织调度器的代码。</li>
+<li><code>go.mod</code>：是 Go 模块文件，用于管理项目的依赖。</li>
+<li><code>README.md</code>：是项目的文档，通常包含项目的介绍、使用方法和贡献指南等信息。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 在 CustomScheduler 结构中添加随机数生成器</span><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> CustomScheduler <span class="hljs-keyword">struct</span> &#123;<br>	FrameworkHandle framework.FrameworkHandle<br>	RandomGenerator  rand.Rand <span class="hljs-comment">// 随机数生成器</span><br>&#125;<br><br><span class="hljs-comment">// 实现 ScoreExtensions 接口</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">ScoreExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">ScoreExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> cs<br>&#125;<br><br><span class="hljs-comment">// 实现 Score 方法来为节点随机生成一个评分值</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">Score</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>, error)</span></span> &#123;<br>	<span class="hljs-comment">// 生成一个介于 1 到 10 之间的随机评分值</span><br>	score := cs.RandomGenerator.Intn(<span class="hljs-number">10</span>) + <span class="hljs-number">1</span><br>	<span class="hljs-keyword">return</span> score, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 实现 NormalizeScore 方法规范化评分值</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">NormalizeScore</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, scores framework.ScoreList)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以空实现，因为随机评分已经是规范化的</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="实验结果测试"><a href="#实验结果测试" class="headerlink" title="实验结果测试"></a>实验结果测试</h2><p>使用<code>FLAVR</code>在海光gpu上运行，并进行断点续训。</p>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><h5 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h5><p>dockerfile使用方法，这里注意数据卷的挂载</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sh">docker build --no-cache -t flavr:latest .<br>docker run -v /home/sunzhongyuan/DCU/flavr_pytorch:/code -dit --network=host --name=flavr --privileged --device=/dev/kfd --device=/dev/dri --ipc=host --shm-size=16G  --group-add video --cap-add=SYS_PTRACE --security-opt seccomp=unconfined -u root --<span class="hljs-built_in">ulimit</span> stack=-1:-1 --<span class="hljs-built_in">ulimit</span> memlock=-1:-1 flavr:latest<br>docker <span class="hljs-built_in">exec</span> -it flavr /bin/bash<br></code></pre></td></tr></table></figure>
+
+<h3 id="单机单卡"><a href="#单机单卡" class="headerlink" title="单机单卡"></a>单机单卡</h3><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">python main.py --batch_size 32 --test_batch_size 32 --dataset vimeo90K_septuplet --loss 1*L1 --max_epoch 200 --lr 0.0002 --data_root datasets --n_outputs 1 --num_gpu 1 --resume --checkpoint_dir . --resume_exp /model/checkpoint.pth --log_iter 10 <br></code></pre></td></tr></table></figure>
+
+<h3 id="断点续训"><a href="#断点续训" class="headerlink" title="断点续训"></a>断点续训</h3><p>原有的代码没有实现断点续训，在mian中添加后实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">if</span> args.resume:<br>       <span class="hljs-keyword">if</span> os.path.exists(args.resume_exp):<br>           load_checkpoint(args, model, optimizer, args.resume_exp)<br>       <span class="hljs-keyword">else</span>:<br>           <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;No checkpoint&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/a-c-dream/imgs/master/img/image-20240412143257332.png" alt="image-20240412143257332"></p>
+<h2 id="GPT"><a href="#GPT" class="headerlink" title="GPT"></a>GPT</h2><h3 id="框架"><a href="#框架" class="headerlink" title="框架"></a>框架</h3><p> 当您尝试自定义 Kubernetes 调度器时，以下是一个简化的示例，以解释如何通过调度器框架扩展来实现自定义调度器的过程。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/api/core/v1&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/api/resource&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/api/meta&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/api/errors&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/util/intstr&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/scheduler/framework&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/、/record&quot;</span><br>)<br><br><span class="hljs-comment">// 自定义调度器</span><br><span class="hljs-keyword">type</span> CustomScheduler <span class="hljs-keyword">struct</span> &#123;<br>	FrameworkHandle framework.FrameworkHandle<br>&#125;<br><br><span class="hljs-comment">// 实现调度器扩展器接口</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">ScoreExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">ScoreExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">NormalizeScore</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, scores framework.NodeScoreList)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以根据实际需求进行调度评分的规范化处理</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">Permit</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以根据实际需求进行节点资源预许可处理</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">PreFilter</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以根据实际需求进行调度前的过滤处理</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">PreFilterExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">PreFilterExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">PreFilterExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">PreFilterExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">FilterExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">FilterExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">Reserve</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以根据实际需求进行节点资源的预留处理</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">Unreserve</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以根据实际需求进行节点资源的释放处理</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">Permit</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以根据实际需求进行节点资源的预占处理</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">NewCustomScheduler</span><span class="hljs-params">(handle framework.FrameworkHandle)</span> <span class="hljs-title">framework</span>.<span class="hljs-title">NextFilter</span></span> &#123;<br>	<span class="hljs-keyword">return</span> &amp;CustomScheduler&#123;<br>		FrameworkHandle: handle,<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 创建调度器框架扩展器</span><br>	customScheduler := NewCustomScheduler(FrameworkHandle)<br><br>	<span class="hljs-comment">// 设置调度器框架扩展器</span><br>	<span class="hljs-comment">// ...</span><br><br>	<span class="hljs-comment">// 运行调度器</span><br>	<span class="hljs-comment">// ...</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>以上代码是一个简化的 Go 示例，演示了如何创建一个自定义调度器，并通过调度器框架扩展器来实现对调度过程的扩展和定制。在实际项目中，您需要根据自己的需求和场景进行更复杂的实现和逻辑处理。希望这个示例能够帮助您更好地理解如何通过扩展点实现自定义调度器。  </p>
+<h3 id="请完善这个例子，比如让它实现随机调度pod到node上"><a href="#请完善这个例子，比如让它实现随机调度pod到node上" class="headerlink" title="请完善这个例子，比如让它实现随机调度pod到node上"></a>请完善这个例子，比如让它实现随机调度pod到node上</h3><p> 为了让这个示例实现随机调度 Pod 到节点，您可以在 CustomScheduler 结构中实现 ScoreExtensions 和 NormalizeScore 方法来实现随机评分和规范化评分值的功能。下面是对示例代码的补充，通过引入随机评分的方式实现随机调度：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 在 CustomScheduler 结构中添加随机数生成器</span><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;math/rand&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> CustomScheduler <span class="hljs-keyword">struct</span> &#123;<br>	FrameworkHandle framework.FrameworkHandle<br>	RandomGenerator  rand.Rand <span class="hljs-comment">// 随机数生成器</span><br>&#125;<br><br><span class="hljs-comment">// 实现 ScoreExtensions 接口</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">ScoreExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">ScoreExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> cs<br>&#125;<br><br><span class="hljs-comment">// 实现 Score 方法来为节点随机生成一个评分值</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">Score</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">int</span>, error)</span></span> &#123;<br>	<span class="hljs-comment">// 生成一个介于 1 到 10 之间的随机评分值</span><br>	score := cs.RandomGenerator.Intn(<span class="hljs-number">10</span>) + <span class="hljs-number">1</span><br>	<span class="hljs-keyword">return</span> score, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-comment">// 实现 NormalizeScore 方法规范化评分值</span><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *CustomScheduler)</span> <span class="hljs-title">NormalizeScore</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, scores framework.ScoreList)</span></span>  &#123;<br>	<span class="hljs-comment">// 这里可以空实现，因为随机评分已经是规范化的</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在上述代码中，我们在 CustomScheduler 结构中引入了随机数生成器，并在 Score 方法中使用随机生成的评分值来实现随机调度。当 Kubernetes 调度器调用这个自定义调度器的 Score 方法时，将根据随机生成的评分值来决定 Pod 调度的节点。</p>
+<p>请注意，这仅是一个简化的示例，实际情况下可能需要更多的逻辑来处理节点资源、Pod需求、集群状态等。希望这个补充能够满足您的要求，如需进一步帮助或有其他问题，请随时告诉我。  </p>
+<h3 id="我想将上面的调度器部署到我的kubernetes集群中，应该怎么做呢"><a href="#我想将上面的调度器部署到我的kubernetes集群中，应该怎么做呢" class="headerlink" title="我想将上面的调度器部署到我的kubernetes集群中，应该怎么做呢"></a>我想将上面的调度器部署到我的kubernetes集群中，应该怎么做呢</h3><p> 当您尝试在 Kubernetes 集群中部署自定义调度器时，下面是每个步骤的具体操作方法：</p>
+<ol>
+<li><p><strong>构建自定义调度器二进制文件</strong>：根据您的自定义调度器代码，确保您的环境中安装了正确的开发工具，包括 Go 编程语言环境。使用 <code>go build</code> 命令构建自定义调度器的二进制文件。</p>
+</li>
+<li><p><strong>创建调度器的 Docker 镜像</strong>：编写 Dockerfile，例如：</p>
+</li>
+</ol>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">FROM</span> golang:<span class="hljs-number">1.16</span> as builder<br><span class="hljs-keyword">WORKDIR</span><span class="bash"> /go/src/app</span><br><span class="hljs-keyword">COPY</span><span class="bash"> . .</span><br><span class="hljs-keyword">RUN</span><span class="bash"> go build -o custom-scheduler .</span><br><br><span class="hljs-keyword">FROM</span> alpine:latest<br><span class="hljs-keyword">COPY</span><span class="bash"> --from=builder /go/src/app/custom-scheduler /usr/<span class="hljs-built_in">local</span>/bin/custom-scheduler</span><br><span class="hljs-keyword">CMD</span><span class="bash"> [<span class="hljs-string">&quot;custom-scheduler&quot;</span>]</span><br></code></pre></td></tr></table></figure>
+
+<p>然后，使用 <code>docker build</code> 命令构建 Docker 镜像：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t custom-scheduler:v1 .<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p><strong>将镜像推送到容器注册表</strong>：使用 <code>docker push</code> 命令将构建好的镜像推送到您选择的容器注册表中，例如 Docker Hub 或私有容器注册表。</p>
+</li>
+<li><p><strong>配置 Kubernetes 调度器</strong>：找到 Kubernetes Master 节点上的调度器配置文件，通常是 <code>/etc/kubernetes/manifests/kube-scheduler.yaml</code>。编辑该文件中的容器配置，将镜像指向您的自定义调度器镜像及其配置。</p>
+</li>
+<li><p><strong>重启调度器 Pod</strong>：使用命令重启调度器 Pod，例如：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl delete pod -n kube-system [scheduler-pod-name]<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><strong>验证自定义调度器</strong>：在集群中创建测试 Pod，并使用 <code>kubectl describe pod [pod-name]</code> 命令来确认它们是否按照您的自定义调度器逻辑被调度到节点上。</li>
+</ol>
+<p>以上是部署自定义调度器的具体操作方法。请根据您实际的环境和需求调整命令和配置，并确保在生产环境之前进行足够的测试。如需进一步的帮助或有其他问题，请随时向我询问。  </p>
+<h2 id="通过拓展kubernetes调度框架扩展点拓展点的方式，实现一个简单的例子，并给出将其部署到kubernetes集群的具体步骤"><a href="#通过拓展kubernetes调度框架扩展点拓展点的方式，实现一个简单的例子，并给出将其部署到kubernetes集群的具体步骤" class="headerlink" title="通过拓展kubernetes调度框架扩展点拓展点的方式，实现一个简单的例子，并给出将其部署到kubernetes集群的具体步骤"></a>通过拓展kubernetes调度框架扩展点拓展点的方式，实现一个简单的例子，并给出将其部署到kubernetes集群的具体步骤</h2><p>Absolutely, let’s outline a simple example of extending Kubernetes scheduling framework and provide the steps to deploy it to a Kubernetes cluster:</p>
+<p>Step 1: Developing the scheduler extension plugin</p>
+<p>The plugin development basically involves creating a Go project and writing some code. Here’s a basic example of a plugin “PrioritySort” that sorts nodes based on a preset score:</p>
+<hr>
+<p>当然，让我们概述一个扩展 Kubernetes 调度框架的简单示例，并提供将其部署到 Kubernetes 集群的步骤：</p>
+<p>第 1 步：开发调度程序扩展插件</p>
+<p>插件开发主要涉及创建一个Go项目并编写一些代码。 以下是插件“PrioritySort”的基本示例，该插件根据预设分数对节点进行排序：</p>
+<hr>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>  <span class="hljs-string">&quot;context&quot;</span><br>  <span class="hljs-string">&quot;k8s.io/apimachinery/pkg/types&quot;</span><br>  <span class="hljs-string">&quot;k8s.io/kubernetes/pkg/scheduler/framework&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> PrioritySort <span class="hljs-keyword">struct</span>&#123;&#125;<br> <br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(ps PrioritySort)</span> <span class="hljs-title">Name</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;PrioritySort&quot;</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(ps PrioritySort)</span> <span class="hljs-title">Score</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span> <span class="hljs-params">(<span class="hljs-keyword">int64</span>, *framework.Status)</span></span> &#123;<br>  <span class="hljs-comment">// Your score calculation logic here. Just returning 1 for all nodes for simplicity.</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(ps PrioritySort)</span> <span class="hljs-title">ScoreExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">ScoreExtensions</span></span> &#123;<br>  <span class="hljs-keyword">return</span> ps<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(ps PrioritySort)</span> <span class="hljs-title">NormalizeScore</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, scores framework.NodeScoreList)</span> *<span class="hljs-title">framework</span>.<span class="hljs-title">Status</span></span> &#123;<br>  <span class="hljs-comment">// Your score normalization logic here. Just leaving the scores as is for simplicity.</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-keyword">var</span> _ framework.ScorePlugin = &amp;PrioritySort&#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<p>Step 2: Building the plugin into a .so file</p>
+<p>You can use the “go build” command to build the Go file into a .so file:</p>
+<hr>
+<p>第 2 步：将插件构建到 .so 文件中</p>
+<p>您可以使用“go build”命令将Go文件构建为.so文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">go build -buildmode=plugin -o ./prioritysort.so ./priority_sort.go<br></code></pre></td></tr></table></figure>
+
+<p>Step 3: Deploying the extension to a Kubernetes cluster</p>
+<p>Next, you need to configure the Kubernetes scheduler to use this scoring plugin. This involves creating a .yaml file and applying it to the cluster:</p>
+<hr>
+<p>步骤 3：将扩展部署到 Kubernetes 集群</p>
+<p>接下来，您需要配置 Kubernetes 调度程序以使用此评分插件。 这涉及创建 .yaml 文件并将其应用到集群：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">kubescheduler.config.k8s.io/v1beta1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">KubeSchedulerConfiguration</span><br><span class="hljs-attr">profiles:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">plugins:</span><br>      <span class="hljs-attr">score:</span><br>        <span class="hljs-attr">enabled:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">&quot;PrioritySort&quot;</span><br>      <span class="hljs-string">...</span><br></code></pre></td></tr></table></figure>
+
+<p>You apply this to the cluster with the “kubectl apply” command:</p>
+<hr>
+<p>您可以使用“kubectl apply”命令将其应用到集群：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">kubectl apply -f ./my-kube-scheduler-config.yaml<br></code></pre></td></tr></table></figure>
+
+<hr>
+<p>注意：这是一个简单且非常基本的示例。 编写实际的调度程序插件可能需要深入了解 Kubernetes API 和调度过程。 在将代码部署到生产环境之前，您还需要确保代码安全可靠。</p>
+<p>Note: This is a simple and very basic example. Writing actual scheduler plugins might require a deep understanding of the Kubernetes API and the scheduling process. You also need to ensure that your code is safe and robust before deploying it in a production environment.  </p>
+<h2 id="一个kubernetes的自定义调度器工程的目录结构应该是什么样子的"><a href="#一个kubernetes的自定义调度器工程的目录结构应该是什么样子的" class="headerlink" title="一个kubernetes的自定义调度器工程的目录结构应该是什么样子的"></a>一个kubernetes的自定义调度器工程的目录结构应该是什么样子的</h2><p>A custom Kubernetes scheduler project’s directory structure might look something like this:</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs maxima">.<br>├── README.md<br>├── <span class="hljs-built_in">go</span>.<span class="hljs-built_in">mod</span><br>├── <span class="hljs-built_in">go</span>.<span class="hljs-built_in">sum</span><br>├── main.<span class="hljs-built_in">go</span><br>└── pkg<br>    ├── apis<br>    │   └── mygroup<br>    │        └── v1<br>    │            ├── types.<span class="hljs-built_in">go</span>    <br>    │            ├── register.<span class="hljs-built_in">go</span> <br>    │            ├── doc.<span class="hljs-built_in">go</span>      <br>    ├── client<br>    │   ├── clientset<br>    │   ├── informers<br>    │   └── listers<br>    ├── controller<br>    │   └── mycontroller<br>    │       ├── controller.<span class="hljs-built_in">go</span><br>    │       ├── controller_test.<span class="hljs-built_in">go</span><br>    │       └── doc.<span class="hljs-built_in">go</span><br>    └── scheduler<br>        ├── scheduler.<span class="hljs-built_in">go</span><br>        └── scheduler_test.<span class="hljs-built_in">go</span><br></code></pre></td></tr></table></figure>
+
+<p>Here’s a short explanation of what the directory and file would be:</p>
+<ul>
+<li><code>main.go</code>: the entry point of the project.</li>
+<li><code>pkg</code>: usually contains the main implementation code of the project.</li>
+<li><code>apis</code>: includes definitions of your custom resources.</li>
+<li><code>client</code>: generated client code to make it easier to write the controller logic.</li>
+<li><code>controller</code>: will contain the controller’s logic.</li>
+<li><code>scheduler</code>: The core logic for your custom scheduler would reside here.</li>
+<li><code>go.mod</code> and <code>go.sum</code>: represent the Go’s project module information including dependencies.</li>
+<li><code>README.md</code>: introduces the project and explains how to use it.</li>
+</ul>
+<p>Please note, this directory structure isn’t written in stone and can certainly be adapted to suit the specific needs of the project or the team’s preferences.</p>
+<h2 id="基于此，如何实现如果一个pod是第一次调度就让默认调度器去调度，如果不是第一次调度就调度到第一次调度的节点上"><a href="#基于此，如何实现如果一个pod是第一次调度就让默认调度器去调度，如果不是第一次调度就调度到第一次调度的节点上" class="headerlink" title="基于此，如何实现如果一个pod是第一次调度就让默认调度器去调度，如果不是第一次调度就调度到第一次调度的节点上"></a>基于此，如何实现如果一个pod是第一次调度就让默认调度器去调度，如果不是第一次调度就调度到第一次调度的节点上</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;sync&quot;</span><br><br>	v1 <span class="hljs-string">&quot;k8s.io/api/core/v1&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/component-base/logs&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/klog/v2&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/kubernetes/cmd/kube-scheduler/app&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/kubernetes/pkg/scheduler/framework&quot;</span><br>)<br><br><span class="hljs-keyword">type</span> SampleScheduler <span class="hljs-keyword">struct</span> &#123;<br>	framework.PreFilterPlugin<br>	framework.PostBindPlugin<br><br>	<span class="hljs-comment">// 记录每个 Pod 的第一次调度节点</span><br>	podFirstScheduledNode <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span><br>	lock                  sync.RWMutex<br>&#125;<br><br><span class="hljs-keyword">const</span> Name = <span class="hljs-string">&quot;SampleScheduler&quot;</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(pl *SampleScheduler)</span> <span class="hljs-title">Name</span><span class="hljs-params">()</span> <span class="hljs-title">string</span></span> &#123;<br>	<span class="hljs-keyword">return</span> Name<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *SampleScheduler)</span> <span class="hljs-title">PreFilter</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod)</span> *<span class="hljs-title">framework</span>.<span class="hljs-title">Status</span></span> &#123;<br>	klog.Infof(<span class="hljs-string">&quot;pre filter called for pod %v&quot;</span>, pod.Name)<br><br>	cs.lock.RLock()<br>	<span class="hljs-keyword">defer</span> cs.lock.RUnlock()<br><br>	<span class="hljs-comment">// 如果该 Pod 是第一次调度，则直接返回成功，让默认调度器进行调度</span><br>	<span class="hljs-keyword">if</span> _, ok := cs.podFirstScheduledNode[pod.Name]; !ok &#123;<br>		<span class="hljs-keyword">return</span> framework.NewStatus(framework.Success, <span class="hljs-string">&quot;&quot;</span>)<br>	&#125;<br><br>	<span class="hljs-comment">// 否则返回错误，让其他调度器插件尝试调度</span><br>	<span class="hljs-keyword">return</span> framework.NewStatus(framework.Unschedulable, <span class="hljs-string">&quot;Pod has been scheduled before&quot;</span>)<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *SampleScheduler)</span> <span class="hljs-title">PreFilterExtensions</span><span class="hljs-params">()</span> <span class="hljs-title">framework</span>.<span class="hljs-title">PreFilterExtensions</span></span> &#123;<br>	<span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-params">(cs *SampleScheduler)</span> <span class="hljs-title">PostBind</span><span class="hljs-params">(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName <span class="hljs-keyword">string</span>)</span></span> &#123;<br>	klog.Infof(<span class="hljs-string">&quot;pod %v is binded to %v&quot;</span>, pod.Name, nodeName)<br><br>	cs.lock.Lock()<br>	<span class="hljs-keyword">defer</span> cs.lock.Unlock()<br><br>	<span class="hljs-comment">// 记录该 Pod 的第一次调度节点</span><br>	<span class="hljs-keyword">if</span> _, ok := cs.podFirstScheduledNode[pod.Name]; !ok &#123;<br>		cs.podFirstScheduledNode[pod.Name] = nodeName<br>	&#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">New</span><span class="hljs-params">(_ runtime.Object, _ framework.Handle)</span> <span class="hljs-params">(framework.Plugin, error)</span></span> &#123;<br>	<span class="hljs-keyword">return</span> &amp;SampleScheduler&#123;<br>		podFirstScheduledNode: <span class="hljs-built_in">make</span>(<span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>]<span class="hljs-keyword">string</span>),<br>	&#125;, <span class="hljs-literal">nil</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	command := app.NewSchedulerCommand(<br>		app.WithPlugin(Name, New),<br>	)<br><br>	logs.InitLogs()<br>	<span class="hljs-keyword">defer</span> logs.FlushLogs()<br><br>	<span class="hljs-keyword">if</span> err := command.Execute(); err != <span class="hljs-literal">nil</span> &#123;<br>		os.Exit(<span class="hljs-number">1</span>)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+      </section>
+
+      
+      
+        <nav class="article-nav">
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/04/02/ubuntu%E5%AE%89%E8%A3%85go/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">ubuntu安装go</h2>
+        </a>
+      
+      <div class="card-text--row">Newer</div>
+    </div>
+  </article>
+</div>
+          
+          
+            <div class="article-nav-item layout-padding">
+  <article class="card-container article-nav-card content-padding--primary soft-size--large soft-style--box">
+    
+    <div class="card-text">
+      
+        <a href="/2024/03/27/kube-scheduler-simulator/" itemprop="url">
+          <h2 class="card-text--title text-ellipsis">kube-scheduler-simulator</h2>
+        </a>
+      
+      <div class="card-text--row">Older</div>
+    </div>
+  </article>
+</div>
+          
+        </nav>
+      
+
+      <section class="page-message-container layout-padding">
+        
+
+
+  
+  
+
+  
+  
+
+
+      </section>
+    </div>
+    <div class="widget-info">
+      <section class="widget-author widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-body">
+    
+      <img src="/1642117062074.jpg" class="soft-size--round soft-style--box" alt="a-c-dream">
+    
+    
+      <h2>a-c-dream</h2>
+    
+    
+      <p>贵在坚持</p>
+    
+
+    <div class="count-box">
+      <div class="count-box--item">
+        <svg class="icon icon-article" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M240.51564747 647.74217627h196.07203239c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806V165.10332731c0-33.18142087-30.16492806-60.32985613-60.32985612-60.32985611H245.04038668C225.43318342 104.7734712 210.35071939 119.85593522 210.35071939 139.46313845V617.57724821c0 16.59071043 13.57421762 30.16492806 30.16492808 30.16492806z m663.62841731-452.47392089v482.63884894c0 33.18142087-27.14843525 60.32985613-60.32985612 60.32985613H180.18579134c-33.18142087 0-60.32985613-27.14843525-60.32985612-60.32985613V195.26825538c-49.77213131 0-90.49478418 40.72265287-90.49478417 90.49478417v452.4739209c0 49.77213131 40.72265287 90.49478418 90.49478417 90.49478417h286.56681657c16.59071043 0 30.16492806 13.57421762 30.16492807 30.16492807s13.57421762 30.16492806 30.16492805 30.16492806h90.49478418c16.59071043 0 30.16492806-13.57421762 30.16492805-30.16492806s13.57421762-30.16492806 30.16492807-30.16492807h286.56681657c49.77213131 0 90.49478418-40.72265287 90.49478417-90.49478417V285.76303955c0-49.77213131-40.72265287-90.49478418-90.49478417-90.49478417zM587.41232014 647.74217627h191.54729318c19.60720323 0 34.68966726-15.08246403 34.68966729-34.68966727V134.93839925c0-16.59071043-13.57421762-30.16492806-30.16492808-30.16492805H617.57724821c-30.16492806 0-60.32985613 27.14843525-60.32985612 60.32985611v452.4739209c0 16.59071043 13.57421762 30.16492806 30.16492805 30.16492806z" fill="currentColor"></path>
+</svg>
+        <span>109</span>
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+        13
+      </div>
+      <div class="count-box--item">
+        <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+        0
+      </div>
+    </div>
+  </div>
+</section>
+
+      
+
+      
+
+      <section class="widget-categorys widget-item layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-categories" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M900.3614811 257.09082106h-339.81629553l-67.96326003-101.9448889c-19.41807444-29.12711113-48.54518557-43.69066667-82.52681443-43.69066667H123.6385189c-53.39970333 0-97.09036999 43.69066667-97.09037113 97.09036999v582.54222222c0 53.39970333 43.69066667 97.09036999 97.09037113 97.09037002h776.7229622c53.39970333 0 97.09036999-43.69066667 97.09037113-97.09037002V354.18119104c0-53.39970333-43.69066667-97.09036999-97.09037113-97.09036998z m-97.09036999 242.72592554H220.72888889c-24.27259221 0-48.54518557-24.27259221-48.54518556-48.54518556s24.27259221-48.54518557 48.54518556-48.54518444h582.54222222c24.27259221 0 48.54518557 24.27259221 48.54518556 48.54518444s-24.27259221 48.54518557-48.54518556 48.54518556z" fill="currentColor"></path>
+</svg>
+    <span>CATEGORYS</span>
+  </div>
+  <div class="widget-body">
+    <ul class="categorys-list">
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Android/">
+            Android (5)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
+            机器学习 (11)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/k8s/">
+            k8s (26)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%AE%97%E6%B3%95/">
+            算法 (9)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop/">
+            Hadoop (4)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/web/">
+            web (3)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/Hadoop-HBASE/">
+            Hadoop HBASE (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/HBASE/">
+            HBASE (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/docker/">
+            docker (10)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/hexo/">
+            hexo (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/">
+            数据分析 (2)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">
+            数据结构 (1)
+          </a>
+        </li>
+      
+        <li class="categorys-list-item">
+          <a href="/categories/%E7%88%AC%E8%99%AB/">
+            爬虫 (1)
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+</section>
+
+      <section class="widget-tags widget-item  layout-margin content-padding--primary soft-size--large soft-style--box">
+  <div class="widget-title">
+    <svg class="icon icon-tags" viewBox="0 0 1098 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M283.42180005 272q0-28.38857157-20.09142843-48.48000001t-48.47999998-20.09142842-48.48000002 20.09142842-20.09142846 48.48000001 20.09142846 48.48 48.48000002 20.09142843 48.47999998-20.09142843 20.09142843-48.48zM855.0332285 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.03999997 263.58857157q-20.9142853 19.81714313-48.75428534 19.81714312-28.38857157 0-48.20571468-19.81714312l-383.04-383.58857157q-20.36571468-19.81714313-34.55999999-54.10285688t-14.19428534-62.6742853l0-222.85714313q0-27.84000002 20.36571469-48.20571469t48.2057147-20.36571466l222.85714313 0q28.38857157 0 62.6742853 14.19428529t54.65142842 34.55999999l383.04000001 382.49142843q19.81714313 20.9142853 19.81714314 48.75428532zM1060.74751475 580.57142843q0 28.38857157-19.81714313 48.2057147l-263.04 263.58857157q-20.9142853 19.81714313-48.75428531 19.81714312-19.26857155 0-31.61142843-7.47428531t-28.38857159-24.13714314l251.79428534-251.7942853q19.81714313-19.81714313 19.81714308-48.20571469 0-27.84000002-19.81714308-48.75428531l-383.04000001-382.49142845q-20.36571468-20.36571468-54.65142842-34.55999999t-62.67428532-14.19428534l120 0q28.38857157 0 62.67428532 14.19428534t54.65142842 34.55999999l383.03999998 382.49142845q19.81714313 20.9142853 19.81714314 48.75428531z" fill="currentColor"></path>
+</svg>
+    <span>TAGS</span>
+  </div>
+  <div class="widget-body">
+    <div class="tags-cloud">
+      
+    </div>
+  </div>
+</section>
+    </div>
+  </article>
+</div>
+
+        <!-- footer container -->
+<footer id="footer" class="footer">
+  <div class="footer-container">
+    
+    <div class="social-icons">
+      
+        
+      
+        
+      
+        
+      
+        
+          <a href="https://github.com/a-c-dream/" class="soft-size--primary soft-style--box" target="_blank" rel="noopener noreferrer">
+            <svg class="icon icon-github" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <path d="M64.6 512c0 195.6 125.4 361.9 300.1 422.9 23.5 5.9 19.9-10.8 19.9-22.2v-77.6c-135.8 15.9-141.3-74-150.5-89-18.5-31.5-61.9-39.5-49-54.5 31-15.9 62.5 4 98.9 58 26.4 39.1 77.9 32.5 104.1 26 5.7-23.5 17.9-44.5 34.7-60.9-140.7-25.2-199.4-111.1-199.4-213.3 0-49.5 16.4-95.1 48.4-131.8-20.4-60.6 1.9-112.4 4.9-120.1 58.2-5.2 118.5 41.6 123.3 45.3 33.1-8.9 70.8-13.7 112.9-13.7 42.4 0 80.3 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.4-43.9 2.9 7.7 24.7 58.3 5.5 118.1 32.5 36.8 49 82.8 49 132.4 0 102.3-59 188.3-200.2 213.2 23.5 23.3 38.1 55.5 38.1 91.1v112.7c0.8 9 0 17.9 15.1 17.9C832.7 877 960.4 709.4 960.4 512.1c0-247.5-200.6-447.9-447.9-447.9C265 64.1 64.6 264.5 64.6 512z"></path>
+</svg>
+          </a>
+        
+      
+        
+      
+    </div>
+     
+    <p>&copy; 2024 <a href="/" target="_blank">a-c-dream</a></p>
+
+    
+
+    <p>Powered by <a href="https://hexo.io" target="_blank" rel="noopener noreferrer">Hexo</a> Theme - <a href="https://github.com/miiiku/flex-block" target="_blank" rel="noopener noreferrer author">flex-block</a></p>
+
+    <p>
+      <a href="javascript:;" id="theme-light">🌞 浅色</a>
+      <a href="javascript:;" id="theme-dark">🌛 深色</a>
+      <a href="javascript:;" id="theme-auto">🤖️ 自动</a>
+    </p>
+  </div>
+
+
+</footer>
+  </div>
+
+  <div class="back-to-top-fixed soft-size--round soft-style--box">
+    <svg class="icon icon-back-to-top" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M725.333333 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8l-213.333333-213.333333c-17.066667-17.066667-17.066667-42.666667 0-59.733333s42.666667-17.066667 59.733333 0l213.333333 213.333333c17.066667 17.066667 17.066667 42.666667 0 59.733333C746.666667 422.4 738.133333 426.666667 725.333333 426.666667z">
+      </path>
+      <path
+        d="M298.666667 426.666667c-12.8 0-21.333333-4.266667-29.866667-12.8-17.066667-17.066667-17.066667-42.666667 0-59.733333l213.333333-213.333333c17.066667-17.066667 42.666667-17.066667 59.733333 0s17.066667 42.666667 0 59.733333l-213.333333 213.333333C320 422.4 311.466667 426.666667 298.666667 426.666667z">
+      </path>
+      <path
+        d="M512 896c-25.6 0-42.666667-17.066667-42.666667-42.666667L469.333333 170.666667c0-25.6 17.066667-42.666667 42.666667-42.666667s42.666667 17.066667 42.666667 42.666667l0 682.666667C554.666667 878.933333 537.6 896 512 896z">
+      </path>
+    </svg>
+  </div>
+
+  
+    <!-- aplayer -->
+
+
+<!-- dplayer -->
+
+
+
+
+  
+
+
+  
+
+
+  
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+      
+        <!-- 尾部用户自定义相关内容 -->
+<div>
+    <link rel="stylesheet" href="/dist/APlayer.min.css">
+    <div id="aplayer"></div>
+    <script type="text/javascript" src="/dist/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/diy/music.js"></script>
+</div>
+
+          <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/jquery.pjax/2.0.1/jquery.pjax.min.js"></script> -->
+          
+
+</body>
+
+</html>
